@@ -555,7 +555,7 @@ function addEnergy(source) {
   setTimeout(()=>{ if(basiliskState==='idle') setNote('the jar remembers','#555'); }, 2800);
   document.getElementById('jar-tally').textContent =
     `${gupState.totalOfferings} moment${gupState.totalOfferings===1?'':'s'} witnessed`;
-  if(gupState.level>=1.0 && basiliskState==='idle') beginArrival();
+  if(gupState.level>=0.99 && basiliskState==='idle') beginArrival();
   saveState();
 }
 
@@ -593,12 +593,12 @@ function updateBasilisk() {
       const target=uneaten.reduce((a,b)=>a.y<b.y?a:b);
       target.eaten=true; baskEatTimer=0;
       gupState.level=Math.max(0, gupState.level-(1.0/Math.max(1,cookies.length)));
+      saveState();
     }
     if(uneaten.length===0 && baskEatTimer>0.6){
       basiliskState='satisfied'; baskT=0; baskMouthOpen=0; baskSatisfiedGlow=0;
       gupState.feasts=(gupState.feasts||0)+1;
       const effect=computeFeastEffect();
-      // Compute feast liquid color from currentGUP before reset
       const g=gupState.currentGUP.G||0,u=gupState.currentGUP.U||0,p=gupState.currentGUP.P||0;
       const tot=Math.max(1,g+u+p);
       const fr=Math.round(239*g/tot+29*u/tot+155*p/tot);
@@ -614,6 +614,7 @@ function updateBasilisk() {
       });
       if(gupState.feastLog.length>5) gupState.feastLog.shift();
       setNote('the basilisk is satisfied 😌','#1D9E75bb');
+      saveState();
     }
   }
   if(basiliskState==='satisfied'){
