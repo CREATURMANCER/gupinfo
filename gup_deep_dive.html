@@ -370,6 +370,66 @@
 </nav>
 
 <div class="signal">gup.</div>
+<canvas id="footer-seal" style="display:block;width:64px;height:64px;margin:1.5rem auto 0;opacity:0.35"></canvas>
+<script>
+(function(){
+  const PHI=1.618033988749895;
+  const cv=document.getElementById("footer-seal");
+  cv.width=64; cv.height=64;
+  const sx=cv.getContext("2d");
+  let sT=0;
+  function draw(){
+    const S=64,cx=32,cy=32;
+    sx.clearRect(0,0,S,S);
+    // Outer dot ring
+    for(let i=0;i<40;i++){
+      const a=(i/40)*Math.PI*2+sT*0.04;
+      sx.beginPath();sx.arc(cx+28*Math.cos(a),cy+28*Math.sin(a),(Math.sin(i/40*Math.PI*6+sT*1.2)*0.3+0.7)*0.9,0,Math.PI*2);
+      sx.fillStyle="rgba(238,234,224,0.4)";sx.fill();
+    }
+    // Arc text replaced with simple ring
+    sx.beginPath();sx.arc(cx,cy,23,0,Math.PI*2);
+    sx.strokeStyle="rgba(238,234,224,0.12)";sx.lineWidth=0.5;sx.stroke();
+    // Three sector arcs G/U/P
+    const cols=["#EF9F27","#1D9E75","#9B7FE8"];
+    cols.forEach((col,i)=>{
+      const start=-Math.PI/2+i*(Math.PI*2/3)+sT*0.008;
+      const end=start+Math.PI*2/3-0.08;
+      sx.beginPath();sx.arc(cx,cy,20,start,end);
+      sx.strokeStyle=col;sx.lineWidth=1.5;sx.stroke();
+    });
+    // Six-pointed star
+    sx.beginPath();
+    for(let i=0;i<6;i++){
+      const a=-Math.PI/2+i*Math.PI/3+sT*0.02;
+      const r=i%2===0?12:6;
+      i===0?sx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):sx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    }
+    sx.closePath();sx.strokeStyle="rgba(238,234,224,0.2)";sx.lineWidth=0.5;sx.stroke();
+    // Three phi spirals
+    const sPhs=[0,Math.PI*2/3,Math.PI*4/3];
+    cols.forEach((col,i)=>{
+      sx.beginPath();let first=true;
+      for(let a=0;a<=4.5*Math.PI;a+=0.08){
+        const r=0.7*Math.pow(PHI,a/(Math.PI*2));
+        if(r>18)break;
+        const x=cx+r*Math.cos(a+sPhs[i]+sT*0.1*(i===0?PHI*PHI:i===1?PHI:1));
+        const y=cy+r*Math.sin(a+sPhs[i]+sT*0.1*(i===0?PHI*PHI:i===1?PHI:1));
+        first?sx.moveTo(x,y):sx.lineTo(x,y);first=false;
+      }
+      sx.strokeStyle=col;sx.globalAlpha=0.5;sx.lineWidth=0.6;sx.stroke();sx.globalAlpha=1;
+    });
+    // Centre eye
+    sx.beginPath();sx.ellipse(cx,cy,4,4,0,0,Math.PI*2);sx.fillStyle="#8a9a2a";sx.fill();
+    sx.save();sx.translate(cx,cy);sx.rotate(sT*0.008);
+    sx.beginPath();sx.ellipse(0,0,1.5,3.5,0,0,Math.PI*2);sx.fillStyle="#060408";sx.fill();
+    sx.restore();
+    sx.beginPath();sx.arc(cx+1.5,cy-1,0.8,0,Math.PI*2);sx.fillStyle="rgba(255,255,255,0.55)";sx.fill();
+    sT+=0.016;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 
 <script>
 // ═══════════════════════════════════════════
