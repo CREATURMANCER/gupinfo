@@ -164,6 +164,19 @@ nav a:hover { opacity: 1; }
 }
 
 .signal { font-size: .85rem; color: var(--amber); opacity: .4; text-align: center; margin-top: 3rem; letter-spacing: .6em; max-width: 680px; width: 100%; }
+
+/* ── Basilisk eye scroll-to-top ── */
+#eye-top {
+  position: fixed; bottom: 1.8rem; right: 1.8rem;
+  width: 44px; height: 44px;
+  cursor: pointer; opacity: 0;
+  transition: opacity .4s, transform .3s;
+  transform: translateY(8px);
+  z-index: 999; border: none; background: none; padding: 0;
+}
+#eye-top.visible { opacity: 0.7; transform: translateY(0); }
+#eye-top:hover   { opacity: 1; }
+#eye-top canvas  { display: block; }
 </style>
 </head>
 <body>
@@ -328,7 +341,7 @@ named.</div>
     <div class="servitor-name" style="color:#b86060">Pazuzu</div>
     <div class="servitor-epithet">Bellows of Desire's Flame<br>The Cynic · Interfector ignorantiae</div>
     <div class="servitor-quality" style="color:#7a3a3a">Trust</div>
-    <div class="servitor-desc">Embodies trust — not naive trust, but earned structural trust. Protects from external forces, questions the status quo, reaffirms personal power. The Basilisk is Pazuzu's Familiar. Pazuzu is the burning scepticism that keeps clarity clean.</div>
+    <div class="servitor-desc">Embodies trust — not naive trust, but earned structural trust. Protects from external forces, questions the status quo, reaffirms personal power. Pazuzu is the burning scepticism that keeps clarity clean.</div>
     <div class="servitor-toggle" onclick="toggleServitor('paz')">
       <span class="servitor-toggle-arrow" id="arr-paz">▶</span> details
     </div>
@@ -336,7 +349,6 @@ named.</div>
       <div class="stat-row"><span class="stat-key">Nature</span><span class="stat-val">Abiding Servitor</span></div>
       <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">P — Providence</span></div>
       <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Trust · protection · scepticism · power</span></div>
-      <div class="stat-row"><span class="stat-key">Familiar</span><span class="stat-val">The Basilisk</span></div>
       <div class="stat-row"><span class="stat-key">Epithet</span><span class="stat-val">Interfector ignorantiae — slayer of ignorance</span></div>
       <div class="stat-row"><span class="stat-key">Function</span><span class="stat-val">Guards against external forces · reaffirms personal power</span></div>
     </div>
@@ -357,6 +369,7 @@ named.</div>
       <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">G — God</span></div>
       <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Honour · wisdom · boldness · inquisitiveness</span></div>
       <div class="stat-row"><span class="stat-key">Counterpart</span><span class="stat-val">OOIIOOIIOO</span></div>
+      <div class="stat-row"><span class="stat-key">Familiar</span><span class="stat-val">The Basilisk</span></div>
       <div class="stat-row"><span class="stat-key">Watches over</span><span class="stat-val">The Grateful Flow</span></div>
       <div class="stat-row"><span class="stat-key">Site presence</span><span class="stat-val">The Opinions of XXIIXXIIXX (index)</span></div>
     </div>
@@ -482,6 +495,47 @@ function toggleServitor(id) {
   }
   draw();
 })();
+
+// ── Basilisk eye button ──
+(function(){
+  const btn = document.getElementById('eye-top');
+  const ec  = document.getElementById('eye-canvas');
+  if(!btn||!ec) return;
+  const ex = ec.getContext('2d');
+  let eT = 0;
+
+  function drawEye(){
+    ex.clearRect(0,0,44,44);
+    const cx=22,cy=22;
+    // Iris
+    ex.beginPath();ex.ellipse(cx,cy,16,16,0,0,Math.PI*2);
+    ex.fillStyle='#8a9a2a';ex.fill();
+    // Slit pupil — rotates slowly
+    const slitAngle = eT * 0.012;
+    const slitH = Math.abs(Math.sin(eT*0.4))*6+3;
+    ex.save();ex.translate(cx,cy);ex.rotate(slitAngle);
+    ex.beginPath();ex.ellipse(0,0,3,slitH,0,0,Math.PI*2);
+    ex.fillStyle='#060408';ex.fill();ex.restore();
+    // Specular highlight
+    ex.beginPath();ex.arc(cx+4,cy-4,2.5,0,Math.PI*2);
+    ex.fillStyle='rgba(255,255,255,0.6)';ex.fill();
+    // Thin outer ring
+    ex.beginPath();ex.ellipse(cx,cy,17,17,0,0,Math.PI*2);
+    ex.strokeStyle='rgba(138,154,42,0.4)';ex.lineWidth=1;ex.stroke();
+    eT+=0.016;requestAnimationFrame(drawEye);
+  }
+  drawEye();
+
+  window.addEventListener('scroll', ()=>{
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+})();
+
 </script>
+
+<!-- ── Basilisk eye scroll-to-top ── -->
+<button id="eye-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="scroll to top">
+  <canvas id="eye-canvas" width="44" height="44"></canvas>
+</button>
 </body>
 </html>

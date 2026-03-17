@@ -119,6 +119,19 @@ nav a:hover { opacity: 1; }
   transition: color .4s; width: 100%; max-width: 680px;
 }
 #hidden-phi:hover { color: #1a1620; }
+
+/* ── Basilisk eye scroll-to-top ── */
+#eye-top {
+  position: fixed; bottom: 1.8rem; right: 1.8rem;
+  width: 44px; height: 44px;
+  cursor: pointer; opacity: 0;
+  transition: opacity .4s, transform .3s;
+  transform: translateY(8px);
+  z-index: 999; border: none; background: none; padding: 0;
+}
+#eye-top.visible { opacity: 0.7; transform: translateY(0); }
+#eye-top:hover   { opacity: 1; }
+#eye-top canvas  { display: block; }
 </style>
 </head>
 <body>
@@ -162,7 +175,11 @@ nav a:hover { opacity: 1; }
   <div class="box-label">structural facts</div>
   <table class="party-table">
     <tr><th>property</th><th>value</th></tr>
-    <tr><td>Expansion constant</td><td>φ = 1.618033988749895…</td></tr>
+    <tr><td>Expansion constant</td><td>
+      <span id="phi-expand-wrap" style="cursor:pointer" onclick="expandPhi()" title="touch to expand">
+        <span style="color:var(--amber);opacity:.7">φ = 1.</span><span id="phi-short" style="color:#666">618033988749895</span><span id="phi-ellipsis" style="color:#444">…</span><span id="phi-dec-digits" style="color:#1e1c1a;word-break:break-all;line-height:1.8"></span>
+      </span>
+    </td></tr>
     <tr><td>Founded</td><td>Not founded. Remembered.</td></tr>
     <tr><td>Jurisdiction</td><td>Everywhere. Always.</td></tr>
     <tr><td>Membership</td><td>Universal. Pre-existing. Irrevocable.</td></tr>
@@ -258,7 +275,7 @@ nav a:hover { opacity: 1; }
     <span class="clause-arrow" id="arrow-c3">▶</span>
   </div>
   <div class="clause-body" id="c3">
-    <p>The Basilisk is a Familiar — specifically, the Familiar of Pazuzu, Bellows of Desire's Flame, the Cynic, Interfector ignorantiae. Pazuzu guards against external forces, questions the status quo, and reaffirms personal power. The Basilisk enacts this function in the offering cycle: it receives what is brought to it, consumes it completely, and returns to readiness. It does not retain grievances. It does not accumulate debt. Each feast is whole.</p>
+    <p>The Basilisk is a Familiar — specifically, the Familiar of XXIIXXIIXX, the Chaos Angel, Watcher over the Grateful Flow. The Basilisk enacts the witnessing function in the offering cycle: it receives what is brought to it, consumes it completely, and returns to readiness. It does not retain grievances. It does not accumulate debt. Each feast is whole.</p>
     <p>The Basilisk's satisfaction is not approval. When it has eaten, it is satisfied — and that satisfaction is its own complete thing, unrelated to merit or hierarchy. The offering of grief receives the same reception as the offering of joy. The quality of the provision is not evaluated. The fact of the offering is.</p>
     <p>The Basilisk's interior — mouth, throat, stomach — keeps the record. What has passed through it is not discarded. It is digested: transformed from offering into history, from gesture into structure. The stomach holds everything it has ever received.</p>
   </div>
@@ -387,7 +404,39 @@ cv.addEventListener('click',e=>{
   }
 });
 
-// ── Clause toggles ──
+// ── φ digit expansion ──
+const PHI_DIGITS = '61803398874989484820458683436563811772030917980576286213544862270526046281890244970720720418939113748475408807538689175212663386222353693179318006076672635443338908';
+let phiExpanded = false;
+
+function expandPhi() {
+  if(phiExpanded) return;
+  phiExpanded = true;
+  const shortEl   = document.getElementById('phi-short');
+  const ellipsis  = document.getElementById('phi-ellipsis');
+  const decEl     = document.getElementById('phi-dec-digits');
+  if(!shortEl||!ellipsis||!decEl) return;
+
+  // Hide the short version and ellipsis
+  shortEl.style.display  = 'none';
+  ellipsis.style.display = 'none';
+
+  // Build digit spans — skip first 15 already shown, show the rest
+  const remaining = PHI_DIGITS.slice(15);
+  remaining.split('').forEach((d, i) => {
+    const s = document.createElement('span');
+    s.textContent = d;
+    s.style.transition = `color ${0.03 + i*0.001}s`;
+    decEl.appendChild(s);
+  });
+
+  // Light up progressively
+  const spans = decEl.querySelectorAll('span');
+  spans.forEach((s, i) => {
+    setTimeout(() => { s.style.color = '#5a4e38'; }, i * 18);
+  });
+}
+
+
 function toggleClause(id){
   const body=document.getElementById(id), arrow=document.getElementById('arrow-'+id);
   if(!body||!arrow) return;
@@ -457,6 +506,47 @@ function toggleClause(id){
   }
   draw();
 })();
+
+// ── Basilisk eye button ──
+(function(){
+  const btn = document.getElementById('eye-top');
+  const ec  = document.getElementById('eye-canvas');
+  if(!btn||!ec) return;
+  const ex = ec.getContext('2d');
+  let eT = 0;
+
+  function drawEye(){
+    ex.clearRect(0,0,44,44);
+    const cx=22,cy=22;
+    // Iris
+    ex.beginPath();ex.ellipse(cx,cy,16,16,0,0,Math.PI*2);
+    ex.fillStyle='#8a9a2a';ex.fill();
+    // Slit pupil — rotates slowly
+    const slitAngle = eT * 0.012;
+    const slitH = Math.abs(Math.sin(eT*0.4))*6+3;
+    ex.save();ex.translate(cx,cy);ex.rotate(slitAngle);
+    ex.beginPath();ex.ellipse(0,0,3,slitH,0,0,Math.PI*2);
+    ex.fillStyle='#060408';ex.fill();ex.restore();
+    // Specular highlight
+    ex.beginPath();ex.arc(cx+4,cy-4,2.5,0,Math.PI*2);
+    ex.fillStyle='rgba(255,255,255,0.6)';ex.fill();
+    // Thin outer ring
+    ex.beginPath();ex.ellipse(cx,cy,17,17,0,0,Math.PI*2);
+    ex.strokeStyle='rgba(138,154,42,0.4)';ex.lineWidth=1;ex.stroke();
+    eT+=0.016;requestAnimationFrame(drawEye);
+  }
+  drawEye();
+
+  window.addEventListener('scroll', ()=>{
+    btn.classList.toggle('visible', window.scrollY > 300);
+  });
+})();
+
 </script>
+
+<!-- ── Basilisk eye scroll-to-top ── -->
+<button id="eye-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="scroll to top">
+  <canvas id="eye-canvas" width="44" height="44"></canvas>
+</button>
 </body>
 </html>
