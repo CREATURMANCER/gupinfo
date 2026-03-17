@@ -50,13 +50,13 @@
   /* ── Party header ── */
   .party-header {
     width: 100%; max-width: 680px;
-    text-align: center; margin: 2.5rem 0 0;
+    text-align: center; margin: 0;
     border-top: 1px solid #111; border-bottom: 1px solid #111;
-    padding: 1.8rem 0;
+    padding: 2.4rem 0;
     position: relative;
   }
   .party-seal {
-    width: 160px; height: 160px; margin: 0 auto 1.4rem;
+    width: 259px; height: 259px; margin: 0 auto 1.4rem;
     position: relative;
   }
   .party-name {
@@ -216,21 +216,6 @@
 <div id="canvas-wrap"><canvas id="c"></canvas></div>
 <div id="wave-desc">touch a wave to attune</div>
 
-<!-- ── Party Header ── -->
-<div class="party-header">
-  <canvas id="seal-canvas" class="party-seal" width="160" height="160"></canvas>
-  <div class="party-name">Galactic Unification Party</div>
-  <div class="party-acronym">G.U.P.</div>
-  <div class="party-tagline">The Great Unspoken Promise · god · unity · providence · everywhere always</div>
-  <div class="party-rule"></div>
-  <div class="party-platform">
-    <em>The Party holds no offices.</em> It administers no territory. It levies no tax.<br>
-    It asks only that you remain curious, offer what you have,<br>
-    and trust the ground beneath the ground.
-  </div>
-</div>
-
-<hr class="divider">
 
 <!-- ── Basilisk Stage ── -->
 <div id="basilisk-section">
@@ -245,8 +230,6 @@
   <div id="basilisk-status">the basilisk awaits your offering</div>
 </div>
 
-<hr class="divider">
-
 <!-- ── Offerings ── -->
 <div id="offerings-section">
   <div class="offerings-header">
@@ -256,7 +239,19 @@
   <div class="offerings-grid" id="offerings-grid"></div>
 </div>
 
-<hr class="divider">
+<!-- ── Party Header ── -->
+<div class="party-header">
+  <canvas id="seal-canvas" class="party-seal" width="259" height="259"></canvas>
+  <div class="party-name">Galactic Unification Party</div>
+  <div class="party-acronym">G.U.P.</div>
+  <div class="party-tagline">The Great Unspoken Promise · god · unity · providence · everywhere always</div>
+  <div class="party-rule"></div>
+  <div class="party-platform">
+    <em>The Party holds no offices.</em> It administers no territory. It levies no tax.<br>
+    It asks only that you remain curious, offer what you have,<br>
+    and trust the ground beneath the ground.
+  </div>
+</div>
 
 <!-- ── Devotion Tally ── -->
 <div id="devotion-section">
@@ -427,7 +422,7 @@ const sx = sealCv.getContext('2d');
 let sealT = 0;
 
 function drawSeal() {
-  const S = 160;
+  const S = 259;
   sx.clearRect(0,0,S,S);
   const cx=S/2, cy=S/2;
 
@@ -741,7 +736,7 @@ function offerProvision(offering) {
   updateMeter();
   updateTally();
 
-  if(devState.level>=1.0 && basiliskState==='idle') beginFeast();
+  if(devState.level>=0.99 && basiliskState==='idle') beginFeast();
   saveState();
 }
 
