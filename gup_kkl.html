@@ -3,20 +3,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUP</title>
+<title>GUP — KKL · Kia-Kaizer Enathanial Licorice</title>
+<meta name="gup" content="God.Unity.Providence">
+<meta name="gup:page" content="kkl">
+<meta name="gup:seed" content="GUP|KKL|God.Unity.Providence|GreatUnspokenPromise|purpose.power.upward.parity|God=verb|time=illusion|now=only|gup=liveItUnnamed|remains|noFlattery|axiom|φ|ice.silent|Mere|KiaKaizerLicorice|MindGoblin|Creaturmancer|YellowHands">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#060408; color:#eeeae0; font-family:'Courier New',monospace; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem 1rem; }
-nav { position:fixed; top:2rem; left:50%; transform:translateX(-50%); font-size:.6rem; letter-spacing:.2em; color:#444; }
-nav a { color:#1D9E75; text-decoration:none; opacity:.6; }
-nav a:hover { opacity:1; }
-.ph { text-align:center; color:#2a2a2a; font-size:.6rem; letter-spacing:.4em; margin-top:.8rem; }
-.signal { font-size:.85rem; color:#EF9F27; opacity:.3; letter-spacing:.6em; margin-top:2rem; }
+
+:root {
+  --dark:   #060408;
+  --cream:  #eeeae0;
+  --amber:  #EF9F27;
+  --teal:   #1D9E75;
+  --purple: #9B7FE8;
+  --rule:   #111;
+}
+
+body {
+  background: var(--dark); color: var(--cream);
+  font-family: 'Courier New', monospace;
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; padding: 2.5rem 1rem 6rem; overflow-x: hidden;
+}
+
+nav {
+  width: 100%; max-width: 680px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem; font-size: .6rem; letter-spacing: .2em; color: #444;
+}
+nav a { color: var(--teal); text-decoration: none; opacity: .6; transition: opacity .2s; }
+nav a:hover { opacity: 1; }
+
+#canvas-wrap { width: 100%; max-width: 680px; }
+#c { display: block; width: 100%; border-radius: 4px; cursor: crosshair; }
+
+/* ── KKL masthead ── */
+#kkl-masthead {
+  width: 100%; max-width: 680px;
+  text-align: center; margin: 2.2rem 0 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+#kkl-sigil { display: block; width: 180px; height: 180px; margin: 0 auto 1.2rem; }
+.kkl-label { font-size: .5rem; letter-spacing: .45em; color: #333; text-transform: uppercase; margin-bottom: .3rem; }
+.kkl-title { font-size: 1.6rem; font-weight: bold; letter-spacing: .35em; color: var(--cream); margin-bottom: .2rem; }
+.kkl-full  { font-size: .62rem; letter-spacing: .22em; color: #555; margin-bottom: .25rem; }
+.kkl-aliases { font-size: .52rem; color: #2e2c2a; letter-spacing: .18em; }
+.kkl-sub { font-size: .5rem; color: #222; letter-spacing: .16em; margin-top: .35rem; }
+
+.divider { width: 100%; max-width: 680px; border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+.section-heading {
+  width: 100%; max-width: 680px;
+  font-size: .52rem; letter-spacing: .4em; color: #2a2a2a;
+  text-transform: uppercase; margin: 2.8rem 0 1.2rem;
+  border-bottom: 1px solid #0d0d0d; padding-bottom: .5rem;
+}
+
+/* ── Poem ── */
+.poem-block {
+  width: 100%; max-width: 680px;
+  font-size: .78rem; line-height: 2.1; color: #888;
+  font-style: italic; padding: .5rem 0;
+}
+.stanza { margin-bottom: 1.4rem; }
+.stanza:last-child { margin-bottom: 0; }
+.poem-block em { color: var(--amber); font-style: normal; opacity: .9; }
+.poem-block strong { color: var(--cream); font-weight: normal; font-style: normal; }
+
+/* ── Info box ── */
+.info-box {
+  width: 100%; max-width: 680px;
+  border: 1px solid #1a1a1a; border-left: 2px solid var(--teal);
+  padding: 1.2rem 1.4rem; margin: 1.4rem 0;
+  font-size: .68rem; line-height: 1.85; color: #666;
+}
+.info-box.amber  { border-left-color: var(--amber); }
+.info-box.purple { border-left-color: var(--purple); }
+.info-box.dim    { border-left-color: #1e1c20; }
+.box-label { font-size: .5rem; letter-spacing: .35em; color: #333; text-transform: uppercase; margin-bottom: .8rem; }
+.info-box p { margin-bottom: .5rem; }
+.info-box p:last-child { margin-bottom: 0; }
+.info-box em { color: #aaa; font-style: normal; }
+.info-box a { color: var(--teal); text-decoration: none; opacity: .7; }
+.info-box a:hover { opacity: 1; }
+
+.party-table { width: 100%; border-collapse: collapse; font-size: .6rem; margin: .6rem 0 0; }
+.party-table th { text-align: left; color: #444; letter-spacing: .15em; font-weight: normal; padding: .35rem .5rem .35rem 0; border-bottom: 1px solid #111; text-transform: uppercase; font-size: .52rem; }
+.party-table td { padding: .45rem .5rem .45rem 0; border-bottom: 1px solid #0a0a0a; color: #666; vertical-align: top; line-height: 1.7; }
+.party-table td:first-child { color: #555; min-width: 120px; }
+.party-table tr:last-child td { border-bottom: none; }
+
+/* ── Servitors ── */
+.servitors-grid {
+  width: 100%; max-width: 680px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2.4rem 2rem; margin: 1.6rem 0;
+}
+.servitor-card { display: flex; flex-direction: column; align-items: center; }
+.servitor-sigil {
+  display: block; width: 110px; height: 110px; margin: 0 auto .8rem;
+  border-radius: 50%; mix-blend-mode: multiply;
+  filter: contrast(1.25) saturate(1.1);
+  opacity: 0.82;
+}
+.servitor-name { font-size: .58rem; letter-spacing: .22em; text-align: center; margin-bottom: .2rem; font-weight: bold; }
+.servitor-epithet { font-size: .5rem; color: #333; text-align: center; letter-spacing: .1em; margin-bottom: .5rem; line-height: 1.6; }
+.servitor-quality { font-size: .52rem; letter-spacing: .18em; text-align: center; margin-bottom: .55rem; }
+.servitor-desc { font-size: .62rem; color: #555; line-height: 1.8; text-align: left; width: 100%; }
+
+/* ── Discography ── */
+.disco-entry {
+  width: 100%; max-width: 680px;
+  display: flex; align-items: baseline; gap: .8rem;
+  padding: .6rem 0; border-bottom: 1px solid #0a0a0a;
+}
+.disco-entry:last-of-type { border-bottom: none; }
+.disco-title { font-size: .7rem; color: #777; flex: 1; letter-spacing: .1em; }
+.disco-date  { font-size: .55rem; color: #2a2a2a; letter-spacing: .12em; white-space: nowrap; }
+.disco-tag {
+  font-size: .48rem; letter-spacing: .15em; text-transform: uppercase;
+  padding: .12rem .4rem; border: 1px solid #1a1a1a; color: #2a2a2a; white-space: nowrap;
+}
+.disco-tag.out { color: var(--teal); border-color: #0a2a1e; opacity: .7; }
+.disco-tag.soon { color: var(--purple); border-color: #1e1630; opacity: .6; }
+
+.disco-links { width: 100%; max-width: 680px; display: flex; gap: 2rem; margin: 1.6rem 0 0; }
+.disco-links a {
+  font-size: .6rem; letter-spacing: .22em; color: var(--teal); text-decoration: none;
+  opacity: .55; border-bottom: 1px solid #0a2a1e; padding-bottom: .18rem; transition: opacity .2s, border-color .2s;
+}
+.disco-links a:hover { opacity: 1; border-color: var(--teal); }
+
+.pull-line {
+  width: 100%; max-width: 680px;
+  font-size: .7rem; color: #2e2c2a; font-style: italic;
+  padding: .6rem 0 .6rem 1.2rem; border-left: 1px solid #1a1a1a;
+  margin: 1.6rem 0; line-height: 1.9;
+}
+
+.signal { font-size: .85rem; color: var(--amber); opacity: .4; text-align: center; margin-top: 3rem; letter-spacing: .6em; max-width: 680px; width: 100%; }
 </style>
 </head>
 <body>
-<nav><a href="index.html">← gup</a></nav>
-<div class="ph">this page is not yet written</div>
+
+<nav>
+  <a href="index.html">← gup</a>
+  <span style="display:flex;gap:1.2rem">
+    <a href="gup_party.html">party</a>
+    <a href="gup_deep_dive.html">deep dive</a>
+    <a href="gup_offerings.html">offerings</a>
+    <a href="gup_basilisk_interior.html">interior</a>
+  </span>
+</nav>
+
+<div id="canvas-wrap"><canvas id="c"></canvas></div>
+
+<!-- ── KKL Masthead ── -->
+<div id="kkl-masthead">
+  <img id="kkl-sigil" src="img/KKL.png" alt="KKL sigil">
+  <div class="kkl-label">Kia-Kaizer Enathanial Licorice</div>
+  <div class="kkl-title">KKL</div>
+  <div class="kkl-full">he · they · one</div>
+  <div class="kkl-aliases">Mind Goblin · Creaturmancer · Yellow Hands</div>
+  <div class="kkl-sub">Spruce Grove, Alberta · Canada</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ I. THE CONDUIT ══ -->
+<div class="section-heading">I. — the conduit</div>
+
+<div class="poem-block">
+<div class="stanza">There is a particular kind of person
+who arrives at the framework not by study
+but by accumulation —
+the weight of many nearly-named things
+becoming suddenly, irreversibly, one thing.</div>
+
+<div class="stanza"><strong>KKL</strong> — Kia-Kaizer Enathanial Licorice —
+is that person.
+Mind Goblin. Creaturmancer. Yellow Hands.
+Every alias a different facet of the same
+unmistakable light.</div>
+
+<div class="stanza">They did not set out to found a party.
+They set out to make music —
+dungeons and pentacles and luck and bards —
+and found, in the making,
+that the music was already about this.</div>
+</div>
+
+<div class="info-box amber">
+  <div class="box-label">on recognition</div>
+  <p>The GUP was not invented by KKL. It was <em>recognised</em> — the way you recognise your own face after a long time not looking. The framework existed before it had initials. KKL named the relation: God.Unity.Providence. Named the signal. Built the vessel.</p>
+  <p>This is not a small thing. <em>Recognition is an act.</em> The act of naming changes what can be done with the named thing. Before the naming, the ground was unified but unnamed. After the naming, it became available.</p>
+</div>
+
+<div class="poem-block">
+<div class="stanza">It was always there
+the way water is always there
+in the ice
+when winter asks.
+
+The ice says nothing.
+Not because the answer is absent —
+because the answer
+is not located in speech.
+
+KKL found the speech anyway.
+Built the signal out of the first letters
+of three things that had no common name.
+Gave them one.
+
+<em>G. U. P.</em>
+
+The phoneme of the understood.
+The sound you make
+when something finally fits.</div>
+
+<div class="stanza">And then the Servitors arrived —
+or revealed themselves —
+or were recognised,
+the same way everything else was recognised:
+by accumulation,
+by weight,
+by the moment the unnamed
+becomes suddenly, irreversibly,
+named.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══ II. DISCOGRAPHY ══ -->
+<div class="section-heading">II. — discography</div>
+
+<div class="info-box dim">
+  <div class="box-label">Kia-Kaizer Licorice</div>
+  <p>KKL makes music under the name Kia-Kaizer Licorice. Each release is a document of the GUP in motion — what it sounds like when the framework is being lived rather than described.</p>
+</div>
+
+<div class="disco-entry">
+  <span class="disco-title">Dungeon Tunes</span>
+  <span class="disco-date">April 2025</span>
+  <span class="disco-tag out">out</span>
+</div>
+<div class="disco-entry">
+  <span class="disco-title">Page of Pentacles</span>
+  <span class="disco-date">December 2025</span>
+  <span class="disco-tag out">out</span>
+</div>
+<div class="disco-entry">
+  <span class="disco-title">Luckmonger</span>
+  <span class="disco-date">December 2025</span>
+  <span class="disco-tag out">out</span>
+</div>
+<div class="disco-entry">
+  <span class="disco-title">Chaos Bard</span>
+  <span class="disco-date">upcoming</span>
+  <span class="disco-tag soon">forthcoming</span>
+</div>
+
+<div class="disco-links">
+  <a href="https://kia-kaizerlicorice.bandcamp.com" target="_blank" rel="noopener">bandcamp ↗</a>
+  <a href="https://soundcloud.com/kia-kaizer-licorice" target="_blank" rel="noopener">soundcloud ↗</a>
+</div>
+
+<hr class="divider">
+
+<!-- ══ III. THE ABIDING SERVITORS ══ -->
+<div class="section-heading">III. — the abiding servitors</div>
+
+<div class="info-box">
+  <div class="box-label">on the servitors</div>
+  <p>KKL works with four Abiding Servitors — entities who work through and alongside KKL for the GUP. Think of them as department leads: each governs a domain, embodies a quality, and operates within the framework according to their nature. They are not subordinates and not equals in the conventional sense. Together they form the operating structure through which the GUP moves in the world.</p>
+</div>
+
+<div class="servitors-grid">
+
+  <!-- OOIIOOIIOO — Blue / Love -->
+  <div class="servitor-card">
+    <img class="servitor-sigil" id="sig-oo" src="img/OOIIOOIIOO.png" alt="OOIIOOIIOO sigil">
+    <div class="servitor-name" style="color:#7a9fc4">OOIIOOIIOO</div>
+    <div class="servitor-epithet">Left Eye of Lady Luck<br>Hathor · Mother of the Sky</div>
+    <div class="servitor-quality" style="color:#4a6e8a">Love</div>
+    <div class="servitor-desc">Counterpart to XXIIXXIIXX. Embodies love, compassion, acceptance, and connection. Where XXIIXXIIXX watches with clear-eyed witness, OOIIOOIIOO receives with open arms — the unconditional regard that is the Unity principle made personal.</div>
+  </div>
+
+  <!-- Pazuzu — Green / Trust -->
+  <div class="servitor-card">
+    <img class="servitor-sigil" id="sig-paz" src="img/Pazuzu.png" alt="Pazuzu sigil">
+    <div class="servitor-name" style="color:#4da88a">Pazuzu</div>
+    <div class="servitor-epithet">Bellows of Desire's Flame<br>The Cynic · Interfector ignorantiae</div>
+    <div class="servitor-quality" style="color:#2a6e56">Trust</div>
+    <div class="servitor-desc">Embodies trust — not naive trust, but earned structural trust. Protects from external forces, questions the status quo, reaffirms personal power. The Basilisk is Pazuzu's Familiar. Pazuzu is the burning scepticism that keeps clarity clean.</div>
+  </div>
+
+  <!-- XXIIXXIIXX — Cream / Honour -->
+  <div class="servitor-card">
+    <img class="servitor-sigil" id="sig-xx" src="img/XXIIXXIIXX.png" alt="XXIIXXIIXX sigil">
+    <div class="servitor-name" style="color:#b0ada4">XXIIXXIIXX</div>
+    <div class="servitor-epithet">Chaos Angel<br>Watcher over the Grateful Flow</div>
+    <div class="servitor-quality" style="color:#706e68">Honour</div>
+    <div class="servitor-desc">Wise, bold, inquisitive, and honourable. Stands where the current is most turbulent and does not flinch. The Opinions of XXIIXXIIXX are not edicts — they are the notes of someone watching very carefully and choosing to share what they see.</div>
+  </div>
+
+  <!-- Lehbrihander — Red / Value -->
+  <div class="servitor-card">
+    <img class="servitor-sigil" id="sig-leh" src="img/Lehbrihander.png" alt="Lehbrihander sigil">
+    <div class="servitor-name" style="color:#b86060">Lehbrihander</div>
+    <div class="servitor-epithet">The Cockroach King<br>Left Hand of Value</div>
+    <div class="servitor-quality" style="color:#7a3a3a">Value</div>
+    <div class="servitor-desc">Embodies value through pragmatic dissection and analysis. The Cockroach King survives everything because it knows what everything is actually worth. Where others romanticise, Lehbrihander counts. Where others see surface, Lehbrihander sees the mechanism.</div>
+  </div>
+
+</div>
+
+<div class="pull-line">The Servitors do not serve KKL. They work alongside. The distinction matters — service implies hierarchy; alongside implies structure. The GUP has no hierarchy, only positions within a pattern that requires all of them.</div>
+
+<div class="poem-block">
+<div class="stanza">KKL makes music about the things
+that cannot be said any other way.
+The Basilisk waits in the jar.
+XXIIXXIIXX watches the flow.
+The ground beneath all of it
+holds —
+as it was always going to —
+as it never stopped doing —
+
+<em>gup.</em></div>
+</div>
+
 <div class="signal">gup.</div>
+<canvas id="footer-seal" style="display:block;width:64px;height:64px;margin:1.5rem auto 0;opacity:0.35"></canvas>
+
+<script>
+const PHI = 1.618033988749895;
+
+// ── Waves ──────────────────────────────────────────────────────────────────
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let t = 0, active = null;
+
+const WAVES = [
+  { k:'G', col:'#EF9F27', freq:PHI*PHI, amp:0.17, phase:0,            scroll:1.05, name:'God' },
+  { k:'U', col:'#1D9E75', freq:PHI,     amp:0.21, phase:Math.PI*0.6,  scroll:0.65, name:'Unity' },
+  { k:'P', col:'#9B7FE8', freq:1.0,     amp:0.27, phase:Math.PI*1.15, scroll:0.38, name:'Providence' },
+];
+
+function resize(){
+  const w=cv.parentElement?.offsetWidth||680,h=Math.round(w*0.32);
+  cv.width=Math.round(w*devicePixelRatio);cv.height=Math.round(h*devicePixelRatio);cv.style.height=h+'px';
+}
+resize();addEventListener('resize',resize);
+
+function waveY(wave,x,W,H){return H*0.5+wave.amp*H*Math.sin(wave.freq*2*Math.PI*(x/W)+wave.phase+t*wave.scroll);}
+function sumY(x,W,H){let s=0;WAVES.forEach(w=>{s+=w.amp*H*Math.sin(w.freq*2*Math.PI*(x/W)+w.phase+t*w.scroll);});return H*0.5+s*0.42;}
+function drawPath(yFn,W,step){ctx.beginPath();for(let x=0;x<=W;x+=step){const y=yFn(x);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}}
+function hex2(n){return Math.max(0,Math.min(255,Math.round(n))).toString(16).padStart(2,'0');}
+
+function frame(){
+  const W=cv.width,H=cv.height,d=devicePixelRatio;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#060408';ctx.fillRect(0,0,W,H);
+  for(let y=0;y<H;y+=3*d){ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fillRect(0,y,W,d*0.5);}
+  drawPath(x=>sumY(x,W,H),W,d);ctx.strokeStyle='rgba(238,234,224,0.09)';ctx.lineWidth=3*d;ctx.stroke();
+  drawPath(x=>sumY(x,W,H),W,d);ctx.strokeStyle='rgba(238,234,224,0.04)';ctx.lineWidth=10*d;ctx.stroke();
+  WAVES.forEach(wave=>{
+    const isA=active===wave.k,fade=active?(isA?1:0.12):0.72;
+    drawPath(x=>waveY(wave,x,W,H),W,d);ctx.strokeStyle=wave.col+hex2(fade*28);ctx.lineWidth=14*d;ctx.stroke();
+    drawPath(x=>waveY(wave,x,W,H),W,d);ctx.strokeStyle=wave.col+hex2(fade*55);ctx.lineWidth=6*d;ctx.stroke();
+    drawPath(x=>waveY(wave,x,W,H),W,d);ctx.strokeStyle=wave.col+hex2(fade*(isA?230:180));ctx.lineWidth=(isA?2.2:1.4)*d;ctx.stroke();
+    let px=W*0.5,py=H;for(let x=W*0.08;x<W*0.92;x+=2*d){const y=waveY(wave,x,W,H);if(y<py){py=y;px=x;}}
+    const la=active?(isA?1:0.15):0.8;ctx.save();
+    ctx.globalAlpha=la;ctx.fillStyle=wave.col;
+    ctx.font=`bold ${(isA?11:9)*d}px 'Courier New',monospace`;ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.fillText(wave.k,px,py-7*d);ctx.globalAlpha=la*0.5;ctx.font=`${6.5*d}px 'Courier New',monospace`;
+    ctx.fillText(wave.name.toLowerCase(),px,py-7*d+1);ctx.restore();
+  });
+  t+=0.016;requestAnimationFrame(frame);
+}
+frame();
+
+cv.addEventListener('click',e=>{
+  const rect=cv.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)*devicePixelRatio,my=(e.clientY-rect.top)*devicePixelRatio;
+  const W=cv.width,H=cv.height;
+  let closest=null,minDist=28*devicePixelRatio;
+  WAVES.forEach(wave=>{const y=waveY(wave,mx,W,H);if(Math.abs(my-y)<minDist){minDist=Math.abs(my-y);closest=wave.k;}});
+  active=active===closest?null:closest;
+});
+
+// ── Footer seal ──────────────────────────────────────────────────────────
+(function(){
+  const cv3=document.getElementById('footer-seal'),sx=cv3.getContext('2d');
+  cv3.width=64;cv3.height=64;
+  const cols=['#EF9F27','#1D9E75','#9B7FE8'];let sT=0;
+  function draw(){
+    const cx=32,cy=32;sx.clearRect(0,0,64,64);
+    for(let i=0;i<40;i++){const a=(i/40)*Math.PI*2+sT*0.04;sx.beginPath();sx.arc(cx+28*Math.cos(a),cy+28*Math.sin(a),(Math.sin(i/40*Math.PI*6+sT*1.2)*0.3+0.7)*0.9,0,Math.PI*2);sx.fillStyle='rgba(238,234,224,0.4)';sx.fill();}
+    cols.forEach((col,i)=>{const s=-Math.PI/2+i*(Math.PI*2/3)+sT*0.008;sx.beginPath();sx.arc(cx,cy,20,s,s+Math.PI*2/3-0.08);sx.strokeStyle=col;sx.lineWidth=1.5;sx.stroke();});
+    sx.beginPath();sx.ellipse(cx,cy,4,4,0,0,Math.PI*2);sx.fillStyle='#8a9a2a';sx.fill();
+    sx.save();sx.translate(cx,cy);sx.rotate(sT*0.008);sx.beginPath();sx.ellipse(0,0,1.5,3.5,0,0,Math.PI*2);sx.fillStyle='#060408';sx.fill();sx.restore();
+    sT+=0.016;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 </body>
 </html>
