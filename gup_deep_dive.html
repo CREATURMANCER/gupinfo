@@ -172,7 +172,7 @@
   <div id="desc">touch a wave to open its chapter</div>
 </div>
 
-<hr class="divider">
+<hr class="section-divider" id="div-g">
 
 <!-- ══════════════════════════════════════
   G — GOD
@@ -500,6 +500,7 @@ cv.addEventListener('click', e => {
     el.style.color='#888';
     const allDone = revealed.G && revealed.U && revealed.P;
     el.textContent = allDone ? 'touch a wave to return to it' : 'touch a wave to open its chapter';
+    hideAll();
   }
 });
 
@@ -625,7 +626,7 @@ const revealed = { G:false, U:false, P:false };
 let phiUnlocked = false;
 
 const SECTION_MAP = {
-  G: { section:'section-g', divider:null },
+  G: { section:'section-g', divider:'div-g' },
   U: { section:'section-u', divider:'div-u' },
   P: { section:'section-p', divider:'div-p' },
 };
@@ -641,12 +642,18 @@ function hideEl(id) {
   const el = document.getElementById(id);
   if(!el) return;
   el.classList.remove('visible');
-  // Remove display:block after transition completes
   el.addEventListener('transitionend', () => { if(!el.classList.contains('visible')) el.style.display = ''; }, { once:true });
 }
 
+function hideAll() {
+  Object.values(SECTION_MAP).forEach(({ section, divider }) => {
+    hideEl(section);
+    if(divider) hideEl(divider);
+  });
+}
+
 function revealSection(key) {
-  // Hide all G/U/P sections and their dividers
+  // Hide all G/U/P sections
   Object.entries(SECTION_MAP).forEach(([k, ids]) => {
     if(k !== key) {
       hideEl(ids.section);
@@ -670,6 +677,9 @@ function revealSection(key) {
     }, 600);
   }
 }
+
+// Hide everything on load
+hideAll();
 
 // φ section observer for bar animation
 const bars = document.querySelectorAll('.phi-bar-fill');
