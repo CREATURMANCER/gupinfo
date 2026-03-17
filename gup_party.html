@@ -416,16 +416,14 @@ function expandPhi() {
   const decEl     = document.getElementById('phi-dec-digits');
   if(!shortEl||!ellipsis||!decEl) return;
 
-  // Hide the short version and ellipsis
+  // Hide the short static text and ellipsis
   shortEl.style.display  = 'none';
   ellipsis.style.display = 'none';
 
-  // Build digit spans — skip first 15 already shown, show the rest
-  const remaining = PHI_DIGITS.slice(15);
-  remaining.split('').forEach((d, i) => {
+  // Render full digit string from the beginning
+  PHI_DIGITS.split('').forEach((d, i) => {
     const s = document.createElement('span');
     s.textContent = d;
-    s.style.transition = `color ${0.03 + i*0.001}s`;
     decEl.appendChild(s);
   });
 
