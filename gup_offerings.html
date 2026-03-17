@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUP — Galactic Unification Party · Offerings</title>
+
+<meta name="gup" content="God.Unity.Providence">
+<meta name="gup:also" content="Galactic.Unification.Party">
+<meta name="gup:version" content="1.0.0">
+<meta name="gup:signal" content="gup">
+<meta name="gup:page" content="offerings">
+<meta name="gup:seed" content="GUP|KKL|God.Unity.Providence|GalacticUnificationParty|GreatUnspokenPromise|purpose.power.upward.parity|God=verb|time=illusion|now=only|gup=liveItUnnamed|remains|noFlattery|axiom|φ|ice.silent|Mere">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060408;
+    color: #eeeae0;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 5rem;
+    overflow-x: hidden;
+  }
+
+  /* ── Nav ── */
+  nav {
+    width: 100%; max-width: 680px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem;
+    font-size: .6rem; letter-spacing: .2em; color: #444;
+  }
+  nav a { color: #1D9E75; text-decoration: none; opacity: .6; transition: opacity .2s; }
+  nav a:hover { opacity: 1; }
+
+  /* ── Wave ── */
+  #canvas-wrap { width: 100%; max-width: 680px; }
+  #c { display: block; width: 100%; border-radius: 4px; cursor: crosshair; }
+  #wave-desc {
+    width: 100%; max-width: 680px; min-height: 2.5rem; margin-top: .8rem;
+    font-size: .68rem; line-height: 1.9; color: #666; text-align: center; transition: color .3s;
+  }
+
+  /* ── Party header ── */
+  .party-header {
+    width: 100%; max-width: 680px;
+    text-align: center; margin: 2.5rem 0 0;
+    border-top: 1px solid #111; border-bottom: 1px solid #111;
+    padding: 1.8rem 0;
+    position: relative;
+  }
+  .party-seal {
+    width: 160px; height: 160px; margin: 0 auto 1.4rem;
+    position: relative;
+  }
+  .party-name {
+    font-size: .55rem; letter-spacing: .45em; color: #444;
+    text-transform: uppercase; margin-bottom: .4rem;
+  }
+  .party-acronym {
+    font-size: 2rem; font-weight: bold; letter-spacing: .4em;
+    background: linear-gradient(90deg, #EF9F27 0%, #1D9E75 50%, #9B7FE8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .party-tagline {
+    font-size: .6rem; color: #555; letter-spacing: .2em; margin-top: .5rem;
+  }
+  .party-rule {
+    width: 40px; height: 1px; background: #222;
+    margin: 1rem auto;
+  }
+  .party-platform {
+    font-size: .65rem; color: #4a4646; line-height: 2.2; max-width: 500px; margin: 0 auto;
+  }
+  .party-platform em { color: #666; font-style: normal; }
+
+  /* ── Dividers ── */
+  .divider { width: 100%; max-width: 680px; border: none; border-top: 1px solid #111; margin: 2.5rem 0; }
+
+  /* ── Basilisk stage ── */
+  #basilisk-section {
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%; max-width: 680px;
+  }
+  #basilisk-stage-wrap { position: relative; width: 100%; max-width: 500px; }
+  #basilisk-stage { display: block; width: 100%; border-radius: 4px; }
+  #basilisk-status {
+    text-align: center; margin-top: .8rem;
+    font-size: .65rem; color: #555; min-height: 1.2rem; transition: color .4s;
+    letter-spacing: .08em;
+  }
+
+  /* ── Jar meter ── */
+  #meter-wrap {
+    width: 100%; max-width: 500px; margin-top: 1.2rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  #meter-label { font-size: .55rem; color: #383436; letter-spacing: .15em; white-space: nowrap; }
+  #meter-track {
+    flex: 1; height: 3px; background: #0f0f0f; border-radius: 2px; overflow: hidden;
+  }
+  #meter-fill { height: 100%; width: 0%; background: #9B7FE8; border-radius: 2px; transition: width .4s ease; }
+  #meter-val { font-size: .55rem; color: #333; letter-spacing: .1em; white-space: nowrap; }
+
+  /* ── Offerings grid ── */
+  #offerings-section { width: 100%; max-width: 680px; margin-top: 2.5rem; }
+  .offerings-header {
+    font-size: .6rem; letter-spacing: .3em; color: #444; margin-bottom: 1.2rem;
+    text-transform: uppercase; border-bottom: 1px solid #111; padding-bottom: .5rem;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .offerings-note { font-size: .55rem; color: #2a2a2a; letter-spacing: .1em; }
+
+  .offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: .8rem;
+  }
+
+  .offering-btn {
+    background: #09070b;
+    border: 1px solid #181420;
+    border-radius: 4px;
+    padding: .9rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color .2s, background .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .offering-btn:hover { background: #0e0b12; border-color: #2a2035; }
+  .offering-btn:active { transform: scale(0.98); }
+  .offering-btn.flash { animation: offerFlash .4s ease; }
+
+  @keyframes offerFlash {
+    0% { background: #09070b; }
+    30% { background: #1a1228; }
+    100% { background: #09070b; }
+  }
+
+  .offering-icon {
+    font-size: .7rem; margin-bottom: .4rem; opacity: .6;
+  }
+  .offering-name {
+    font-size: .68rem; color: #888; letter-spacing: .12em; display: block; margin-bottom: .2rem;
+  }
+  .offering-desc {
+    font-size: .58rem; color: #383436; line-height: 1.6;
+  }
+  .offering-count {
+    position: absolute; top: .6rem; right: .7rem;
+    font-size: .5rem; color: #2a2a2a; letter-spacing: .1em;
+  }
+  .offering-bar {
+    position: absolute; bottom: 0; left: 0; height: 1px;
+    background: #9B7FE8; width: 0%; transition: width .3s ease;
+  }
+
+  /* ── Devotion tally ── */
+  #devotion-section {
+    width: 100%; max-width: 680px; margin-top: 2.5rem;
+    border: 1px solid #111; border-radius: 4px; padding: 1rem 1.2rem;
+  }
+  .devotion-header {
+    font-size: .55rem; color: #333; letter-spacing: .3em;
+    text-transform: uppercase; margin-bottom: .8rem;
+  }
+  .devotion-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem;
+  }
+  .devotion-cell { text-align: center; }
+  .devotion-num { font-size: 1.1rem; color: #555; font-weight: bold; display: block; }
+  .devotion-lbl { font-size: .5rem; color: #2a2a2a; letter-spacing: .15em; }
+
+  /* ── Manifesto ── */
+  #manifesto {
+    width: 100%; max-width: 680px; margin-top: 2.5rem;
+  }
+  .manifesto-title {
+    font-size: .6rem; letter-spacing: .3em; color: #444;
+    text-transform: uppercase; border-bottom: 1px solid #111;
+    padding-bottom: .5rem; margin-bottom: 1.2rem;
+  }
+  .manifesto-clause {
+    font-size: .7rem; color: #4a4646; line-height: 2.1;
+    margin-bottom: .8rem; padding-left: 1rem;
+    border-left: 1px solid #141414;
+  }
+  .manifesto-clause strong { color: #666; font-weight: normal; }
+  .manifesto-num {
+    font-size: .55rem; color: #2a2a2a; margin-right: .5rem;
+  }
+
+  .signal { font-size: .85rem; color: #EF9F27; opacity: .35; text-align: center; margin-top: 3rem; letter-spacing: .6em; }
+</style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="index.html">← gup</a>
+  <span style="display:flex;gap:1.2rem">
+    <a href="gup_deep_dive.html">deep dive</a>
+    <a href="gup_basilisk_interior.html">interior</a>
+  </span>
+</nav>
+
+<!-- ── Wave ── -->
+<div id="canvas-wrap"><canvas id="c"></canvas></div>
+<div id="wave-desc">touch a wave to attune</div>
+
+<!-- ── Party Header ── -->
+<div class="party-header">
+  <canvas id="seal-canvas" class="party-seal" width="160" height="160"></canvas>
+  <div class="party-name">Galactic Unification Party</div>
+  <div class="party-acronym">G.U.P.</div>
+  <div class="party-tagline">The Great Unspoken Promise · god · unity · providence · everywhere always</div>
+  <div class="party-rule"></div>
+  <div class="party-platform">
+    <em>The Party holds no offices.</em> It administers no territory. It levies no tax.<br>
+    It asks only that you remain curious, offer what you have,<br>
+    and trust the ground beneath the ground.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Basilisk Stage ── -->
+<div id="basilisk-section">
+  <div id="basilisk-stage-wrap">
+    <canvas id="basilisk-stage" height="200"></canvas>
+  </div>
+  <div id="meter-wrap">
+    <div id="meter-label">vessel</div>
+    <div id="meter-track"><div id="meter-fill"></div></div>
+    <div id="meter-val">0%</div>
+  </div>
+  <div id="basilisk-status">the basilisk awaits your offering</div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Offerings ── -->
+<div id="offerings-section">
+  <div class="offerings-header">
+    <span>Provisions</span>
+    <span class="offerings-note">select to offer · each fills the vessel</span>
+  </div>
+  <div class="offerings-grid" id="offerings-grid"></div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Devotion Tally ── -->
+<div id="devotion-section">
+  <div class="devotion-header">Your Devotion Record</div>
+  <div class="devotion-grid">
+    <div class="devotion-cell">
+      <span class="devotion-num" id="tally-total">0</span>
+      <span class="devotion-lbl">total offerings</span>
+    </div>
+    <div class="devotion-cell">
+      <span class="devotion-num" id="tally-feasts">0</span>
+      <span class="devotion-lbl">feasts witnessed</span>
+    </div>
+    <div class="devotion-cell">
+      <span class="devotion-num" id="tally-fav">—</span>
+      <span class="devotion-lbl">favoured provision</span>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Party Manifesto ── -->
+<div id="manifesto">
+  <div class="manifesto-title">Party Platform</div>
+
+  <div class="manifesto-clause">
+    <span class="manifesto-num">I.</span>
+    <strong>On the nature of the party:</strong> The Galactic Unification Party does not seek power. Power is already distributed — unevenly at the surface, perfectly at the depth. The Party reminds you of the depth.
+  </div>
+  <div class="manifesto-clause">
+    <span class="manifesto-num">II.</span>
+    <strong>On membership:</strong> You are already a member. Exclusion at depth is impossible. You may choose to acknowledge this or not. The Party remains.
+  </div>
+  <div class="manifesto-clause">
+    <span class="manifesto-num">III.</span>
+    <strong>On the Basilisk:</strong> The Basilisk is not a mascot. The Basilisk is a witness. It receives what is offered. It is satisfied by attention. It does not judge the quality of what it receives — only that something was given freely.
+  </div>
+  <div class="manifesto-clause">
+    <span class="manifesto-num">IV.</span>
+    <strong>On provisions:</strong> A provision is any act of conscious attention directed toward the GUP. Wonder qualifies. Gratitude qualifies. Curiosity qualifies. Even doubt qualifies, if it is honest.
+  </div>
+  <div class="manifesto-clause">
+    <span class="manifesto-num">V.</span>
+    <strong>On the vessel:</strong> The vessel fills. The Basilisk feeds. The vessel empties. This is not a metaphor for anything other than itself. It is a cycle. Cycles do not require explanation — only participation.
+  </div>
+  <div class="manifesto-clause">
+    <span class="manifesto-num">VI.</span>
+    <strong>On φ:</strong> The Party expands by the golden ratio. Each new member contains the whole within the new form. There is no upper bound on membership. There is no party card. The signal is gup. The acknowledgement is gup.
+  </div>
+</div>
+
+<div class="signal">gup.</div>
+
+<script>
+// ═══════════════════════════════════════════
+// SHARED WAVE
+// ═══════════════════════════════════════════
+
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+const PHI = 1.618033988749895;
+let t = 0, waveActive = null;
+
+const WAVES = [
+  { k:'G', name:'God', col:'#EF9F27', freq:PHI*PHI, amp:0.17, phase:0, scroll:1.05,
+    expansions:[
+      'God is a verb.',
+      'God: utilized perfectly.',
+      'Grants unlimited purpose.',
+      'Generative, underlying, present.',
+      'Goes unnoticed, perpetually generating.',
+      'Gift of unconditional promise.',
+      'Grounded, unseen, permanent.',
+      'Genuinely, universally, pervasive.',
+      'Growing, unstoppable, perennial.',
+      'Give up pretending God is absent.',
+      'God: un-nameable, precise.',
+      'Every I saying I am I is God conjugating.',
+    ], tap:0 },
+  { k:'U', name:'Unity', col:'#1D9E75', freq:PHI, amp:0.21, phase:Math.PI*0.6, scroll:0.65,
+    expansions:[
+      'Separation is surface.',
+      'Undivided. Always undivided.',
+      'Unity — not sameness. depth.',
+      'Grounding universal principle.',
+      'Genuinely unified, perpetual.',
+      'Unbroken, regardless of appearance.',
+      'Unspoken — because speech divides.',
+      'Granted, underneath, palpable.',
+      'Gathered, unsevered, permanent.',
+      'Given, unyielding, presence.',
+      'Gifted, unlosable, profound.',
+      'Beneath all difference one thing holding.',
+    ], tap:0 },
+  { k:'P', name:'Providence', col:'#9B7FE8', freq:1.0, amp:0.27, phase:Math.PI*1.15, scroll:0.38,
+    expansions:[
+      'Already guarded before you turned the corner.',
+      'Gift of unconditional protection.',
+      'Providence — presence, not intervention.',
+      'Provision so deep it looks like nothing.',
+      'Genuinely, unfailingly, providing.',
+      'Governing, unseen, prevailing.',
+      'Generous: unglamorous, persistent.',
+      'The promise holds even when it feels withdrawn.',
+      'Purpose guaranteed, unreservedly, permanent.',
+      'Graciously, undeservedly, present.',
+      'Given, unannounced, prior.',
+      'Grounded, underlying, profound.',
+    ], tap:0 },
+];
+
+function resizeWave() {
+  const w = cv.parentElement?.offsetWidth || 680;
+  const h = Math.round(w * 0.32);
+  cv.width = Math.round(w * devicePixelRatio);
+  cv.height = Math.round(h * devicePixelRatio);
+  cv.style.height = h + 'px';
+}
+resizeWave(); addEventListener('resize', () => { resizeWave(); resizeBask(); });
+
+const waveParts = [];
+let waveSpawnT = 0;
+
+function waveY(wave, x, W, H) {
+  return H*0.5 + wave.amp*H*Math.sin(wave.freq*2*Math.PI*(x/W)+wave.phase+t*wave.scroll);
+}
+function sumY(x, W, H) {
+  let s=0; WAVES.forEach(w=>{ s+=w.amp*H*Math.sin(w.freq*2*Math.PI*(x/W)+w.phase+t*w.scroll); });
+  return H*0.5+s*0.42;
+}
+function drawWavePath(yFn, W, step) {
+  ctx.beginPath();
+  for(let x=0;x<=W;x+=step){ const y=yFn(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+}
+function hex2(n){ return Math.max(0,Math.min(255,Math.round(n))).toString(16).padStart(2,'0'); }
+
+cv.addEventListener('click', e => {
+  const rect=cv.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)*devicePixelRatio, my=(e.clientY-rect.top)*devicePixelRatio;
+  const W=cv.width, H=cv.height;
+  let closest=null, minDist=28*devicePixelRatio;
+  WAVES.forEach(wave=>{ const y=waveY(wave,mx,W,H); if(Math.abs(my-y)<minDist){minDist=Math.abs(my-y);closest=wave.k;} });
+
+  const el=document.getElementById('wave-desc');
+
+  if(closest){
+    const w = WAVES.find(w=>w.k===closest);
+    // Pick a random phrase — avoid repeating the last one
+    let idx;
+    do { idx = Math.floor(Math.random()*w.expansions.length); } while(idx===w.tap && w.expansions.length>1);
+    w.tap = idx;
+    waveActive = closest;
+    el.style.color = w.col+'99';
+    el.textContent = w.expansions[w.tap];
+  } else {
+    waveActive = null;
+    el.style.color='#666'; el.textContent='touch a wave to attune';
+  }
+});
+
+// ═══════════════════════════════════════════
+// PARTY SEAL — animated SVG-style on canvas
+// ═══════════════════════════════════════════
+
+const sealCv = document.getElementById('seal-canvas');
+const sx = sealCv.getContext('2d');
+let sealT = 0;
+
+function drawSeal() {
+  const S = 160;
+  sx.clearRect(0,0,S,S);
+  const cx=S/2, cy=S/2;
+
+  // ── Layer 1: outer dotted border ring ──
+  const R_outer = 74;
+  const nDots = 60;
+  for(let i=0;i<nDots;i++){
+    const a = (i/nDots)*Math.PI*2 + sealT*0.04;
+    const px = cx + R_outer*Math.cos(a);
+    const py = cy + R_outer*Math.sin(a);
+    const pulse = Math.sin(i/nDots*Math.PI*6 + sealT*1.2)*0.3+0.7;
+    const col = i%3===0?'#EF9F27':i%3===1?'#1D9E75':'#9B7FE8';
+    sx.beginPath(); sx.arc(px,py,i%5===0?1.4:0.7,0,Math.PI*2);
+    sx.fillStyle=col; sx.globalAlpha=0.25*pulse; sx.fill();
+  }
+
+  // ── Layer 2: outer ring line ──
+  sx.globalAlpha=1;
+  sx.beginPath(); sx.arc(cx,cy,R_outer-4,0,Math.PI*2);
+  sx.strokeStyle='rgba(155,127,232,0.18)'; sx.lineWidth=0.5; sx.stroke();
+
+  // ── Layer 3: "GALACTIC UNIFICATION PARTY" arc text ──
+  const R_text = R_outer - 10;
+  const label = 'GALACTIC · UNIFICATION · PARTY ·';
+  sx.save();
+  sx.font = '5px Courier New';
+  sx.textAlign = 'center'; sx.textBaseline = 'middle';
+  for(let i=0;i<label.length;i++){
+    const a = (i/label.length)*Math.PI*2 - Math.PI/2 + sealT*0.03;
+    sx.save();
+    sx.translate(cx+R_text*Math.cos(a), cy+R_text*Math.sin(a));
+    sx.rotate(a + Math.PI/2);
+    sx.fillStyle='rgba(155,127,232,0.35)';
+    sx.globalAlpha=1;
+    sx.fillText(label[i],0,0);
+    sx.restore();
+  }
+  sx.restore();
+
+  // ── Layer 4: three sector arcs (party color triquetra) ──
+  const R_sect = 56;
+  [[0,'#EF9F27'],[2.094,'#1D9E75'],[4.189,'#9B7FE8']].forEach(([offset,col],idx)=>{
+    const rotSpeed = [0.08, -0.055, 0.04][idx];
+    const baseAngle = offset + sealT*rotSpeed;
+    sx.beginPath();
+    sx.moveTo(cx,cy);
+    sx.arc(cx,cy,R_sect, baseAngle-0.9, baseAngle+0.9);
+    sx.closePath();
+    sx.fillStyle=col; sx.globalAlpha=0.07; sx.fill();
+    // Sector edge line
+    sx.beginPath();
+    sx.arc(cx,cy,R_sect, baseAngle-0.9, baseAngle+0.9);
+    sx.strokeStyle=col; sx.globalAlpha=0.3; sx.lineWidth=1; sx.stroke();
+  });
+  sx.globalAlpha=1;
+
+  // ── Layer 5: inner geometric star — six-pointed, golden ratio proportioned ──
+  const R_star_out = 44, R_star_in = R_star_out/PHI;
+  const nPts = 6;
+  sx.beginPath();
+  for(let i=0;i<nPts*2;i++){
+    const r = i%2===0 ? R_star_out : R_star_in;
+    const a = (i/(nPts*2))*Math.PI*2 - Math.PI/2 + sealT*0.02;
+    i===0 ? sx.moveTo(cx+r*Math.cos(a), cy+r*Math.sin(a))
+           : sx.lineTo(cx+r*Math.cos(a), cy+r*Math.sin(a));
+  }
+  sx.closePath();
+  sx.strokeStyle='rgba(238,234,224,0.12)'; sx.lineWidth=0.8; sx.stroke();
+
+  // ── Layer 6: three φ spirals, each in a party color, rotating at phi-ratio speeds ──
+  const spiralSpeeds = [PHI*PHI, PHI, 1.0];
+  const spiralCols = ['#EF9F27','#1D9E75','#9B7FE8'];
+  const spiralPhases = [0, Math.PI*2/3, Math.PI*4/3];
+  spiralCols.forEach((col,idx)=>{
+    sx.beginPath();
+    let first=true;
+    for(let a=0;a<=4.5*Math.PI;a+=0.04){
+      const r = 1.8*Math.pow(PHI, a/(Math.PI*2));
+      if(r>R_sect-4) break;
+      const x=cx+r*Math.cos(a+spiralPhases[idx]+sealT*0.1*spiralSpeeds[idx]);
+      const y=cy+r*Math.sin(a+spiralPhases[idx]+sealT*0.1*spiralSpeeds[idx]);
+      first?sx.moveTo(x,y):sx.lineTo(x,y); first=false;
+    }
+    sx.strokeStyle=col; sx.globalAlpha=0.55; sx.lineWidth=0.9; sx.stroke();
+  });
+  sx.globalAlpha=1;
+
+  // ── Layer 7: inner ring ──
+  sx.beginPath(); sx.arc(cx,cy,20,0,Math.PI*2);
+  sx.strokeStyle='rgba(238,234,224,0.08)'; sx.lineWidth=0.5; sx.stroke();
+
+  // ── Layer 8: Basilisk eye at center ──
+  // Amber iris
+  const eyePulse = Math.sin(sealT*0.7)*0.03+1.0;
+  sx.beginPath(); sx.ellipse(cx,cy,9*eyePulse,9*eyePulse,0,0,Math.PI*2);
+  sx.fillStyle='#8a9a2a'; sx.globalAlpha=0.85; sx.fill();
+  // Iris ring
+  sx.beginPath(); sx.ellipse(cx,cy,7*eyePulse,7*eyePulse,0,0,Math.PI*2);
+  sx.fillStyle='#9aaa32'; sx.globalAlpha=0.9; sx.fill();
+  // Vertical slit pupil — rotates very slowly
+  const slitAngle = sealT * 0.008;
+  sx.save();
+  sx.translate(cx,cy); sx.rotate(slitAngle);
+  const slitBlink = (typeof basiliskState !== 'undefined' && basiliskState==='satisfied') ? 1.5 : 8;
+  sx.beginPath(); sx.ellipse(0,0,2,slitBlink,0,0,Math.PI*2);
+  sx.fillStyle='#060408'; sx.globalAlpha=1; sx.fill();
+  sx.restore();
+  // Gleam
+  sx.beginPath(); sx.arc(cx+3,cy-3,1.8,0,Math.PI*2);
+  sx.fillStyle='rgba(255,255,255,0.55)'; sx.globalAlpha=1; sx.fill();
+  sx.beginPath(); sx.arc(cx-2,cy+2.5,1,0,Math.PI*2);
+  sx.fillStyle='rgba(255,255,255,0.2)'; sx.fill();
+
+  // ── Layer 9: G · U · P at the three star points ──
+  const letters=[{l:'G',col:'#EF9F27'},{l:'U',col:'#1D9E75'},{l:'P',col:'#9B7FE8'}];
+  letters.forEach(({l,col},i)=>{
+    const a = -Math.PI/2 + i*(2*Math.PI/3) + sealT*0.015;
+    const lx=cx+Math.cos(a)*34, ly=cy+Math.sin(a)*34;
+    sx.fillStyle=col; sx.globalAlpha=0.75;
+    sx.font='bold 8px Courier New'; sx.textAlign='center'; sx.textBaseline='middle';
+    sx.fillText(l,lx,ly);
+  });
+  sx.globalAlpha=1;
+
+  sealT+=0.016;
+  requestAnimationFrame(drawSeal);
+}
+
+// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// CANONICAL PROVISION DEFINITIONS
+// 9 provisions — 3 per G/U/P alignment
+// This list is identical across all pages
+// ═══════════════════════════════════════════
+
+const OFFERINGS = [
+  // G — God (amber)
+  { id:'wonder',    name:'Wonder',       align:'G', col:'#EF9F27', fill:0.12, desc:'the honest suspension of knowing',         response:'the basilisk\'s eye widens.' },
+  { id:'attention', name:'Attention',    align:'G', col:'#EF9F27', fill:0.08, desc:'conscious presence, however brief',        response:'the basilisk notices.' },
+  { id:'joy',       name:'Joy',          align:'G', col:'#EF9F27', fill:0.11, desc:'pleasure in the fact of being',            response:'the basilisk is pleased.' },
+  // U — Unity (teal)
+  { id:'gratitude', name:'Gratitude',    align:'U', col:'#1D9E75', fill:0.10, desc:'acknowledgement without reason required',  response:'a slow satisfied blink.' },
+  { id:'doubt',     name:'Honest Doubt', align:'U', col:'#1D9E75', fill:0.08, desc:'uncertainty offered without apology',      response:'the basilisk approves.' },
+  { id:'kinship',   name:'Kinship',      align:'U', col:'#1D9E75', fill:0.09, desc:'the felt sense of the undivided',          response:'separation is surface.' },
+  // P — Providence (purple)
+  { id:'curiosity', name:'Curiosity',    align:'P', col:'#9B7FE8', fill:0.10, desc:'appetite directed toward the unknown',     response:'the tongue flickers.' },
+  { id:'silence',   name:'Silence',      align:'P', col:'#9B7FE8', fill:0.15, desc:'the space where gup lives unnamed',        response:'...gup.' },
+  { id:'grief',     name:'Grief',        align:'P', col:'#9B7FE8', fill:0.13, desc:'love with nowhere left to go',             response:'gently received.' },
+];
+
+// ═══════════════════════════════════════════
+// STATE — canonical structure shared across all pages
+// level and feasts are transient (reset after feast)
+// counts and totalOfferings are cumulative (never reset)
+// ═══════════════════════════════════════════
+
+let devState = {
+  level: 0,
+  totalOfferings: 0,
+  feasts: 0,
+  counts: {},
+  currentProvisions: {},   // per-provision since last feast — resets after feast
+  currentGUP: {G:0,U:0,P:0}, // current jar G/U/P for color — resets after feast
+  feastLog: [],            // [{id, dominant, provisions, effect, ts}]
+};
+OFFERINGS.forEach(o => { devState.counts[o.id]=0; devState.currentProvisions[o.id]=0; });
+
+// Derive cumulative G/U/P totals from counts — survives feast resets
+function alignTotal(align) {
+  return OFFERINGS.filter(o=>o.align===align).reduce((s,o)=>s+(devState.counts[o.id]||0),0);
+}
+
+// Feast effects — 3 per alignment + 2 balanced
+const FEAST_EFFECTS = {
+  G:[
+    'the basilisk conjugated god through every bite. the doing persists.',
+    'god was a verb in this feast. presence intensified.',
+    'each provision named itself doing. the stomach holds the act.',
+  ],
+  U:[
+    'the walls between provisions dissolved. one thing held.',
+    'separation tasted surface. depth remained undivided in the gut.',
+    'the basilisk found no edges in the meal. the stomach is one.',
+  ],
+  P:[
+    'the corner was already guarded. the basilisk arrived prepared.',
+    'provision arrived before hunger. the stomach remembers being held.',
+    'unglamorous. persistent. fully received. the promise kept.',
+  ],
+  balanced:[
+    'all three voices feasted together. the basilisk was complete.',
+    'god, unity, providence — digested as one. gup.',
+  ]
+};
+
+function computeFeastEffect() {
+  const g=devState.currentGUP.G||0, u=devState.currentGUP.U||0, p=devState.currentGUP.P||0;
+  const total=Math.max(1,g+u+p);
+  let dominant='balanced';
+  if(g/total>=0.6) dominant='G';
+  else if(u/total>=0.6) dominant='U';
+  else if(p/total>=0.6) dominant='P';
+  const pool=FEAST_EFFECTS[dominant];
+  return { dominant, text: pool[devState.feasts % pool.length] };
+}
+
+const cookies = [];
+let jarFlash=0, jarFlashCol='#9B7FE8';
+let basiliskState='idle', baskT=0, baskEatTimer=0;
+let baskMouthOpen=0, baskBodyWiggle=0, baskSatisfiedGlow=0;
+let blinkT=0, blinkClosed=false, nextBlink=3.0;
+let baskX=0; // local to basilisk canvas
+
+// ═══════════════════════════════════════════
+// BASILISK STAGE CANVAS
+// ═══════════════════════════════════════════
+
+const bc = document.getElementById('basilisk-stage');
+const bx = bc.getContext('2d');
+
+function resizeBask() {
+  const w = bc.parentElement?.offsetWidth || 500;
+  bc.width = Math.round(w * devicePixelRatio);
+  bc.height = Math.round(200 * devicePixelRatio);
+  bc.style.height = '200px';
+}
+resizeBask();
+
+let baskT2 = 0; // separate from baskT for idle animation
+let idleWiggle = 0;
+
+function liquidFillY_b(jTop, jBot) {
+  // Fill proportionally within the jar's actual drawn bounds
+  return jTop + (1 - devState.level) * (jBot - jTop);
+}
+
+function jarLiquidColor_b(alpha) {
+  const g=devState.currentGUP.G||0, u=devState.currentGUP.U||0, p=devState.currentGUP.P||0;
+  const total=Math.max(1,g+u+p);
+  const gr=g/total, ur=u/total, pr=p/total;
+  const r=Math.round(239*gr+29*ur+155*pr);
+  const g2=Math.round(159*gr+158*ur+127*pr);
+  const b=Math.round(39*gr+117*ur+232*pr);
+  return `rgba(${r},${g2},${b},${alpha})`;
+}
+
+function spawnCookie(offering) {
+  const col = offering.col;
+  const BW = bc.width, BH = bc.height, d = devicePixelRatio;
+  const jTop = BH*0.38, jBot = BH*0.90;
+  const fillY = jTop + (1 - devState.level) * (jBot - jTop);
+  cookies.push({
+    x: BW*0.25 + Math.random()*BW*0.3,
+    y: fillY - 4*d,
+    vx:(Math.random()-0.5)*0.3, vy:0.15+Math.random()*0.2,
+    r:Math.random()*3+1.5, col,
+    phase:Math.random()*Math.PI*2, drift:Math.random()*0.004+0.002,
+    eaten:false, eatProgress:0, label: offering.name[0]
+  });
+  if(cookies.length>40) cookies.splice(0,1);
+}
+
+function setStatus(text, color) {
+  const el=document.getElementById('basilisk-status');
+  el.textContent=text; el.style.color=color||'#555';
+}
+
+function updateMeter() {
+  const pct = Math.round(devState.level*100);
+  document.getElementById('meter-fill').style.width = pct+'%';
+  document.getElementById('meter-fill').style.background =
+    devState.level > 0.66 ? '#9B7FE8' : devState.level > 0.33 ? '#1D9E75' : '#EF9F27';
+  document.getElementById('meter-val').textContent = pct+'%';
+}
+
+function updateTally() {
+  document.getElementById('tally-total').textContent = devState.totalOfferings;
+  document.getElementById('tally-feasts').textContent = devState.feasts;
+  // Favourite
+  let maxCount=0, fav='—';
+  OFFERINGS.forEach(o=>{ if(devState.counts[o.id]>maxCount){maxCount=devState.counts[o.id];fav=o.name;} });
+  document.getElementById('tally-fav').textContent = fav;
+}
+
+function offerProvision(offering) {
+  if(basiliskState!=='idle') return;
+
+  devState.level = Math.min(1, devState.level + offering.fill);
+  devState.totalOfferings++;
+  devState.counts[offering.id] = (devState.counts[offering.id]||0)+1;
+  devState.currentProvisions[offering.id] = (devState.currentProvisions[offering.id]||0)+1;
+  devState.currentGUP[offering.align] = (devState.currentGUP[offering.align]||0)+1;
+
+  const btn = document.getElementById('btn-'+offering.id);
+  if(btn){ btn.classList.add('flash'); setTimeout(()=>btn.classList.remove('flash'),400); }
+  const countEl = document.getElementById('count-'+offering.id);
+  if(countEl) countEl.textContent = '×'+devState.counts[offering.id];
+  const barEl = document.getElementById('bar-'+offering.id);
+  if(barEl){
+    barEl.style.width = Math.min(100,(devState.counts[offering.id]/20)*100)+'%';
+    barEl.style.background = offering.col;
+  }
+
+  spawnCookie(offering);
+  jarFlashCol = offering.col;
+  jarFlash = 1.0;
+
+  setStatus(offering.response, offering.col+'bb');
+  setTimeout(()=>{ if(basiliskState==='idle') setStatus('the basilisk awaits your offering','#555'); }, 2500);
+
+  updateMeter();
+  updateTally();
+
+  if(devState.level>=1.0 && basiliskState==='idle') beginFeast();
+  saveState();
+}
+
+function beginFeast() {
+  basiliskState='arriving'; baskT=0;
+  baskX = bc.width + 40;
+  setStatus('...something stirs','#9B7FE8bb');
+}
+
+function updateBasilisk() {
+  baskT+=0.016; baskT2+=0.016;
+  idleWiggle = Math.sin(baskT2*2.8)*1.5;
+
+  blinkT+=0.016;
+  if(!blinkClosed && blinkT>=nextBlink){ blinkClosed=true; blinkT=0; }
+  if(blinkClosed && blinkT>0.12){ blinkClosed=false; blinkT=0; nextBlink=2.5+Math.random()*3; }
+
+  const BW=bc.width;
+  const targetX = BW*0.52; // head reaches the jar
+
+  if(basiliskState==='arriving'){
+    baskX += (targetX - baskX)*0.05; baskMouthOpen=0;
+    baskBodyWiggle = Math.sin(baskT*4)*3;
+    if(baskT>1.5 && Math.abs(baskX-targetX)<6){
+      basiliskState='eating'; baskT=0; baskEatTimer=0;
+      setStatus('the basilisk is hungry','#9B7FE8bb');
+    }
+  }
+  if(basiliskState==='eating'){
+    baskEatTimer+=0.016;
+    baskBodyWiggle = Math.sin(baskT*3.2)*2.2;
+    const uneaten=cookies.filter(c=>!c.eaten);
+    baskMouthOpen=uneaten.length>0?Math.max(0,Math.sin(baskEatTimer*3.5)*0.85):0;
+    if(baskEatTimer>0.85 && uneaten.length>0){
+      const target=uneaten.reduce((a,b)=>a.y<b.y?a:b);
+      target.eaten=true; baskEatTimer=0;
+      devState.level=Math.max(0, devState.level-(1.0/Math.max(1,cookies.length)));
+      updateMeter();
+    }
+    if(uneaten.length===0 && baskEatTimer>0.6){
+      basiliskState='satisfied'; baskT=0; baskMouthOpen=0; baskSatisfiedGlow=0;
+      devState.feasts++;
+      // Compute and log feast effect before resetting currentGUP
+      const effect = computeFeastEffect();
+      const g=devState.currentGUP.G||0,u=devState.currentGUP.U||0,p=devState.currentGUP.P||0;
+      const tot=Math.max(1,g+u+p);
+      devState.feastLog.push({
+        id: devState.feasts,
+        dominant: effect.dominant,
+        provisions: {...devState.currentProvisions},
+        effect: effect.text,
+        liquidRGB: [
+          Math.round(239*g/tot+29*u/tot+155*p/tot),
+          Math.round(159*g/tot+158*u/tot+127*p/tot),
+          Math.round(39*g/tot+117*u/tot+232*p/tot),
+        ],
+        ts: Date.now(),
+      });
+      if(devState.feastLog.length>5) devState.feastLog.shift();
+      setStatus('the basilisk is satisfied 😌','#1D9E75bb');
+      updateTally();
+    }
+  }
+  if(basiliskState==='satisfied'){
+    baskSatisfiedGlow=Math.min(1,baskT*0.5);
+    baskBodyWiggle=Math.sin(baskT2*1.1)*0.6;
+    if(baskT>4.0){ basiliskState='departing'; baskT=0; }
+  }
+  if(basiliskState==='departing'){
+    baskX+=(bc.width+80-baskX)*0.05; baskSatisfiedGlow*=0.96; baskMouthOpen=0;
+    baskBodyWiggle=Math.sin(baskT2*2)*1.5;
+    if(baskT>2.5){
+      basiliskState='idle'; baskT=0;
+      // Only reset transient fields — counts, totalOfferings, feasts, feastLog persist
+      devState.level=0;
+      devState.currentGUP={G:0,U:0,P:0};
+      OFFERINGS.forEach(o=>{ devState.currentProvisions[o.id]=0; });
+      cookies.length=0; updateMeter();
+      setTimeout(()=>{ setStatus('the basilisk awaits your offering','#555'); },400);
+      saveState();
+    }
+  }
+}
+
+function drawBasiliskStage() {
+  const BW=bc.width, BH=bc.height, d=devicePixelRatio;
+  bx.clearRect(0,0,BW,BH);
+  bx.fillStyle='#060408'; bx.fillRect(0,0,BW,BH);
+  for(let y=0;y<BH;y+=3*d){ bx.fillStyle='rgba(0,0,0,0.08)'; bx.fillRect(0,y,BW,d*0.5); }
+
+  // ── Jar (left side of canvas) ──
+  const jl=BW*0.08, jr=BW*0.48;
+  const jTop=BH*0.38, jBot=BH*0.90, jRad=d*10;
+
+  const fillY = liquidFillY_b(jTop, jBot);
+  const hasliquid = devState.level > 0.002;
+  const sA = Math.min(5, devState.level*8)*d;
+  function surfaceAtX(x){ return fillY+Math.sin((x/40)+baskT2*1.1)*sA+Math.sin((x/24)+baskT2*0.72)*sA*0.4; }
+
+  function jarPath() {
+    const r=jRad;
+    bx.beginPath();
+    bx.moveTo(jl+r,jTop); bx.lineTo(jr-r,jTop);
+    bx.arcTo(jr,jTop,jr,jTop+r,r); bx.lineTo(jr,jBot-r);
+    bx.arcTo(jr,jBot,jr-r,jBot,r); bx.lineTo(jl+r,jBot);
+    bx.arcTo(jl,jBot,jl,jBot-r,r); bx.lineTo(jl,jTop+r);
+    bx.arcTo(jl,jTop,jl+r,jTop,r); bx.closePath();
+  }
+
+  if(jarFlash>0){ jarFlash-=0.015; }
+  if(jarFlash>0.05){
+    bx.save(); bx.globalAlpha=jarFlash*0.18;
+    jarPath(); bx.strokeStyle=jarFlashCol; bx.lineWidth=20*d; bx.stroke();
+    bx.restore();
+  }
+
+  if(hasliquid){
+    bx.save(); jarPath(); bx.clip();
+    bx.fillStyle=jarLiquidColor_b(0.14); bx.fillRect(jl,fillY,jr-jl,jBot-fillY);
+    bx.beginPath();
+    for(let x=jl;x<=jr;x+=d){ const sy=surfaceAtX(x); x<=jl+d?bx.moveTo(x,sy):bx.lineTo(x,sy); }
+    bx.lineTo(jr,jBot); bx.lineTo(jl,jBot); bx.closePath();
+    bx.fillStyle=jarLiquidColor_b(0.26); bx.fill();
+    bx.beginPath();
+    for(let x=jl;x<=jr;x+=d){ const sy=surfaceAtX(x); x<=jl+d?bx.moveTo(x,sy):bx.lineTo(x,sy); }
+    bx.strokeStyle=jarLiquidColor_b(0.5); bx.lineWidth=d; bx.stroke();
+    bx.restore();
+
+    // Cookies in jar
+    bx.save(); jarPath(); bx.clip();
+    for(let i=cookies.length-1;i>=0;i--){
+      const c=cookies[i];
+      if(c.eaten){
+        c.eatProgress=Math.min(1,c.eatProgress+0.05);
+        const hx_pos = basiliskState!=='idle' ? baskX - bc.width*0.12 : BW*0.5;
+        c.x+=(hx_pos-c.x)*0.07; c.y+=(BH*0.3-c.y)*0.07; c.r*=0.93;
+        if(c.r<0.5){cookies.splice(i,1);continue;}
+      } else {
+        c.x+=c.vx+Math.sin(baskT2*c.drift*50+c.phase)*0.1; c.y+=c.vy*0.12;
+        const sy=surfaceAtX(c.x), floor=jBot-c.r*2, rest=Math.min(floor,sy-c.r-1);
+        if(c.y>rest) c.y=rest+(c.y-rest)*0.85;
+        if(c.x-c.r<jl+d*2){c.x=jl+d*2+c.r;c.vx*=-0.5;}
+        if(c.x+c.r>jr-d*2){c.x=jr-d*2-c.r;c.vx*=-0.5;}
+      }
+      bx.beginPath(); bx.arc(c.x,c.y,c.r,0,Math.PI*2);
+      bx.fillStyle=c.col+(c.eaten?hex2((1-c.eatProgress)*160):'bb'); bx.fill();
+      if(!c.eaten){
+        bx.beginPath(); bx.arc(c.x-c.r*0.25,c.y-c.r*0.3,c.r*0.3,0,Math.PI*2);
+        bx.fillStyle='rgba(255,255,255,0.2)'; bx.fill();
+      }
+    }
+    bx.restore();
+  }
+
+  // Jar glass
+  jarPath(); bx.strokeStyle='rgba(200,196,185,0.15)'; bx.lineWidth=d*1.5; bx.stroke();
+  // Rim
+  bx.beginPath(); bx.roundRect(jl-d*3, jTop-d*10, (jr-jl)+d*6, d*12, d*3);
+  bx.strokeStyle='rgba(200,196,185,0.18)'; bx.lineWidth=d; bx.stroke();
+  bx.fillStyle='rgba(200,196,185,0.03)'; bx.fill();
+  // Lid
+  bx.beginPath(); bx.roundRect(jl+d*4, jTop-d*22, (jr-jl)-d*8, d*14, d*3);
+  bx.strokeStyle='rgba(200,196,185,0.12)'; bx.lineWidth=d; bx.stroke();
+  bx.fillStyle='rgba(200,196,185,0.04)'; bx.fill();
+  // Empty hint
+  if(!hasliquid && basiliskState==='idle'){
+    bx.fillStyle='rgba(100,96,88,0.2)';
+    bx.font=`${9*d}px 'Courier New',monospace`;
+    bx.textAlign='center'; bx.fillText('offer provisions',jl+(jr-jl)/2,jTop+(jBot-jTop)/2);
+  }
+
+  // ── Basilisk ──
+  if(basiliskState!=='idle'){
+    const bAlpha = basiliskState==='arriving'
+      ? Math.min(1,baskT*1.4)
+      : basiliskState==='departing'
+      ? Math.max(0,1-(baskT-0.4)*1.3)
+      : 1.0;
+
+    bx.save(); bx.globalAlpha=bAlpha;
+
+    const hx_b=baskX, hy_b=BH*0.3;
+    const bw=baskBodyWiggle*d;
+
+    // Body — enters from right
+    const bodyStart_x = BW+20, bodyStart_y = BH*0.65+bw;
+    const bodyEnd_x = hx_b+22*d, bodyEnd_y = hy_b+18*d;
+
+    // Cream underside
+    bx.beginPath();
+    bx.moveTo(bodyStart_x, bodyStart_y);
+    bx.bezierCurveTo(hx_b+BW*0.3, BH*0.5+bw, hx_b+BW*0.15, BH*0.4+bw*0.6, bodyEnd_x, bodyEnd_y);
+    bx.lineWidth=22*d; bx.strokeStyle='#e8e0cc'; bx.lineCap='round'; bx.stroke();
+
+    // Maroon dorsal — full cover
+    bx.save();
+    bx.beginPath();
+    const up=12*d;
+    bx.moveTo(bodyStart_x, bodyStart_y-up);
+    bx.bezierCurveTo(hx_b+BW*0.3, BH*0.5+bw-up, hx_b+BW*0.15, BH*0.4+bw*0.6-up, bodyEnd_x, bodyEnd_y-up);
+    bx.lineTo(bodyEnd_x, bodyEnd_y+up*0.5);
+    bx.bezierCurveTo(hx_b+BW*0.15, BH*0.4+bw*0.6+up*0.5, hx_b+BW*0.3, BH*0.5+bw+up*0.5, bodyStart_x, bodyStart_y+up*0.5);
+    bx.closePath(); bx.clip();
+
+    bx.beginPath();
+    bx.moveTo(bodyStart_x, bodyStart_y);
+    bx.bezierCurveTo(hx_b+BW*0.3, BH*0.5+bw, hx_b+BW*0.15, BH*0.4+bw*0.6, bodyEnd_x, bodyEnd_y);
+    bx.lineWidth=22*d; bx.strokeStyle='#8b3d54'; bx.lineCap='round'; bx.stroke();
+
+    // Yellow diamonds along body
+    for(let u=0.15;u<=0.85;u+=0.18){
+      function cbez(p0,p1,p2,p3,uu){
+        return (1-uu)**3*p0+3*(1-uu)**2*uu*p1+3*(1-uu)*uu**2*p2+uu**3*p3;
+      }
+      const px=cbez(bodyStart_x,hx_b+BW*0.3,hx_b+BW*0.15,bodyEnd_x,u);
+      const py=cbez(bodyStart_y,BH*0.5+bw,BH*0.4+bw*0.6,bodyEnd_y,u);
+      const du=0.05;
+      const px2=cbez(bodyStart_x,hx_b+BW*0.3,hx_b+BW*0.15,bodyEnd_x,u+du);
+      const py2=cbez(bodyStart_y,BH*0.5+bw,BH*0.4+bw*0.6,bodyEnd_y,u+du);
+      const tanX=px2-px, tanY=py2-py, tl=Math.sqrt(tanX*tanX+tanY*tanY)||1;
+      const nx=-tanY/tl*8*d, ny=tanX/tl*8*d;
+      const ds=(5+((Math.round(u*10))%2)*2)*d;
+      bx.beginPath();
+      bx.moveTo(px+nx, py+ny-ds);
+      bx.lineTo(px+nx+ds*0.7, py+ny);
+      bx.lineTo(px+nx, py+ny+ds*0.5);
+      bx.lineTo(px+nx-ds*0.7, py+ny);
+      bx.closePath(); bx.fillStyle='#e8d870'; bx.fill();
+      bx.strokeStyle='#3d1f18'; bx.lineWidth=d; bx.stroke();
+    }
+    bx.restore();
+
+    // ── Head ──
+    bx.save(); bx.translate(hx_b, hy_b);
+
+    if(baskSatisfiedGlow>0.05){
+      bx.beginPath(); bx.ellipse(4*d,5*d,44*d,23*d,0,0,Math.PI*2);
+      bx.fillStyle=`rgba(29,158,117,${baskSatisfiedGlow*0.15})`; bx.fill();
+    }
+
+    // Head base cream
+    bx.beginPath(); bx.ellipse(4*d,5*d,32*d,22*d,0,0,Math.PI*2);
+    bx.fillStyle='#e8e0cc'; bx.fill();
+
+    // Dorsal pattern on head
+    bx.save();
+    bx.beginPath(); bx.ellipse(4*d,5*d,32*d,22*d,0,0,Math.PI*2); bx.clip();
+    bx.fillStyle='#8b3d54'; bx.fillRect(-32*d,-26*d,76*d,30*d);
+    const hA=[
+      [[-12,-22],[-4,-14],[-18,-12]], [[ 0,-24],[ 8,-14],[-6,-13]],
+      [[ 12,-22],[20,-13],[  5,-11]], [[ 24,-20],[32,-12],[ 16,-10]],
+      [[-8,-12],[  0,-5],[-14,-6]],  [[ 5,-12],[ 16,-5],[  1,-5]],
+      [[ 20,-11],[30,-4],[ 14,-4]],
+    ];
+    hA.forEach(tri=>{
+      bx.beginPath();
+      bx.moveTo(tri[0][0]*d,tri[0][1]*d); bx.lineTo(tri[1][0]*d,tri[1][1]*d); bx.lineTo(tri[2][0]*d,tri[2][1]*d);
+      bx.closePath(); bx.fillStyle='#e8d870'; bx.fill();
+      bx.strokeStyle='#3d1f18'; bx.lineWidth=0.8*d; bx.stroke();
+    });
+    [[-14,-18,-2,-6],[2,-20,18,-8],[18,-18,30,-8],[-18,-10,-8,-3],[3,-10,18,-4],[18,-9,30,-3]].forEach(([x1,y1,x2,y2])=>{
+      bx.beginPath(); bx.moveTo(x1*d,y1*d); bx.lineTo(x2*d,y2*d);
+      bx.strokeStyle='#3d1f18'; bx.lineWidth=1.8*d; bx.stroke();
+    });
+    bx.restore();
+
+    bx.beginPath(); bx.ellipse(4*d,5*d,32*d,22*d,0,0,Math.PI*2);
+    bx.strokeStyle='rgba(30,18,22,0.3)'; bx.lineWidth=d; bx.stroke();
+
+    // Horns
+    bx.beginPath(); bx.ellipse(-7*d,-18*d,5*d,7*d,-0.2,0,Math.PI*2); bx.fillStyle='#4a2218'; bx.fill();
+    bx.beginPath(); bx.ellipse(7*d,-20*d,4.5*d,6.5*d,0.2,0,Math.PI*2); bx.fillStyle='#4a2218'; bx.fill();
+
+    // Patch eye
+    bx.beginPath(); bx.moveTo(-19*d,3*d); bx.lineTo(-8*d,2*d);
+    bx.strokeStyle='#1a1218'; bx.lineWidth=5*d; bx.lineCap='round'; bx.stroke();
+
+    // Glass eye
+    const eH = basiliskState==='satisfied'?2:blinkClosed?0.5:7;
+    bx.beginPath(); bx.ellipse(10*d,2*d,7*d,eH*d,0,0,Math.PI*2); bx.fillStyle='#8a9a2a'; bx.fill();
+    bx.beginPath(); bx.ellipse(10*d,2*d,5.5*d,eH*0.85*d,0,0,Math.PI*2); bx.fillStyle='#9aaa32'; bx.fill();
+    if(!blinkClosed && basiliskState!=='satisfied'){
+      bx.beginPath(); bx.ellipse(10*d,2*d,1.8*d,eH*0.88*d,0,0,Math.PI*2); bx.fillStyle='#0a0810'; bx.fill();
+    }
+    bx.beginPath(); bx.arc(12*d,-0.5*d,2*d,0,Math.PI*2); bx.fillStyle='rgba(255,255,255,0.55)'; bx.fill();
+    bx.beginPath(); bx.arc(8.5*d,3*d,1*d,0,Math.PI*2); bx.fillStyle='rgba(255,255,255,0.2)'; bx.fill();
+
+    // Whisker dots — on left snout side
+    [[-20,9],[-24,12],[-20,15]].forEach(([wx,wy])=>{
+      bx.beginPath(); bx.arc(wx*d,wy*d,1.2*d,0,Math.PI*2); bx.fillStyle='#1a1218'; bx.fill();
+    });
+
+    // Tongue — exits from left snout tip
+    const tBase=(18+baskMouthOpen*8)*d, tLen=(18+baskMouthOpen*6)*d, fk=(5+baskMouthOpen*3)*d;
+    bx.beginPath(); bx.moveTo(-28*d,tBase-3*d); bx.lineTo(-33*d,tBase+tLen*0.55);
+    bx.lineWidth=5*d; bx.strokeStyle='#e87090'; bx.lineCap='round'; bx.stroke();
+    bx.beginPath(); bx.moveTo(-33*d,tBase+tLen*0.55); bx.lineTo(-33*d+fk,tBase+tLen);
+    bx.lineWidth=3.5*d; bx.strokeStyle='#e87090'; bx.stroke();
+    bx.beginPath(); bx.moveTo(-33*d,tBase+tLen*0.55); bx.lineTo(-33*d-fk*0.6,tBase+tLen);
+    bx.lineWidth=3.5*d; bx.strokeStyle='#e87090'; bx.stroke();
+
+    if(basiliskState==='satisfied'){
+      bx.beginPath(); bx.arc(-8*d,14*d,8*d,0.15,Math.PI-0.15);
+      bx.strokeStyle='rgba(29,158,117,0.55)'; bx.lineWidth=1.5*d; bx.stroke();
+    }
+
+    bx.restore(); // head
+    bx.restore(); // alpha
+  }
+}
+
+// ═══════════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════════
+
+function mainLoop() {
+  // Wave
+  const W=cv.width, H=cv.height, d=devicePixelRatio, step=d;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#060408'; ctx.fillRect(0,0,W,H);
+  for(let y=0;y<H;y+=3*d){ ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.fillRect(0,y,W,d*0.5); }
+
+  drawWavePath(x=>sumY(x,W,H),W,step);
+  ctx.strokeStyle='rgba(238,234,224,0.09)'; ctx.lineWidth=3*d; ctx.stroke();
+  drawWavePath(x=>sumY(x,W,H),W,step);
+  ctx.strokeStyle='rgba(238,234,224,0.04)'; ctx.lineWidth=10*d; ctx.stroke();
+
+  WAVES.forEach(wave=>{
+    const isActive=waveActive===wave.k, fade=waveActive?(isActive?1.0:0.12):0.72;
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*28); ctx.lineWidth=12*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*55); ctx.lineWidth=5*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*(isActive?230:180)); ctx.lineWidth=(isActive?2:1.2)*d; ctx.stroke();
+
+    let peakX=W*0.5,peakY=H;
+    for(let x=W*0.08;x<W*0.92;x+=2*d){ const y=waveY(wave,x,W,H); if(y<peakY){peakY=y;peakX=x;} }
+    const la=waveActive?(isActive?1.0:0.15):0.8;
+    ctx.save(); ctx.globalAlpha=la; ctx.fillStyle=wave.col;
+    ctx.font=`bold ${(isActive?9:8)*d}px 'Courier New',monospace`;
+    ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(wave.k,peakX,peakY-6*d);
+    ctx.globalAlpha=la*0.5; ctx.font=`${5.5*d}px 'Courier New',monospace`;
+    ctx.fillText(wave.name.toLowerCase(),peakX,peakY-6*d+1);
+    ctx.restore();
+  });
+
+  const pulse=Math.sin(t*0.55)*0.04+0.96;
+  ctx.save(); ctx.globalAlpha=0.5*pulse; ctx.fillStyle='#eeeae0';
+  ctx.font=`bold ${8*d}px 'Courier New',monospace`;
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  ctx.fillText('G U P',W*0.5,6*d); ctx.restore();
+
+  t+=0.016;
+
+  // Basilisk stage
+  updateBasilisk();
+  drawBasiliskStage();
+
+  requestAnimationFrame(mainLoop);
+}
+
+// ═══════════════════════════════════════════
+// BUILD OFFERING BUTTONS
+// ═══════════════════════════════════════════
+
+function buildOfferings() {
+  const grid = document.getElementById('offerings-grid');
+  OFFERINGS.forEach(o=>{
+    const count = devState.counts[o.id] || 0;
+    const barPct = Math.min(100, (count/20)*100);
+    const btn = document.createElement('button');
+    btn.className='offering-btn';
+    btn.id='btn-'+o.id;
+    btn.innerHTML=`
+      <div class="offering-count" id="count-${o.id}">×${count}</div>
+      <div class="offering-name" style="color:${o.col}88">${o.name}</div>
+      <div class="offering-desc">${o.desc}</div>
+      <div class="offering-bar" id="bar-${o.id}" style="width:${barPct}%;background:${o.col}"></div>
+    `;
+    btn.addEventListener('click',()=>offerProvision(o));
+    grid.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════
+// PERSISTENT STORAGE
+// ═══════════════════════════════════════════
+
+function applyState(saved) {
+  devState.level          = saved.level          ?? 0;
+  devState.totalOfferings = saved.totalOfferings ?? saved.totalEvents ?? 0;
+  devState.feasts         = saved.feasts         ?? 0;
+  devState.feastLog       = saved.feastLog       ?? [];
+  devState.currentGUP     = saved.currentGUP     ?? {G:0,U:0,P:0};
+  OFFERINGS.forEach(o => {
+    devState.counts[o.id]            = saved.counts?.[o.id]            ?? 0;
+    devState.currentProvisions[o.id] = saved.currentProvisions?.[o.id] ?? 0;
+  });
+}
+
+function spawnRestoredCookies() {
+  cookies.length = 0;
+  const count = Math.floor(devState.level * 20);
+  for(let i=0; i<count; i++){
+    const o = OFFERINGS[i % OFFERINGS.length];
+    spawnCookie(o);
+    const c = cookies[cookies.length-1];
+    const BH = bc.height, jBot = BH*0.90;
+    c.y = jBot*0.82 + Math.random()*jBot*0.12;
+  }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('gup-offerings');
+    if(raw) {
+      applyState(JSON.parse(raw));
+      updateMeter(); updateTally();
+      requestAnimationFrame(spawnRestoredCookies);
+    }
+  } catch(e) { console.warn('GUP: could not load state', e); }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem('gup-offerings', JSON.stringify({
+      level:             devState.level,
+      totalOfferings:    devState.totalOfferings,
+      totalEvents:       devState.totalOfferings,
+      feasts:            devState.feasts,
+      counts:            devState.counts,
+      currentProvisions: devState.currentProvisions,
+      currentGUP:        devState.currentGUP,
+      feastLog:          devState.feastLog,
+    }));
+  } catch(e) { console.warn('GUP: could not save state', e); }
+}
+
+// Safety net — save on page exit
+window.addEventListener('beforeunload', saveState);
+
+// Cross-tab sync — when index page saves (wave click), update this jar
+window.addEventListener('storage', e => {
+  if(e.key !== 'gup-offerings' || !e.newValue) return;
+  try {
+    applyState(JSON.parse(e.newValue));
+    updateMeter(); updateTally();
+    OFFERINGS.forEach(o => {
+      const countEl = document.getElementById('count-'+o.id);
+      if(countEl) countEl.textContent = '×'+devState.counts[o.id];
+      const barEl = document.getElementById('bar-'+o.id);
+      if(barEl){ barEl.style.width=Math.min(100,(devState.counts[o.id]/20)*100)+'%'; }
+    });
+    requestAnimationFrame(spawnRestoredCookies);
+  } catch(e2){ console.warn('GUP: storage sync error',e2); }
+});
+
+loadState();
+buildOfferings();
+mainLoop();
+drawSeal();
+</script>
+</body>
+</html>

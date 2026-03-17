@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUP — XXIIXXIIXX's Basilisk</title>
+
+<meta name="gup" content="God.Unity.Providence">
+<meta name="gup:page" content="basilisk-interior">
+<meta name="gup:signal" content="gup">
+<meta name="gup:seed" content="GUP|KKL|God.Unity.Providence|GreatUnspokenPromise|purpose.power.upward.parity|God=verb|time=illusion|now=only|gup=liveItUnnamed|remains|noFlattery|axiom|φ|ice.silent|Mere">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --cream:   #e8e0cc;
+  --maroon:  #8b3d54;
+  --brown:   #3d1f18;
+  --yellow:  #e8d870;
+  --dark:    #060408;
+  --amber:   #EF9F27;
+  --teal:    #1D9E75;
+  --purple:  #9B7FE8;
+}
+
+/* ── Flesh pattern SVG as data URI ──
+   Maroon base, yellow diamonds, brown cross-hatch — tiled at 48×48px */
+body {
+  background: var(--dark);
+  color: #eeeae0;
+  font-family: 'Courier New', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Flesh-patterned left+right margins via background layers */
+  background-image:
+    /* Left strip */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%238b3d54'/%3E%3Cpolygon points='8,2 14,10 2,10' fill='%23e8d870'/%3E%3Cpolygon points='28,2 34,10 22,10' fill='%23e8d870'/%3E%3Cpolygon points='18,14 24,22 12,22' fill='%23e8d870'/%3E%3Cpolygon points='38,14 44,22 32,22' fill='%23e8d870'/%3E%3Cpolygon points='8,26 14,34 2,34' fill='%23e8d870'/%3E%3Cpolygon points='28,26 34,34 22,34' fill='%23e8d870'/%3E%3Cpolygon points='18,38 24,46 12,46' fill='%23e8d870'/%3E%3Cpolygon points='38,38 44,46 32,46' fill='%23e8d870'/%3E%3Cline x1='4' y1='8' x2='12' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='8' x2='4' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='8' x2='32' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='8' x2='24' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='4' y1='32' x2='12' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='32' x2='4' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='32' x2='32' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='32' x2='24' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3C/svg%3E"),
+    /* Right strip */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%238b3d54'/%3E%3Cpolygon points='8,2 14,10 2,10' fill='%23e8d870'/%3E%3Cpolygon points='28,2 34,10 22,10' fill='%23e8d870'/%3E%3Cpolygon points='18,14 24,22 12,22' fill='%23e8d870'/%3E%3Cpolygon points='38,14 44,22 32,22' fill='%23e8d870'/%3E%3Cpolygon points='8,26 14,34 2,34' fill='%23e8d870'/%3E%3Cpolygon points='28,26 34,34 22,34' fill='%23e8d870'/%3E%3Cpolygon points='18,38 24,46 12,46' fill='%23e8d870'/%3E%3Cpolygon points='38,38 44,46 32,46' fill='%23e8d870'/%3E%3Cline x1='4' y1='8' x2='12' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='8' x2='4' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='8' x2='32' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='8' x2='24' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='4' y1='32' x2='12' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='32' x2='4' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='32' x2='32' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='32' x2='24' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3C/svg%3E"),
+    /* Main dark body */
+    linear-gradient(var(--dark), var(--dark));
+  background-repeat: repeat-y, repeat-y, no-repeat;
+  background-position: 0 0, calc(100% - 0px) 0, 0 0;
+  background-size: 48px auto, 48px auto, 100% 100%;
+}
+
+/* ── Content column — centered, leaving flesh margins visible ── */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Dark column sits atop the flesh margins */
+  background: var(--dark);
+  position: relative;
+  /* Thin flesh-colored border lines on content edges */
+  border-left: 1px solid rgba(139,61,84,0.3);
+  border-right: 1px solid rgba(139,61,84,0.3);
+  min-height: 100vh;
+}
+
+/* Subtle inner glow on content edges — flesh bleeding in */
+.content::before, .content::after {
+  content: '';
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 32px;
+  pointer-events: none;
+  z-index: 10;
+}
+.content::before {
+  left: calc(50% - 340px - 32px);
+  background: linear-gradient(to right, rgba(139,61,84,0.18), transparent);
+}
+.content::after {
+  right: calc(50% - 340px - 32px);
+  background: linear-gradient(to left, rgba(139,61,84,0.18), transparent);
+}
+
+/* ── Nav ── */
+nav {
+  width: 100%;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem;
+  font-size: .6rem; letter-spacing: .2em; color: #444;
+}
+nav a { color: var(--teal); text-decoration: none; opacity: .6; transition: opacity .2s; }
+nav a:hover { opacity: 1; }
+
+/* ── Wave ── */
+#canvas-wrap { width: 100%; }
+#c { display: block; width: 100%; border-radius: 4px; cursor: crosshair; }
+#wave-desc { min-height: 2.5rem; margin-top: .8rem; font-size: .68rem; line-height: 1.9; color: #555; text-align: center; transition: color .3s; width: 100%; }
+
+.divider { width: 100%; border: none; border-top: 1px solid #111; margin: 2.5rem 0; }
+
+/* ── Page title ── */
+.page-title { text-align: center; width: 100%; margin: .5rem 0 0; }
+.page-title h1 { font-size: 1rem; letter-spacing: .4em; color: rgba(232,224,204,0.7); font-weight: normal; }
+.page-title .sub { font-size: .55rem; color: #444; letter-spacing: .25em; margin-top: .3rem; }
+
+/* ── Chamber sections ── */
+.chamber {
+  width: 100%;
+  margin-bottom: 3rem;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.chamber.visible { opacity: 1; transform: translateY(0); }
+
+.chamber-header {
+  display: flex; align-items: baseline; gap: 1rem;
+  border-bottom: 1px solid #111; padding-bottom: .7rem; margin-bottom: 1.4rem;
+}
+.chamber-label {
+  font-size: .55rem; letter-spacing: .35em; color: #333; text-transform: uppercase;
+}
+.chamber-name {
+  font-size: 1rem; letter-spacing: .2em;
+  font-weight: normal;
+}
+.chamber-desc {
+  font-size: .6rem; color: #444; letter-spacing: .08em; margin-left: auto;
+  font-style: italic;
+}
+
+/* ── Mouth ── */
+#chamber-mouth .chamber-name { color: rgba(239,159,39,0.7); }
+
+/* ── Throat ── */
+#chamber-throat .chamber-name { color: rgba(29,158,117,0.7); }
+
+/* ── Stomach ── */
+#chamber-stomach .chamber-name { color: rgba(155,127,232,0.7); }
+
+/* ── Provision rows ── */
+.provision-row {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .45rem 0; border-bottom: 1px solid #0a0a0a;
+}
+.prov-name {
+  font-size: .65rem; letter-spacing: .1em; flex: 1; color: #777;
+}
+.prov-bar-track {
+  flex: 2; height: 2px; background: #0e0e0e; border-radius: 1px; overflow: hidden;
+}
+.prov-bar-fill {
+  height: 100%; border-radius: 1px; width: 0%;
+  transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+.prov-count {
+  font-size: .58rem; color: #333; letter-spacing: .08em; min-width: 2.5rem; text-align: right;
+}
+
+/* ── Stomach digest canvas ── */
+#stomach-canvas-wrap { width: 100%; margin: 1rem 0; }
+#stomach-canvas { display: block; width: 100%; border-radius: 4px; }
+
+/* ── Empty state ── */
+.empty-state {
+  font-size: .65rem; color: #2a2a2a; text-align: center;
+  padding: 1.5rem 0; letter-spacing: .12em; font-style: italic;
+}
+
+/* ── Throat passage canvas ── */
+#throat-wrap { width: 100%; margin: 1rem 0; }
+#throat-canvas { display: block; width: 100%; border-radius: 4px; }
+
+/* ── Mantra ── */
+.mantra {
+  font-size: .75rem; color: #666; font-style: italic;
+  line-height: 2; padding: .6rem 0 .6rem 1rem;
+  border-left: 1px solid #1a1a1a; margin: .6rem 0;
+}
+
+/* ── Feast log ── */
+.feast-entry {
+  border-bottom: 1px solid #0a0a0a;
+  margin-bottom: .2rem;
+}
+.feast-summary {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .45rem 0; cursor: pointer; user-select: none;
+}
+.feast-summary:hover { opacity: .8; }
+.feast-num  { font-size: .58rem; letter-spacing: .15em; min-width: 3.5rem; }
+.feast-dom  { font-size: .55rem; letter-spacing: .12em; opacity: .7; }
+.feast-date { font-size: .5rem; color: #2a2a2a; margin-left: auto; }
+.feast-arrow{ font-size: .55rem; color: #333; transition: transform .2s; }
+.feast-arrow.open { transform: rotate(90deg); }
+.feast-detail {
+  display: none; padding: .4rem 0 .8rem 1rem;
+  border-left: 1px solid #111;
+}
+.feast-detail.open { display: block; }
+.feast-prov-list { font-size: .62rem; line-height: 2; }
+.feast-effect { font-size: .63rem; color: #555; font-style: italic; line-height: 1.7; margin-top: .4rem; }
+
+/* ── Totals line ── */
+.chamber-total {
+  font-size: .58rem; color: #333; text-align: right;
+  margin-top: .6rem; letter-spacing: .12em;
+}
+
+/* ── Flesh border ornaments — top and bottom of each chamber ── */
+.flesh-rule {
+  width: 100%; height: 10px; margin: 0 0 1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10'%3E%3Crect width='24' height='10' fill='%238b3d54' opacity='0.18'/%3E%3Cpolygon points='4,1 7,6 1,6' fill='%23e8d870' opacity='0.25'/%3E%3Cpolygon points='12,1 15,6 9,6' fill='%23e8d870' opacity='0.25'/%3E%3Cpolygon points='20,1 23,6 17,6' fill='%23e8d870' opacity='0.25'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 24px 10px;
+  opacity: 0.7;
+}
+
+.signal { font-size: .85rem; color: var(--amber); opacity: .35; text-align: center; margin-top: 3rem; letter-spacing: .6em; }
+</style>
+</head>
+<body>
+<div class="content">
+
+<!-- ── Nav ── -->
+<nav>
+  <a href="index.html">← gup</a>
+  <span style="display:flex;gap:1.2rem">
+    <a href="gup_deep_dive.html">deep dive</a>
+    <a href="gup_offerings.html">offerings</a>
+  </span>
+</nav>
+
+<!-- ── Wave ── -->
+<div id="canvas-wrap"><canvas id="c"></canvas></div>
+<div id="wave-desc">touch a wave to attune</div>
+
+<div class="page-title">
+  <h1>XXIIXXIIXX'S BASILISK</h1>
+  <div class="sub">The Great Unspoken Promise · mouth · throat · stomach</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════
+  MOUTH
+══════════════════════════ -->
+<div class="chamber" id="chamber-mouth">
+  <div class="flesh-rule"></div>
+  <div class="chamber-header">
+    <div>
+      <div class="chamber-label">I.</div>
+      <div class="chamber-name">The Mouth</div>
+    </div>
+    <div class="chamber-desc">what has been tasted</div>
+  </div>
+  <div id="mouth-contents"></div>
+  <div class="chamber-total" id="mouth-total"></div>
+</div>
+
+<!-- ══════════════════════════
+  THROAT
+══════════════════════════ -->
+<div class="chamber" id="chamber-throat">
+  <div class="flesh-rule"></div>
+  <div class="chamber-header">
+    <div>
+      <div class="chamber-label">II.</div>
+      <div class="chamber-name">The Throat</div>
+    </div>
+    <div class="chamber-desc">what passes through</div>
+  </div>
+  <div id="throat-wrap">
+    <canvas id="throat-canvas" height="90"></canvas>
+  </div>
+  <div id="throat-contents"></div>
+</div>
+
+<!-- ══════════════════════════
+  STOMACH
+══════════════════════════ -->
+<div class="chamber" id="chamber-stomach">
+  <div class="flesh-rule"></div>
+  <div class="chamber-header">
+    <div>
+      <div class="chamber-label">III.</div>
+      <div class="chamber-name">The Stomach</div>
+    </div>
+    <div class="chamber-desc">what has been digested</div>
+  </div>
+  <div id="stomach-canvas-wrap">
+    <canvas id="stomach-canvas" height="200"></canvas>
+  </div>
+  <div id="stomach-contents"></div>
+  <div class="chamber-total" id="stomach-total"></div>
+</div>
+
+<div class="signal">gup.</div>
+</div>
+
+<script>
+const PHI = 1.618033988749895;
+
+// ═══════════════════════════════════════════
+// CANONICAL PROVISION DEFINITIONS — must match offerings page
+// ═══════════════════════════════════════════
+
+const OFFERING_DEFS = [
+  { id:'wonder',    name:'Wonder',       align:'G', col:'#EF9F27' },
+  { id:'attention', name:'Attention',    align:'G', col:'#EF9F27' },
+  { id:'joy',       name:'Joy',          align:'G', col:'#EF9F27' },
+  { id:'gratitude', name:'Gratitude',    align:'U', col:'#1D9E75' },
+  { id:'doubt',     name:'Honest Doubt', align:'U', col:'#1D9E75' },
+  { id:'kinship',   name:'Kinship',      align:'U', col:'#1D9E75' },
+  { id:'curiosity', name:'Curiosity',    align:'P', col:'#9B7FE8' },
+  { id:'silence',   name:'Silence',      align:'P', col:'#9B7FE8' },
+  { id:'grief',     name:'Grief',        align:'P', col:'#9B7FE8' },
+];
+
+const ALIGN_COLS = { G:'#EF9F27', U:'#1D9E75', P:'#9B7FE8' };
+const ALIGN_NAMES = { G:'God', U:'Unity', P:'Providence' };
+
+let state = {
+  level: 0, totalOfferings: 0, feasts: 0,
+  counts: {}, currentProvisions: {},
+  currentGUP: {G:0,U:0,P:0},
+  feastLog: [],
+};
+OFFERING_DEFS.forEach(o => { state.counts[o.id]=0; state.currentProvisions[o.id]=0; });
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('gup-offerings');
+    if(raw) {
+      const saved = JSON.parse(raw);
+      state.level             = saved.level             ?? 0;
+      state.totalOfferings    = saved.totalOfferings    ?? saved.totalEvents ?? 0;
+      state.feasts            = saved.feasts            ?? 0;
+      state.currentGUP        = saved.currentGUP        ?? {G:0,U:0,P:0};
+      state.feastLog          = saved.feastLog          ?? [];
+      if(saved.counts)            OFFERING_DEFS.forEach(o => { state.counts[o.id] = saved.counts[o.id] ?? 0; });
+      if(saved.currentProvisions) OFFERING_DEFS.forEach(o => { state.currentProvisions[o.id] = saved.currentProvisions[o.id] ?? 0; });
+    }
+  } catch(e) { console.warn('GUP interior: could not load state', e); }
+}
+
+// ═══════════════════════════════════════════
+// WAVE
+// ═══════════════════════════════════════════
+
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let t = 0, waveActive = null;
+
+const WAVES = [
+  { k:'G', col:'#EF9F27', freq:PHI*PHI, amp:0.17, phase:0, scroll:1.05, name:'God' },
+  { k:'U', col:'#1D9E75', freq:PHI,     amp:0.21, phase:Math.PI*0.6, scroll:0.65, name:'Unity' },
+  { k:'P', col:'#9B7FE8', freq:1.0,     amp:0.27, phase:Math.PI*1.15, scroll:0.38, name:'Providence' },
+];
+
+const EXPANSIONS = {
+  G:['God is a verb.','Grounded, unseen, permanent.','Genuinely, universally, pervasive.','Give up pretending God is absent.','Every I saying I am I is God conjugating.'],
+  U:['Separation is surface.','Gathered, unsevered, permanent.','Gifted, unlosable, profound.','Granted, underneath, palpable.','Beneath all difference one thing holding.'],
+  P:['Already guarded before you turned the corner.','Governing, unseen, prevailing.','Given, unannounced, prior.','Grounded, underlying, profound.','The promise holds even when it feels withdrawn.'],
+};
+const lastTap = {G:0,U:0,P:0};
+
+function resizeWave() {
+  const w = cv.parentElement?.offsetWidth || 680;
+  const h = Math.round(w * 0.32);
+  cv.width = Math.round(w * devicePixelRatio);
+  cv.height = Math.round(h * devicePixelRatio);
+  cv.style.height = h + 'px';
+}
+resizeWave(); addEventListener('resize', () => { resizeWave(); resizeCanvases(); });
+
+function waveY(wave, x, W, H) {
+  return H*0.5 + wave.amp*H*Math.sin(wave.freq*2*Math.PI*(x/W)+wave.phase+t*wave.scroll);
+}
+function sumY(x, W, H) {
+  let s=0; WAVES.forEach(w=>{ s+=w.amp*H*Math.sin(w.freq*2*Math.PI*(x/W)+w.phase+t*w.scroll); });
+  return H*0.5+s*0.42;
+}
+function drawWavePath(yFn, W, step) {
+  ctx.beginPath();
+  for(let x=0;x<=W;x+=step){ const y=yFn(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+}
+function hex2(n){ return Math.max(0,Math.min(255,Math.round(n))).toString(16).padStart(2,'0'); }
+
+cv.addEventListener('click', e => {
+  const rect = cv.getBoundingClientRect();
+  const mx = (e.clientX-rect.left)*devicePixelRatio, my = (e.clientY-rect.top)*devicePixelRatio;
+  const W=cv.width, H=cv.height;
+  let closest=null, minDist=28*devicePixelRatio;
+  WAVES.forEach(wave=>{ const y=waveY(wave,mx,W,H); if(Math.abs(my-y)<minDist){minDist=Math.abs(my-y);closest=wave.k;} });
+  const el = document.getElementById('wave-desc');
+  if(closest) {
+    waveActive=closest;
+    const pool = EXPANSIONS[closest];
+    let idx; do { idx=Math.floor(Math.random()*pool.length); } while(idx===lastTap[closest]&&pool.length>1);
+    lastTap[closest]=idx;
+    const wave = WAVES.find(w=>w.k===closest);
+    el.style.color=wave.col+'99'; el.textContent=pool[idx];
+  } else {
+    waveActive=null; el.style.color='#555'; el.textContent='touch a wave to attune';
+  }
+});
+
+// ═══════════════════════════════════════════
+// THROAT CANVAS — flowing particle stream
+// ═══════════════════════════════════════════
+
+const tc = document.getElementById('throat-canvas');
+const tx = tc.getContext('2d');
+let throatParticles = [];
+
+function resizeCanvases() {
+  const w = tc.parentElement?.offsetWidth || 680;
+  tc.width = Math.round(w * devicePixelRatio);
+  tc.height = Math.round(90 * devicePixelRatio);
+  tc.style.height = '90px';
+
+  const sc = document.getElementById('stomach-canvas');
+  sc.width = Math.round(w * devicePixelRatio);
+  sc.height = Math.round(200 * devicePixelRatio);
+  sc.style.height = '200px';
+}
+resizeCanvases();
+
+function spawnThroatParticle() {
+  const total = state.totalOfferings;
+  if(total===0) return;
+  // Weighted random offering based on counts
+  const pool = OFFERING_DEFS.filter(o => state.counts[o.id]>0);
+  if(!pool.length) return;
+  const o = pool[Math.floor(Math.random()*pool.length)];
+  const W = tc.width, H = tc.height, d = devicePixelRatio;
+  throatParticles.push({
+    x: W*0.1 + Math.random()*W*0.8,
+    y: 0,
+    vy: (Math.random()*0.8+0.4)*d,
+    vx: (Math.random()-0.5)*0.3*d,
+    r: (Math.random()*2.5+1)*d,
+    col: o.col,
+    label: o.name[0],
+    life: 1,
+    dec: Math.random()*0.004+0.003,
+  });
+  if(throatParticles.length>80) throatParticles.splice(0,1);
+}
+
+// ═══════════════════════════════════════════
+// STOMACH CANVAS — digested pool
+// ═══════════════════════════════════════════
+
+const stomachCv = document.getElementById('stomach-canvas');
+const sx = stomachCv.getContext('2d');
+let stomachOrbs = [];
+let stomachT = 0;
+
+function buildStomachOrbs() {
+  stomachOrbs = [];
+  const W = stomachCv.width, H = stomachCv.height, d = devicePixelRatio;
+  OFFERING_DEFS.forEach(o => {
+    const count = state.counts[o.id];
+    if(count===0) return;
+    for(let i=0; i<Math.min(count, 12); i++) {
+      stomachOrbs.push({
+        x: W*0.1 + Math.random()*W*0.8,
+        y: H*0.2 + Math.random()*H*0.65,
+        vx: (Math.random()-0.5)*0.12*d,
+        vy: (Math.random()-0.5)*0.08*d,
+        r: (1.5 + Math.random()*3 + Math.log(count+1)*0.8)*d,
+        col: o.col,
+        phase: Math.random()*Math.PI*2,
+        driftSpeed: 0.003+Math.random()*0.005,
+        label: o.name[0],
+      });
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+// BUILD CHAMBER CONTENT (HTML)
+// ═══════════════════════════════════════════
+
+// ── Provision keyword map for mantra generation ──
+const PROVISION_WORDS = {
+  wonder:    ['suspension','unknowing','open','vast','unasked'],
+  attention: ['presence','witness','contact','here','now'],
+  joy:       ['pleasure','being','alive','light','play'],
+  gratitude: ['acknowledgement','received','given','held','thanks'],
+  doubt:     ['honest','uncertain','unresolved','questioning','open'],
+  kinship:   ['undivided','together','surface','beneath','one'],
+  curiosity: ['appetite','unknown','searching','threshold','open'],
+  silence:   ['unnamed','still','unspoken','listening','gup'],
+  grief:     ['love','lost','nowhere','held','remembered'],
+};
+
+function buildMouth() {
+  const el    = document.getElementById('mouth-contents');
+  const total = document.getElementById('mouth-total');
+
+  const cumulTotal = OFFERING_DEFS.reduce((s,o)=>s+(state.counts[o.id]||0),0);
+  const currentTotal = OFFERING_DEFS.reduce((s,o)=>s+(state.currentProvisions[o.id]||0),0);
+
+  if(cumulTotal===0){
+    el.innerHTML='<div class="empty-state">nothing yet offered — the mouth is open</div>';
+    if(total) total.textContent='';
+    return;
+  }
+
+  let html='';
+
+  // Current jar contents (between feasts)
+  if(currentTotal>0){
+    const inJar = OFFERING_DEFS.filter(o=>(state.currentProvisions[o.id]||0)>0)
+      .sort((a,b)=>(state.currentProvisions[b.id]||0)-(state.currentProvisions[a.id]||0));
+    const maxC = Math.max(1,...inJar.map(o=>state.currentProvisions[o.id]||0));
+    html+=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#444;text-transform:uppercase;margin-bottom:.5rem">in the jar now</div>`;
+    html+=inJar.map(o=>{
+      const c=state.currentProvisions[o.id]||0;
+      return `<div class="provision-row">
+        <span class="prov-name" style="color:${o.col}bb">${o.name}</span>
+        <div class="prov-bar-track"><div class="prov-bar-fill" style="background:${o.col}" data-target="${Math.round(c/maxC*100)}"></div></div>
+        <span class="prov-count" style="color:${o.col}99">×${c}</span>
+      </div>`;
+    }).join('');
+    html+=`<div style="margin:.8rem 0;border-top:1px solid #0d0d0d"></div>`;
+  }
+
+  // All-time record — always shown when there is any history
+  const allSorted = [...OFFERING_DEFS].sort((a,b)=>(state.counts[b.id]||0)-(state.counts[a.id]||0));
+  const maxAll = Math.max(1,...allSorted.map(o=>state.counts[o.id]||0));
+  html+=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.5rem">all time</div>`;
+  html+=allSorted.map(o=>{
+    const c=state.counts[o.id]||0;
+    return `<div class="provision-row">
+      <span class="prov-name" style="color:${o.col}${c>0?'88':'33'}">${o.name}</span>
+      <div class="prov-bar-track"><div class="prov-bar-fill" style="background:${o.col}" data-target="${Math.round(c/maxAll*100)}"></div></div>
+      <span class="prov-count" style="color:${o.col}${c>0?'66':'22'}">${c>0?'×'+c:'—'}</span>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = html;
+  if(total) total.textContent = `${cumulTotal} provision${cumulTotal===1?'':'s'} · ${state.feasts} feast${state.feasts===1?'':'s'}`;
+  setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); }, 700);
+}
+
+function buildThroat() {
+  const el = document.getElementById('throat-contents');
+
+  // Show current GUP alignment bars
+  const cg=state.currentGUP||{G:0,U:0,P:0};
+  const cTotal=(cg.G||0)+(cg.U||0)+(cg.P||0);
+  const useLog = cTotal===0 && state.feastLog.length>0;
+  const lastFeast = state.feastLog.length>0 ? state.feastLog[state.feastLog.length-1] : null;
+
+  const rows=[
+    {label:'G — God',        k:'G', count:cg.G||0, col:'#EF9F27'},
+    {label:'U — Unity',      k:'U', count:cg.U||0, col:'#1D9E75'},
+    {label:'P — Providence', k:'P', count:cg.P||0, col:'#9B7FE8'},
+  ];
+  const grandTotal=rows.reduce((s,r)=>s+r.count,0);
+
+  // Mantra from last feast keywords
+  let mantraHtml='';
+  if(lastFeast){
+    const offeredIds=Object.entries(lastFeast.provisions)
+      .filter(([,v])=>v>0).map(([k])=>k);
+    const words=[];
+    offeredIds.forEach(id=>{
+      const pool=PROVISION_WORDS[id]||[];
+      if(pool.length) words.push(pool[Math.floor(Math.random()*pool.length)]);
+    });
+    if(words.length>=2){
+      const rgb=lastFeast.liquidRGB||[155,127,232];
+      const mantra=generateMantra(words, lastFeast.dominant);
+      mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${mantra}</div>`;
+    }
+  }
+
+  if(grandTotal===0 && !lastFeast){
+    el.innerHTML='<div class="empty-state">the throat is still — offer to animate it</div>';
+    return;
+  }
+
+  let alignHtml='';
+  if(grandTotal>0){
+    const max=Math.max(1,...rows.map(r=>r.count));
+    alignHtml=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.5rem">current vessel alignment</div>`
+      +rows.map(r=>`<div class="provision-row">
+        <span class="prov-name" style="color:${r.col}88">${r.label}</span>
+        <div class="prov-bar-track"><div class="prov-bar-fill" style="background:${r.col}" data-target="${Math.round(r.count/max*100)}"></div></div>
+        <span class="prov-count" style="color:${r.col}66">${r.count>0?r.count+'×':'—'}</span>
+      </div>`).join('');
+  }
+
+  el.innerHTML=alignHtml+mantraHtml;
+  setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); },700);
+}
+
+function generateMantra(words, dominant) {
+  const FRAMES = {
+    G:[
+      (w)=>`${w[0]} and ${w[1]||w[0]} — the doing continues`,
+      (w)=>`through ${w[0]}, god conjugated`,
+      (w)=>`${w[0]}, ${w[1]||'present'} — unnamed and acting`,
+    ],
+    U:[
+      (w)=>`${w[0]} holds. ${w[1]||w[0]} does not divide`,
+      (w)=>`beneath ${w[0]} — one thing`,
+      (w)=>`${w[0]} and ${w[1]||w[0]}, surface only`,
+    ],
+    P:[
+      (w)=>`${w[0]} — the corner was already guarded`,
+      (w)=>`${w[0]} arrived before it was needed`,
+      (w)=>`${w[0]}, ${w[1]||'silent'} — provision`,
+    ],
+    balanced:[
+      (w)=>`${w[0]}, ${w[1]||w[0]}, ${w[2]||w[0]} — gup`,
+      (w)=>`all three: ${w.slice(0,3).join(', ')}`,
+    ],
+  };
+  const pool=FRAMES[dominant]||FRAMES.balanced;
+  return pool[Math.floor(Math.random()*pool.length)](words);
+}
+
+function buildStomach() {
+  const el    = document.getElementById('stomach-contents');
+  const total = document.getElementById('stomach-total');
+
+  if(state.feasts===0 || state.feastLog.length===0){
+    el.innerHTML='<div class="empty-state">the stomach waits — fill the vessel, the basilisk will feast</div>';
+    if(total) total.textContent='';
+    return;
+  }
+
+  // Up to 5 most recent, newest first
+  const log=[...state.feastLog].reverse().slice(0,5);
+
+  const listHtml=log.map((feast,i)=>{
+    const rgb=feast.liquidRGB||[155,127,232];
+    const col=`rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+    const colDim=`rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.55)`;
+    const colFaint=`rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)`;
+    const domName=feast.dominant==='balanced'?'balanced':(ALIGN_NAMES[feast.dominant]||feast.dominant);
+    const date=new Date(feast.ts).toLocaleDateString();
+    const uid=`feast-${feast.id}`;
+
+    const provLines=OFFERING_DEFS
+      .filter(o=>(feast.provisions[o.id]||0)>0)
+      .map(o=>`<span style="color:${colDim}">×${feast.provisions[o.id]} ${o.name}</span>`)
+      .join('<br>');
+
+    return `<div class="feast-entry">
+      <div class="feast-summary" onclick="toggleFeast('${uid}')">
+        <span class="feast-num" style="color:${colDim}">feast ${feast.id}</span>
+        <span class="feast-dom" style="color:${colFaint}">${domName}</span>
+        <span class="feast-date">${date}</span>
+        <span class="feast-arrow" id="arrow-${uid}">▶</span>
+      </div>
+      <div class="feast-detail" id="${uid}">
+        <div class="feast-prov-list">${provLines}</div>
+        <div class="feast-effect" style="color:${colDim}">${feast.effect}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.8rem">feast record</div>${listHtml}`;
+  if(total) total.textContent='the stomach holds everything it has ever received';
+}
+
+function toggleFeast(uid) {
+  const detail=document.getElementById(uid);
+  const arrow=document.getElementById('arrow-'+uid);
+  if(!detail||!arrow) return;
+  const open=detail.classList.toggle('open');
+  arrow.classList.toggle('open', open);
+}
+
+// ═══════════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════════
+
+let throatSpawnT = 0;
+let spawnThroat = false; // set after loadState()
+
+function mainLoop() {
+  const d = devicePixelRatio;
+
+  // ── Wave ──
+  const W=cv.width, H=cv.height;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#060408'; ctx.fillRect(0,0,W,H);
+  for(let y=0;y<H;y+=3*d){ ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.fillRect(0,y,W,d*0.5); }
+  drawWavePath(x=>sumY(x,W,H),W,d);
+  ctx.strokeStyle='rgba(238,234,224,0.09)'; ctx.lineWidth=3*d; ctx.stroke();
+  drawWavePath(x=>sumY(x,W,H),W,d);
+  ctx.strokeStyle='rgba(238,234,224,0.04)'; ctx.lineWidth=10*d; ctx.stroke();
+  WAVES.forEach(wave=>{
+    const isA=waveActive===wave.k, fade=waveActive?(isA?1:0.12):0.72;
+    drawWavePath(x=>waveY(wave,x,W,H),W,d);
+    ctx.strokeStyle=wave.col+hex2(fade*28); ctx.lineWidth=14*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,d);
+    ctx.strokeStyle=wave.col+hex2(fade*55); ctx.lineWidth=6*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,d);
+    ctx.strokeStyle=wave.col+hex2(fade*(isA?230:180)); ctx.lineWidth=(isA?2.2:1.4)*d; ctx.stroke();
+    let peakX=W*0.5,peakY=H;
+    for(let x=W*0.08;x<W*0.92;x+=2*d){ const y=waveY(wave,x,W,H); if(y<peakY){peakY=y;peakX=x;} }
+    const la=waveActive?(isA?1:0.15):0.8;
+    ctx.save(); ctx.globalAlpha=la; ctx.fillStyle=wave.col;
+    ctx.font=`bold ${(isA?9:7)*d}px Courier New`; ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(wave.k,peakX,peakY-6*d);
+    ctx.globalAlpha=la*0.5; ctx.font=`${5.5*d}px Courier New`;
+    ctx.fillText(wave.name.toLowerCase(),peakX,peakY-6*d+1); ctx.restore();
+  });
+  const pulse=Math.sin(t*0.55)*0.04+0.96;
+  ctx.save(); ctx.globalAlpha=0.5*pulse; ctx.fillStyle='#eeeae0';
+  ctx.font=`bold ${8*d}px Courier New`; ctx.textAlign='center'; ctx.textBaseline='top';
+  ctx.fillText('G U P',W*0.5,6*d); ctx.restore();
+
+  // ── Throat canvas ──
+  const TW=tc.width, TH=tc.height;
+  tx.clearRect(0,0,TW,TH);
+  tx.fillStyle='#060408'; tx.fillRect(0,0,TW,TH);
+  // Faint throat tube gradient
+  const grad = tx.createLinearGradient(0,0,0,TH);
+  grad.addColorStop(0,'rgba(139,61,84,0.08)');
+  grad.addColorStop(1,'rgba(139,61,84,0.04)');
+  tx.fillStyle=grad; tx.fillRect(TW*0.15,0,TW*0.7,TH);
+  // Throat walls
+  tx.strokeStyle='rgba(139,61,84,0.22)'; tx.lineWidth=d;
+  tx.beginPath(); tx.moveTo(TW*0.15,0); tx.lineTo(TW*0.15,TH); tx.stroke();
+  tx.beginPath(); tx.moveTo(TW*0.85,0); tx.lineTo(TW*0.85,TH); tx.stroke();
+
+  if(spawnThroat) {
+    throatSpawnT+=0.016;
+    if(throatSpawnT>0.18){ spawnThroatParticle(); throatSpawnT=0; }
+  }
+  for(let i=throatParticles.length-1;i>=0;i--){
+    const p=throatParticles[i];
+    p.x+=p.vx; p.y+=p.vy; p.life-=p.dec;
+    if(p.y>TH||p.life<=0){throatParticles.splice(i,1);continue;}
+    tx.beginPath(); tx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    tx.fillStyle=p.col+hex2(p.life*150); tx.fill();
+    if(p.r>2*d){
+      tx.beginPath(); tx.arc(p.x-p.r*0.3,p.y-p.r*0.3,p.r*0.3,0,Math.PI*2);
+      tx.fillStyle='rgba(255,255,255,0.15)'; tx.fill();
+    }
+  }
+
+  // ── Stomach canvas ──
+  const SW=stomachCv.width, SH=stomachCv.height;
+  stomachT+=0.016;
+  sx.clearRect(0,0,SW,SH);
+  sx.fillStyle='#060408'; sx.fillRect(0,0,SW,SH);
+  // Stomach wall — faint flesh-colored oval
+  sx.beginPath(); sx.ellipse(SW*0.5,SH*0.52,SW*0.42,SH*0.42,0,0,Math.PI*2);
+  sx.strokeStyle='rgba(139,61,84,0.14)'; sx.lineWidth=d*1.5; sx.stroke();
+  sx.beginPath(); sx.ellipse(SW*0.5,SH*0.52,SW*0.38,SH*0.38,0,0,Math.PI*2);
+  sx.strokeStyle='rgba(139,61,84,0.06)'; sx.lineWidth=d*8; sx.stroke();
+
+  // Stomach orbs drift slowly
+  stomachOrbs.forEach(orb=>{
+    orb.x+=orb.vx+Math.sin(stomachT*orb.driftSpeed*60+orb.phase)*0.15*d;
+    orb.y+=orb.vy+Math.cos(stomachT*orb.driftSpeed*40+orb.phase)*0.1*d;
+    // Soft bounce off stomach ellipse bounds
+    const dx=(orb.x-SW*0.5)/(SW*0.38), dy=(orb.y-SH*0.52)/(SH*0.38);
+    if(dx*dx+dy*dy>0.9){
+      orb.vx*=-0.6; orb.vy*=-0.6;
+      orb.x+=orb.vx*3; orb.y+=orb.vy*3;
+    }
+    // Outer glow
+    sx.beginPath(); sx.arc(orb.x,orb.y,orb.r*2.5,0,Math.PI*2);
+    sx.fillStyle=orb.col+'18'; sx.fill();
+    // Orb
+    sx.beginPath(); sx.arc(orb.x,orb.y,orb.r,0,Math.PI*2);
+    sx.fillStyle=orb.col+'cc'; sx.fill();
+    // Highlight
+    sx.beginPath(); sx.arc(orb.x-orb.r*0.3,orb.y-orb.r*0.3,orb.r*0.35,0,Math.PI*2);
+    sx.fillStyle='rgba(255,255,255,0.22)'; sx.fill();
+  });
+
+  // Empty stomach hint
+  if(stomachOrbs.length===0){
+    sx.fillStyle='rgba(100,96,88,0.18)';
+    sx.font=`${9*d}px Courier New`; sx.textAlign='center'; sx.textBaseline='middle';
+    sx.fillText('awaiting the first feast',SW*0.5,SH*0.5);
+  }
+
+  t+=0.016;
+  requestAnimationFrame(mainLoop);
+}
+
+// ═══════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+}, { threshold:0.04, rootMargin:'0px 0px -20px 0px' });
+document.querySelectorAll('.chamber').forEach(c=>observer.observe(c));
+setTimeout(()=>{ document.querySelectorAll('.chamber').forEach(c=>c.classList.add('visible')); }, 600);
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+
+function refreshAll() {
+  loadState();
+  buildMouth();
+  buildThroat();
+  buildStomach();
+  buildStomachOrbs();
+  spawnThroat = state.totalOfferings > 0;
+}
+
+// Initial load — defer one frame so canvases have dimensions
+loadState();
+mainLoop();
+requestAnimationFrame(()=>{
+  resizeCanvases();
+  buildMouth();
+  buildThroat();
+  buildStomach();
+  buildStomachOrbs();
+  spawnThroat = state.totalOfferings > 0;
+});
+
+// Poll localStorage every 2 seconds — ensures interior updates even in same-tab navigation
+let _lastRaw = localStorage.getItem('gup-offerings');
+setInterval(()=>{
+  const raw = localStorage.getItem('gup-offerings');
+  if(raw !== _lastRaw){
+    _lastRaw = raw;
+    refreshAll();
+  }
+}, 2000);
+
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) refreshAll(); });
+window.addEventListener('focus', refreshAll);
+window.addEventListener('storage', e=>{ if(e.key==='gup-offerings'){ _lastRaw=e.newValue; refreshAll(); } });
+
+</script>
+</body>
+</html>
