@@ -504,7 +504,7 @@ function buildMouth() {
   const jarEmpty     = state.level < 0.01;
 
   // Empty states
-  if(cumulTotal===0 || jarEmpty){
+  if(cumulTotal===0){
     el.innerHTML='<div class="empty-state">nothing yet offered — the mouth is open</div>';
     if(total) total.textContent='';
     return;
@@ -512,8 +512,13 @@ function buildMouth() {
 
   let html='';
 
-  // Current jar contents
-  if(currentTotal>0){
+  // Empty jar note when level < 1%
+  if(jarEmpty){
+    html+=`<div class="empty-state" style="padding:.6rem 0 .8rem">the jar is empty — the mouth awaits</div>`;
+  }
+
+  // Current jar contents — only show when level >= 1%
+  if(!jarEmpty && currentTotal>0){
     const inJar  = OFFERING_DEFS.filter(o=>(state.currentProvisions[o.id]||0)>0)
                     .sort((a,b)=>(state.currentProvisions[b.id]||0)-(state.currentProvisions[a.id]||0));
     const maxC   = Math.max(1,...inJar.map(o=>state.currentProvisions[o.id]||0));
