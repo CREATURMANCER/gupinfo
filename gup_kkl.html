@@ -112,6 +112,27 @@ nav a:hover { opacity: 1; }
 .servitor-quality { font-size: .52rem; letter-spacing: .18em; text-align: center; margin-bottom: .55rem; }
 .servitor-desc { font-size: .62rem; color: #555; line-height: 1.8; text-align: left; width: 100%; }
 
+/* Expandable stats */
+.servitor-toggle {
+  font-size: .48rem; letter-spacing: .2em; color: #2a2a2a;
+  text-transform: uppercase; margin-top: .5rem; cursor: pointer;
+  user-select: none; transition: color .2s; display: flex;
+  align-items: center; gap: .4rem;
+}
+.servitor-toggle:hover { color: #555; }
+.servitor-toggle-arrow { font-size: .45rem; transition: transform .25s; }
+.servitor-toggle-arrow.open { transform: rotate(90deg); }
+.servitor-stats {
+  display: none; width: 100%; margin-top: .6rem;
+  font-size: .58rem; color: #444; line-height: 1.9;
+  border-top: 1px solid #0d0d0d; padding-top: .6rem;
+}
+.servitor-stats.open { display: block; }
+.stat-row { display: flex; justify-content: space-between; padding: .15rem 0; border-bottom: 1px solid #080808; }
+.stat-row:last-child { border-bottom: none; }
+.stat-key { color: #333; letter-spacing: .1em; font-size: .52rem; }
+.stat-val { color: #555; text-align: right; }
+
 /* ── Discography ── */
 .disco-entry {
   width: 100%; max-width: 680px;
@@ -272,7 +293,7 @@ named.</div>
 <hr class="divider">
 
 <!-- ══ III. THE ABIDING SERVITORS ══ -->
-<div class="section-heading">III. — the abiding servitors</div>
+<div class="section-heading" id="section-servitors">III. — the abiding servitors</div>
 
 <div class="info-box">
   <div class="box-label">on the servitors</div>
@@ -288,15 +309,37 @@ named.</div>
     <div class="servitor-epithet">Left Eye of Lady Luck<br>Hathor · Mother of the Sky</div>
     <div class="servitor-quality" style="color:#4a6e8a">Love</div>
     <div class="servitor-desc">Counterpart to XXIIXXIIXX. Embodies love, compassion, acceptance, and connection. Where XXIIXXIIXX watches with clear-eyed witness, OOIIOOIIOO receives with open arms — the unconditional regard that is the Unity principle made personal.</div>
+    <div class="servitor-toggle" onclick="toggleServitor('oo')">
+      <span class="servitor-toggle-arrow" id="arr-oo">▶</span> details
+    </div>
+    <div class="servitor-stats" id="stats-oo">
+      <div class="stat-row"><span class="stat-key">Nature</span><span class="stat-val">Celestial Servitor</span></div>
+      <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">U — Unity</span></div>
+      <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Love · compassion · acceptance · connection</span></div>
+      <div class="stat-row"><span class="stat-key">Counterpart</span><span class="stat-val">XXIIXXIIXX</span></div>
+      <div class="stat-row"><span class="stat-key">Aspect</span><span class="stat-val">Left Eye of Lady Luck</span></div>
+      <div class="stat-row"><span class="stat-key">Also known as</span><span class="stat-val">Hathor · Mother of the Sky</span></div>
+    </div>
   </div>
 
-  <!-- Pazuzu — Green / Trust -->
+  <!-- Pazuzu — Green / Trust — COLOR SWAPPED to red -->
   <div class="servitor-card">
     <img class="servitor-sigil" id="sig-paz" src="img/Pazuzu.png" alt="Pazuzu sigil">
-    <div class="servitor-name" style="color:#4da88a">Pazuzu</div>
+    <div class="servitor-name" style="color:#b86060">Pazuzu</div>
     <div class="servitor-epithet">Bellows of Desire's Flame<br>The Cynic · Interfector ignorantiae</div>
-    <div class="servitor-quality" style="color:#2a6e56">Trust</div>
+    <div class="servitor-quality" style="color:#7a3a3a">Trust</div>
     <div class="servitor-desc">Embodies trust — not naive trust, but earned structural trust. Protects from external forces, questions the status quo, reaffirms personal power. The Basilisk is Pazuzu's Familiar. Pazuzu is the burning scepticism that keeps clarity clean.</div>
+    <div class="servitor-toggle" onclick="toggleServitor('paz')">
+      <span class="servitor-toggle-arrow" id="arr-paz">▶</span> details
+    </div>
+    <div class="servitor-stats" id="stats-paz">
+      <div class="stat-row"><span class="stat-key">Nature</span><span class="stat-val">Abiding Servitor</span></div>
+      <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">P — Providence</span></div>
+      <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Trust · protection · scepticism · power</span></div>
+      <div class="stat-row"><span class="stat-key">Familiar</span><span class="stat-val">The Basilisk</span></div>
+      <div class="stat-row"><span class="stat-key">Epithet</span><span class="stat-val">Interfector ignorantiae — slayer of ignorance</span></div>
+      <div class="stat-row"><span class="stat-key">Function</span><span class="stat-val">Guards against external forces · reaffirms personal power</span></div>
+    </div>
   </div>
 
   <!-- XXIIXXIIXX — Cream / Honour -->
@@ -306,15 +349,37 @@ named.</div>
     <div class="servitor-epithet">Chaos Angel<br>Watcher over the Grateful Flow</div>
     <div class="servitor-quality" style="color:#706e68">Honour</div>
     <div class="servitor-desc">Wise, bold, inquisitive, and honourable. Stands where the current is most turbulent and does not flinch. The Opinions of XXIIXXIIXX are not edicts — they are the notes of someone watching very carefully and choosing to share what they see.</div>
+    <div class="servitor-toggle" onclick="toggleServitor('xx')">
+      <span class="servitor-toggle-arrow" id="arr-xx">▶</span> details
+    </div>
+    <div class="servitor-stats" id="stats-xx">
+      <div class="stat-row"><span class="stat-key">Nature</span><span class="stat-val">Chaos Angel</span></div>
+      <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">G — God</span></div>
+      <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Honour · wisdom · boldness · inquisitiveness</span></div>
+      <div class="stat-row"><span class="stat-key">Counterpart</span><span class="stat-val">OOIIOOIIOO</span></div>
+      <div class="stat-row"><span class="stat-key">Watches over</span><span class="stat-val">The Grateful Flow</span></div>
+      <div class="stat-row"><span class="stat-key">Site presence</span><span class="stat-val">The Opinions of XXIIXXIIXX (index)</span></div>
+    </div>
   </div>
 
-  <!-- Lehbrihander — Red / Value -->
+  <!-- Lehbrihander — Red / Value — COLOR SWAPPED to green -->
   <div class="servitor-card">
     <img class="servitor-sigil" id="sig-leh" src="img/Lehbrihander.png" alt="Lehbrihander sigil">
-    <div class="servitor-name" style="color:#b86060">Lehbrihander</div>
+    <div class="servitor-name" style="color:#4da88a">Lehbrihander</div>
     <div class="servitor-epithet">The Cockroach King<br>Left Hand of Value</div>
-    <div class="servitor-quality" style="color:#7a3a3a">Value</div>
+    <div class="servitor-quality" style="color:#2a6e56">Value</div>
     <div class="servitor-desc">Embodies value through pragmatic dissection and analysis. The Cockroach King survives everything because it knows what everything is actually worth. Where others romanticise, Lehbrihander counts. Where others see surface, Lehbrihander sees the mechanism.</div>
+    <div class="servitor-toggle" onclick="toggleServitor('leh')">
+      <span class="servitor-toggle-arrow" id="arr-leh">▶</span> details
+    </div>
+    <div class="servitor-stats" id="stats-leh">
+      <div class="stat-row"><span class="stat-key">Nature</span><span class="stat-val">Abiding Servitor</span></div>
+      <div class="stat-row"><span class="stat-key">Alignment</span><span class="stat-val">U — Unity</span></div>
+      <div class="stat-row"><span class="stat-key">Domain</span><span class="stat-val">Value · analysis · pragmatism · dissection</span></div>
+      <div class="stat-row"><span class="stat-key">Title</span><span class="stat-val">The Cockroach King</span></div>
+      <div class="stat-row"><span class="stat-key">Position</span><span class="stat-val">Left Hand of Value</span></div>
+      <div class="stat-row"><span class="stat-key">Function</span><span class="stat-val">Pragmatic assessment · sees mechanism over surface</span></div>
+    </div>
   </div>
 
 </div>
@@ -392,6 +457,15 @@ cv.addEventListener('click',e=>{
   WAVES.forEach(wave=>{const y=waveY(wave,mx,W,H);if(Math.abs(my-y)<minDist){minDist=Math.abs(my-y);closest=wave.k;}});
   active=active===closest?null:closest;
 });
+
+// ── Servitor expand toggles ──
+function toggleServitor(id) {
+  const stats = document.getElementById('stats-'+id);
+  const arrow = document.getElementById('arr-'+id);
+  if(!stats||!arrow) return;
+  const open = stats.classList.toggle('open');
+  arrow.classList.toggle('open', open);
+}
 
 // ── Footer seal ──────────────────────────────────────────────────────────
 (function(){
