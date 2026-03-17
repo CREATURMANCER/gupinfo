@@ -140,9 +140,12 @@
   /* Footer signal */
   .signal { font-size: .85rem; color: #EF9F27; opacity: .35; text-align: center; margin-top: 3rem; letter-spacing: .6em; }
 
-  /* Animate in on scroll */
-  .deep-section { opacity: 0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
-  .deep-section.visible { opacity: 1; transform: none; }
+  /* Wave-click reveal — sections start fully hidden */
+  .deep-section { display: none; opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+  .deep-section.visible { display: block; opacity: 1; transform: none; }
+  /* Dividers between sections also hidden until their section opens */
+  .section-divider { display: none; border: none; border-top: 1px solid #111; width: 100%; max-width: 680px; margin: 2.5rem 0; }
+  .section-divider.visible { display: block; }
 </style>
 </head>
 <body>
@@ -211,7 +214,7 @@
   </ul>
 </div>
 
-<hr class="divider">
+<hr class="section-divider" id="div-u">
 
 <!-- ══════════════════════════════════════
   U — UNITY
@@ -253,7 +256,7 @@
   </ul>
 </div>
 
-<hr class="divider">
+<hr class="section-divider" id="div-p">
 
 <!-- ══════════════════════════════════════
   P — PROVIDENCE
@@ -295,7 +298,7 @@
   </ul>
 </div>
 
-<hr class="divider">
+<hr class="section-divider" id="div-phi">
 
 <!-- ══════════════════════════════════════
   φ — THE RATIO
@@ -619,55 +622,57 @@ drawPhiSpiral();
 // ═══════════════════════════════════════════
 
 const revealed = { G:false, U:false, P:false };
+let phiUnlocked = false;
 
-function revealSection(key) {
-  const map = { G:'section-g', U:'section-u', P:'section-p' };
-  const id = map[key];
-  if(!id) return;
+const SECTION_MAP = {
+  G: { section:'section-g', divider:null },
+  U: { section:'section-u', divider:'div-u' },
+  P: { section:'section-p', divider:'div-p' },
+};
+
+function showEl(id) {
   const el = document.getElementById(id);
   if(!el) return;
+  el.style.display = 'block';
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+}
+
+function hideEl(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.remove('visible');
+  // Remove display:block after transition completes
+  el.addEventListener('transitionend', () => { if(!el.classList.contains('visible')) el.style.display = ''; }, { once:true });
+}
+
+function revealSection(key) {
+  // Hide all G/U/P sections and their dividers
+  Object.entries(SECTION_MAP).forEach(([k, ids]) => {
+    if(k !== key) {
+      hideEl(ids.section);
+      if(ids.divider) hideEl(ids.divider);
+    }
+  });
+
+  // Show selected section and its divider
+  const target = SECTION_MAP[key];
+  if(target.divider) showEl(target.divider);
+  showEl(target.section);
 
   revealed[key] = true;
-  el.classList.add('visible');
 
-  // Smooth scroll to the section
-  setTimeout(() => {
-    el.scrollIntoView({ behavior:'smooth', block:'start' });
-  }, 120);
-
-  // Reveal φ once all three have been opened
-  if(revealed.G && revealed.U && revealed.P) {
-    const phi = document.getElementById('section-phi');
-    if(phi && !phi.classList.contains('visible')) {
-      setTimeout(() => {
-        phi.classList.add('visible');
-        phi.scrollIntoView({ behavior:'smooth', block:'start' });
-      }, 900);
-    }
+  // Once all three have been opened at least once, silently unlock φ
+  if(!phiUnlocked && revealed.G && revealed.U && revealed.P) {
+    phiUnlocked = true;
+    setTimeout(() => {
+      showEl('div-phi');
+      showEl('section-phi');
+    }, 600);
   }
 }
 
-// Scroll-based reveal still works as fallback (for φ especially)
-const sections = document.querySelectorAll('.deep-section');
+// φ section observer for bar animation
 const bars = document.querySelectorAll('.phi-bar-fill');
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      // Mark as revealed so φ trigger works even if scrolled to directly
-      const id = entry.target.id;
-      if(id==='section-g') revealed.G = true;
-      if(id==='section-u') revealed.U = true;
-      if(id==='section-p') revealed.P = true;
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
-
-sections.forEach(s => observer.observe(s));
-
-// Animate phi bars when section comes into view
 const phiBarObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
