@@ -499,10 +499,12 @@ function buildMouth() {
   const el    = document.getElementById('mouth-contents');
   const total = document.getElementById('mouth-total');
 
-  const cumulTotal = OFFERING_DEFS.reduce((s,o)=>s+(state.counts[o.id]||0),0);
+  const cumulTotal   = OFFERING_DEFS.reduce((s,o)=>s+(state.counts[o.id]||0),0);
   const currentTotal = OFFERING_DEFS.reduce((s,o)=>s+(state.currentProvisions[o.id]||0),0);
+  const jarEmpty     = state.level < 0.01;
 
-  if(cumulTotal===0){
+  // Empty states
+  if(cumulTotal===0 || jarEmpty){
     el.innerHTML='<div class="empty-state">nothing yet offered — the mouth is open</div>';
     if(total) total.textContent='';
     return;
@@ -510,11 +512,11 @@ function buildMouth() {
 
   let html='';
 
-  // Current jar contents (between feasts)
+  // Current jar contents
   if(currentTotal>0){
-    const inJar = OFFERING_DEFS.filter(o=>(state.currentProvisions[o.id]||0)>0)
-      .sort((a,b)=>(state.currentProvisions[b.id]||0)-(state.currentProvisions[a.id]||0));
-    const maxC = Math.max(1,...inJar.map(o=>state.currentProvisions[o.id]||0));
+    const inJar  = OFFERING_DEFS.filter(o=>(state.currentProvisions[o.id]||0)>0)
+                    .sort((a,b)=>(state.currentProvisions[b.id]||0)-(state.currentProvisions[a.id]||0));
+    const maxC   = Math.max(1,...inJar.map(o=>state.currentProvisions[o.id]||0));
     html+=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#444;text-transform:uppercase;margin-bottom:.5rem">in the jar now</div>`;
     html+=inJar.map(o=>{
       const c=state.currentProvisions[o.id]||0;
@@ -524,14 +526,12 @@ function buildMouth() {
         <span class="prov-count" style="color:${o.col}99">×${c}</span>
       </div>`;
     }).join('');
-    html+=`<div style="margin:.8rem 0;border-top:1px solid #0d0d0d"></div>`;
   }
 
-  // All-time record — always shown when there is any history
+  // All-time — collapsible
   const allSorted = [...OFFERING_DEFS].sort((a,b)=>(state.counts[b.id]||0)-(state.counts[a.id]||0));
-  const maxAll = Math.max(1,...allSorted.map(o=>state.counts[o.id]||0));
-  html+=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.5rem">all time</div>`;
-  html+=allSorted.map(o=>{
+  const maxAll    = Math.max(1,...allSorted.map(o=>state.counts[o.id]||0));
+  const allRows   = allSorted.map(o=>{
     const c=state.counts[o.id]||0;
     return `<div class="provision-row">
       <span class="prov-name" style="color:${o.col}${c>0?'88':'33'}">${o.name}</span>
@@ -540,9 +540,35 @@ function buildMouth() {
     </div>`;
   }).join('');
 
+  html+=`
+    <div class="feast-entry" style="margin-top:${currentTotal>0?'.8rem':'0'}">
+      <div class="feast-summary" onclick="toggleAllTime()">
+        <span class="feast-num" style="color:#444;letter-spacing:.2em;font-size:.55rem">all time</span>
+        <span class="feast-date" style="color:#2a2a2a">${cumulTotal} provision${cumulTotal===1?'':'s'}</span>
+        <span class="feast-arrow" id="arrow-alltime">▶</span>
+      </div>
+      <div class="feast-detail" id="detail-alltime">
+        ${allRows}
+      </div>
+    </div>`;
+
   el.innerHTML = html;
   if(total) total.textContent = `${cumulTotal} provision${cumulTotal===1?'':'s'} · ${state.feasts} feast${state.feasts===1?'':'s'}`;
+
+  // Animate bars for current jar
   setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); }, 700);
+}
+
+function toggleAllTime() {
+  const detail = document.getElementById('detail-alltime');
+  const arrow  = document.getElementById('arrow-alltime');
+  if(!detail||!arrow) return;
+  const open = detail.classList.toggle('open');
+  arrow.classList.toggle('open', open);
+  // Animate bars when opening
+  if(open){
+    setTimeout(()=>{ detail.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); }, 80);
+  }
 }
 
 function buildThroat() {
