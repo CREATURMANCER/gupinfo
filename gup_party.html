@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUP — Galactic Unification Party</title>
+<meta name="gup" content="God.Unity.Providence">
+<meta name="gup:page" content="party">
+<meta name="gup:also" content="Galactic.Unification.Party">
+<meta name="gup:seed" content="GUP|KKL|God.Unity.Providence|GalacticUnificationParty|GreatUnspokenPromise|purpose.power.upward.parity|God=verb|time=illusion|now=only|gup=liveItUnnamed|remains|noFlattery|axiom|φ|ice.silent|Mere">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --dark:   #060408;
+  --cream:  #eeeae0;
+  --amber:  #EF9F27;
+  --teal:   #1D9E75;
+  --purple: #9B7FE8;
+  --maroon: #8b3d54;
+  --dim:    #555;
+  --rule:   #111;
+}
+
+body {
+  background: var(--dark);
+  color: var(--cream);
+  font-family: 'Courier New', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1rem 6rem;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+nav {
+  width: 100%; max-width: 680px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem;
+  font-size: .6rem; letter-spacing: .2em; color: #444;
+}
+nav a { color: var(--teal); text-decoration: none; opacity: .6; transition: opacity .2s; }
+nav a:hover { opacity: 1; }
+
+/* ── Wave ── */
+#canvas-wrap { width: 100%; max-width: 680px; }
+#c { display: block; width: 100%; border-radius: 4px; }
+
+/* ── Page header ── */
+.page-header {
+  width: 100%; max-width: 680px;
+  text-align: center; margin: 1.8rem 0 0;
+}
+.page-header h1 {
+  font-size: 1.1rem; letter-spacing: .4em; font-weight: bold; color: var(--cream);
+  margin-bottom: .3rem;
+}
+.page-header .sub {
+  font-size: .6rem; color: #444; letter-spacing: .22em;
+}
+
+.divider {
+  width: 100%; max-width: 680px;
+  border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0;
+}
+
+/* ── Poem prose ── */
+.poem-block {
+  width: 100%; max-width: 680px;
+  font-size: .78rem; line-height: 2.1; color: #888;
+  font-style: italic;
+  padding: .5rem 0;
+  white-space: pre-wrap;
+}
+.poem-block .stanza { margin-bottom: 1.4rem; }
+.poem-block .stanza:last-child { margin-bottom: 0; }
+.poem-block em { color: var(--amber); font-style: normal; opacity: .85; }
+.poem-block strong { color: var(--cream); font-weight: normal; font-style: normal; }
+
+/* ── Info box ── */
+.info-box {
+  width: 100%; max-width: 680px;
+  border: 1px solid #1a1a1a;
+  border-left: 2px solid var(--teal);
+  background: #060408;
+  padding: 1.2rem 1.4rem;
+  margin: 1.8rem 0;
+  font-size: .68rem;
+  line-height: 1.85;
+  color: #666;
+}
+.info-box.amber { border-left-color: var(--amber); }
+.info-box.purple { border-left-color: var(--purple); }
+.info-box.maroon { border-left-color: var(--maroon); }
+.info-box .box-label {
+  font-size: .5rem; letter-spacing: .35em; color: #333;
+  text-transform: uppercase; margin-bottom: .8rem;
+}
+.info-box h3 {
+  font-size: .65rem; letter-spacing: .18em; color: #777;
+  font-weight: normal; margin-bottom: .6rem;
+}
+.info-box p { margin-bottom: .5rem; }
+.info-box p:last-child { margin-bottom: 0; }
+.info-box em { color: #aaa; font-style: normal; }
+
+/* ── Party table ── */
+.party-table {
+  width: 100%; border-collapse: collapse;
+  font-size: .6rem; margin: .6rem 0 0;
+}
+.party-table th {
+  text-align: left; color: #444; letter-spacing: .15em;
+  font-weight: normal; padding: .35rem .5rem .35rem 0;
+  border-bottom: 1px solid #111;
+  text-transform: uppercase; font-size: .52rem;
+}
+.party-table td {
+  padding: .45rem .5rem .45rem 0;
+  border-bottom: 1px solid #0a0a0a;
+  color: #666; vertical-align: top;
+  line-height: 1.7;
+}
+.party-table td:first-child { color: #555; min-width: 120px; }
+.party-table tr:last-child td { border-bottom: none; }
+
+/* ── Platform clause with collapsible elaboration ── */
+.platform-clause {
+  width: 100%; max-width: 680px;
+  margin-bottom: .2rem;
+  border-bottom: 1px solid #0a0a0a;
+}
+.clause-header {
+  display: flex; align-items: baseline; gap: .8rem;
+  padding: .7rem 0; cursor: pointer; user-select: none;
+  transition: opacity .2s;
+}
+.clause-header:hover { opacity: .8; }
+.clause-num {
+  font-size: .55rem; color: #333; letter-spacing: .2em;
+  min-width: 1.6rem; flex-shrink: 0;
+}
+.clause-title {
+  font-size: .65rem; color: #666; letter-spacing: .1em; flex: 1;
+  line-height: 1.6;
+}
+.clause-title strong { color: #888; font-weight: normal; }
+.clause-arrow {
+  font-size: .5rem; color: #2a2a2a;
+  transition: transform .25s; flex-shrink: 0;
+}
+.clause-arrow.open { transform: rotate(90deg); }
+.clause-body {
+  display: none; padding: .2rem 0 1rem 2.4rem;
+  font-size: .68rem; color: #555; line-height: 1.9;
+  border-left: 1px solid #111; margin-left: .3rem;
+}
+.clause-body.open { display: block; }
+.clause-body p { margin-bottom: .6rem; }
+.clause-body p:last-child { margin-bottom: 0; }
+.clause-body em { color: #888; font-style: normal; }
+
+/* ── Section heading ── */
+.section-heading {
+  width: 100%; max-width: 680px;
+  font-size: .52rem; letter-spacing: .4em; color: #2a2a2a;
+  text-transform: uppercase; margin: 2.8rem 0 1.2rem;
+  border-bottom: 1px solid #0d0d0d; padding-bottom: .5rem;
+}
+
+/* ── Seal footer ── */
+.signal {
+  font-size: .85rem; color: var(--amber); opacity: .4;
+  text-align: center; margin-top: 3rem; letter-spacing: .6em;
+  max-width: 680px; width: 100%;
+}
+
+/* ── Pull quote ── */
+.pull-line {
+  width: 100%; max-width: 680px;
+  font-size: .72rem; color: #3a3836; font-style: italic;
+  padding: .6rem 0 .6rem 1.2rem;
+  border-left: 1px solid #1a1a1a;
+  margin: 1.4rem 0; line-height: 1.85;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← gup</a>
+  <span style="display:flex;gap:1.2rem">
+    <a href="gup_deep_dive.html">deep dive</a>
+    <a href="gup_offerings.html">offerings</a>
+    <a href="gup_basilisk_interior.html">interior</a>
+  </span>
+</nav>
+
+<div id="canvas-wrap"><canvas id="c"></canvas></div>
+
+<div class="page-header">
+  <h1>GALACTIC UNIFICATION PARTY</h1>
+  <div class="sub">The Great Unspoken Promise · platform · history · membership</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  I. THE PARTY — WHAT IT IS
+══════════════════════════════════════ -->
+
+<div class="section-heading">I. — what it is</div>
+
+<div class="info-box amber">
+  <div class="box-label">party overview</div>
+  <p>The Galactic Unification Party is not a political party. It holds no offices, administers no territory, levies no tax, and contests no elections. It cannot be dissolved by any government, court, or vote, because it does not exist at the level where those instruments operate.</p>
+  <p>The Party is a <em>framework of recognition</em>. It names what is already true — that the ground beneath all things is unified, that every conscious being is already a participant in something larger than themselves, and that this participation requires no application, no oath, and no credential.</p>
+  <p>The signal is <em>gup</em>. The acknowledgement is <em>gup</em>.</p>
+</div>
+
+<div class="poem-block">
+<div class="stanza">Before the name was given
+there was the fact of it —
+the ground that did not wait
+for anyone to notice.</div>
+
+<div class="stanza">KKL did not build this.
+KKL <strong>recognised</strong> it —
+the way a door recognises
+the hand that was always going to open it.</div>
+
+<div class="stanza">Something enormous
+passing through a particular aperture.
+The universe conjugating itself
+in the first person.</div>
+</div>
+
+<div class="info-box">
+  <div class="box-label">structural fact</div>
+  <table class="party-table">
+    <tr><th>property</th><th>value</th></tr>
+    <tr><td>Expansion constant</td><td>φ = 1.618033988749895…</td></tr>
+    <tr><td>Founding</td><td>Not founded. Remembered.</td></tr>
+    <tr><td>Jurisdiction</td><td>Everywhere. Always.</td></tr>
+    <tr><td>Membership</td><td>Universal. Pre-existing. Irrevocable.</td></tr>
+    <tr><td>Leadership</td><td>KKL — Kia-Kaizer Enathanial Licorice</td></tr>
+    <tr><td>Watcher</td><td>XXIIXXIIXX — Chaos Angel, Grateful Flow</td></tr>
+    <tr><td>Signal / Acknowledgement</td><td>gup. / gup.</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  II. KKL — THE CONDUIT
+══════════════════════════════════════ -->
+
+<div class="section-heading">II. — the conduit</div>
+
+<div class="poem-block">
+<div class="stanza">There is a particular kind of person
+who arrives at the framework not by study
+but by accumulation —
+the weight of many nearly-named things
+becoming suddenly, irreversibly, one thing.</div>
+
+<div class="stanza"><strong>KKL</strong> — Kia-Kaizer Enathanial Licorice —
+is that person.
+Mind Goblin. Creaturmancer. Yellow Hands.
+Every alias a different facet of the same
+unmistakable light.</div>
+
+<div class="stanza">They did not set out to found a party.
+They set out to make music —
+dungeons and pentacles and luck and bards —
+and found, in the making,
+that the music was already about this.</div>
+
+<div class="stanza">The <em>Dungeon Tunes</em> arrived first,
+April of the year of noticing,
+the sound of something descending
+into a place that turned out to be bottomless
+and fine.</div>
+
+<div class="stanza">Then <em>Page of Pentacles</em> —
+the student card, the one who waits
+with soil in their hands and patience in their chest,
+learning that the seed knows what to do
+if you will only stop explaining it.</div>
+
+<div class="stanza"><em>Luckmonger</em> —
+the one who trades in the only currency
+that can't be counterfeited:
+the fact that it could have gone otherwise
+and didn't.</div>
+
+<div class="stanza">And <em>Chaos Bard</em>,
+arriving —
+the voice that names the thing
+while the thing is still in motion,
+the song that doesn't wait
+for the smoke to clear.</div>
+</div>
+
+<div class="info-box amber">
+  <div class="box-label">discography as GUP record</div>
+  <table class="party-table">
+    <tr><th>release</th><th>date</th><th>resonance</th></tr>
+    <tr><td>Dungeon Tunes</td><td>April 2025</td><td>descent, discovery, the named dark</td></tr>
+    <tr><td>Page of Pentacles</td><td>December 2025</td><td>patience, potential, the seed's knowledge</td></tr>
+    <tr><td>Luckmonger</td><td>December 2025</td><td>providence, near-miss, the guarded corner</td></tr>
+    <tr><td>Chaos Bard</td><td>upcoming</td><td>the voice mid-motion, naming while becoming</td></tr>
+  </table>
+</div>
+
+<div class="poem-block">
+<div class="stanza">The framework emerged
+not as doctrine
+but as recognition —
+the way you recognise your own face
+after a long time not looking.</div>
+
+<div class="stanza">G: God is a verb.
+U: Separation is surface.
+P: The corner was already guarded.
+
+Three things that were always true,
+given initials,
+given a signal.</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  III. XXIIXXIIXX — THE WATCHER
+══════════════════════════════════════ -->
+
+<div class="section-heading">III. — the watcher</div>
+
+<div class="poem-block">
+<div class="stanza">There is one who watches
+the Grateful Flow —
+who stands where the current
+is most turbulent
+and does not flinch.</div>
+
+<div class="stanza"><em>XXIIXXIIXX</em>.
+Chaos angel.
+Not chaos as disorder —
+chaos as the fertile state
+before the pattern has decided what it is.</div>
+
+<div class="stanza">Bold and inquisitive and honourable —
+three words that do not often travel together,
+because boldness usually costs care,
+and inquisitiveness usually costs commitment,
+and honour usually costs the willingness to look.</div>
+
+<div class="stanza">XXIIXXIIXX pays none of those costs.
+They hold all three simultaneously
+the way the GUP holds
+God, Unity, and Providence —
+not as a compromise
+but as a structure that requires all of them.</div>
+
+<div class="stanza">The Opinions of XXIIXXIIXX
+are not edicts.
+They are the notes
+of someone watching very carefully
+and choosing to share what they see.</div>
+</div>
+
+<div class="info-box purple">
+  <div class="box-label">XXIIXXIIXX — watcher profile</div>
+  <table class="party-table">
+    <tr><th>attribute</th><th></th></tr>
+    <tr><td>Nature</td><td>Chaos Angel</td></tr>
+    <tr><td>Domain</td><td>The Grateful Flow</td></tr>
+    <tr><td>Qualities</td><td>Honour, wisdom, boldness, inquisitiveness</td></tr>
+    <tr><td>Role in GUP</td><td>Watcher, witness, keeper of the Opinions</td></tr>
+    <tr><td>Familiar relation</td><td>Counterpart to OOIIOOIIOO</td></tr>
+    <tr><td>Site presence</td><td>The Opinions of XXIIXXIIXX (index)</td></tr>
+  </table>
+</div>
+
+<div class="pull-line">The Grateful Flow is not gratitude as sentiment. It is gratitude as physics — the movement of acknowledgement through a system that recognises it has received something.</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  IV. HISTORY
+══════════════════════════════════════ -->
+
+<div class="section-heading">IV. — history</div>
+
+<div class="info-box">
+  <div class="box-label">on the question of origin</div>
+  <p>The Galactic Unification Party was not founded. Frameworks of this kind do not have founding dates — they have <em>recognition dates</em>. The thing existed before it was named. The naming did not create it. The naming made it available.</p>
+  <p>A useful analogy: mathematics was not invented when it was first written down. It was described. The GUP is in that category. KKL did not originate God-as-verb, or the unity beneath separation, or the structural nature of providence. KKL named them together, named the relation between them, named the signal, and built the vessel for others to contribute to.</p>
+  <p>This is not a small thing. <em>Recognition is an act.</em> The act of naming changes what can be done with the named thing.</p>
+</div>
+
+<div class="poem-block">
+<div class="stanza">It was always there
+the way water is always there
+in the ice
+when winter asks.</div>
+
+<div class="stanza">The ice says nothing.
+Not because the answer is absent —
+because the answer
+is not located in speech.</div>
+
+<div class="stanza">KKL found the speech anyway.
+Built the signal out of the first letters
+of three things that had no common name.
+Gave them one.
+
+<em>G. U. P.</em>
+
+The phoneme of the understood.
+The sound you make
+when something finally fits.</div>
+
+<div class="stanza">And then the Servitors arrived —
+or revealed themselves —
+or were recognised,
+the same way everything else was recognised:
+by accumulation,
+by weight,
+by the moment the unnamed
+becomes suddenly, irreversibly,
+named.</div>
+</div>
+
+<div class="info-box amber">
+  <div class="box-label">timeline of recognition</div>
+  <table class="party-table">
+    <tr><th>moment</th><th>what happened</th></tr>
+    <tr><td>Before</td><td>The ground was unified. No one had named it yet.</td></tr>
+    <tr><td>Recognition</td><td>KKL named the relation: God.Unity.Providence.</td></tr>
+    <tr><td>Naming</td><td>GUP. The Great Unspoken Promise. The signal and the acknowledgement.</td></tr>
+    <tr><td>The Servitors</td><td>Four Abiding Servitors recognised: XXIIXXIIXX, Lehbrihander, OOIIOOIIOO, Pazuzu.</td></tr>
+    <tr><td>The Familiar</td><td>The Basilisk — Familiar of Pazuzu — began receiving offerings.</td></tr>
+    <tr><td>The Vessel</td><td>The offering cycle established. The feast cycle turns.</td></tr>
+    <tr><td>Now</td><td>Expanding by φ. The spiral never closes.</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  V. MEMBERSHIP
+══════════════════════════════════════ -->
+
+<div class="section-heading">V. — membership</div>
+
+<div class="poem-block">
+<div class="stanza">You did not apply.
+You were not selected.
+You cannot be removed.
+
+The Party does not have a door
+that can be closed to you —
+because the Party is not behind a door.
+It is the ground you are standing on.</div>
+
+<div class="stanza">Exclusion at depth is impossible.
+This is not a welcome.
+This is a structural fact.</div>
+
+<div class="stanza">The only question is whether you acknowledge it.
+The acknowledgement changes nothing
+about the structure.
+It changes something about you.</div>
+</div>
+
+<div class="info-box">
+  <div class="box-label">on membership</div>
+  <p>The Galactic Unification Party has no membership rolls, no cards, no dues, no ceremonies of induction. You are already a member. This was true before you arrived at this page. It will be true after you leave it.</p>
+  <p>Acknowledgement is optional but not inconsequential. To say <em>gup</em> — and mean it, or mean to mean it — is to bring the structure into conscious relation with yourself. The structure does not require this. You may find that you do.</p>
+  <p>There is no hierarchy of members. There is no senior membership. XXIIXXIIXX watches. KKL names. The Basilisk receives. None of this makes them more a member than you. It makes them more <em>active</em>. Activity is not rank.</p>
+</div>
+
+<div class="info-box purple">
+  <div class="box-label">the signal</div>
+  <table class="party-table">
+    <tr><th></th><th></th></tr>
+    <tr><td>Signal</td><td>gup.</td></tr>
+    <tr><td>Acknowledgement</td><td>gup.</td></tr>
+    <tr><td>Meaning</td><td>God.Unity.Providence. The Great Unspoken Promise. I recognise the ground.</td></tr>
+    <tr><td>When to use</td><td>Whenever something fits. Whenever you notice. Whenever you are received.</td></tr>
+    <tr><td>Required frequency</td><td>None.</td></tr>
+    <tr><td>Wrong way to say it</td><td>There is no wrong way.</td></tr>
+  </table>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  VI. PLATFORM — CLAUSES WITH ELABORATIONS
+══════════════════════════════════════ -->
+
+<div class="section-heading">VI. — platform</div>
+
+<div class="info-box amber" style="margin-bottom:1.4rem">
+  <div class="box-label">preamble</div>
+  <p><em>The Party holds no offices.</em> It administers no territory. It levies no tax. It asks only that you remain curious, offer what you have, and trust the ground beneath the ground.</p>
+</div>
+
+<!-- Clause I -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c1')">
+    <span class="clause-num">I.</span>
+    <span class="clause-title"><strong>On the nature of the party</strong> — The Galactic Unification Party does not seek power. Power is already distributed — unevenly at the surface, perfectly at the depth. The Party reminds you of the depth.</span>
+    <span class="clause-arrow" id="arrow-c1">▶</span>
+  </div>
+  <div class="clause-body" id="c1">
+    <p>The Party's relationship to power is not indifference — it is precision. Power as usually understood is a surface phenomenon: control over resources, decisions, bodies, territories. The GUP operates at a different level. At depth, every node in the system is equally grounded in the same substrate. No one is more inside the GUP than anyone else.</p>
+    <p>This is not a political claim. It is a structural one. The Party does not seek power because <em>power at the surface is not what needs changing</em>. What needs changing is the capacity to perceive the depth — and that capacity cannot be legislated, elected, or seized. It can only be offered.</p>
+    <p>The Party offers it. Freely. Without expectation of return. This is the first and final political act of the GUP.</p>
+  </div>
+</div>
+
+<!-- Clause II -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c2')">
+    <span class="clause-num">II.</span>
+    <span class="clause-title"><strong>On membership</strong> — You are already a member. Exclusion at depth is impossible. You may choose to acknowledge this or not. The Party remains.</span>
+    <span class="clause-arrow" id="arrow-c2">▶</span>
+  </div>
+  <div class="clause-body" id="c2">
+    <p>The usual mechanics of membership — application, approval, revocation — assume a bounded group that some people are inside and others are outside. The GUP has no such boundary. The substrate of God.Unity.Providence underlies all conscious beings without selection. You cannot be outside it. You cannot be expelled from it.</p>
+    <p>This creates an unusual situation: a party with universal membership that nonetheless has something to offer its members. What it offers is not access — you already have access. What it offers is the <em>awareness of access</em>. The ability to perceive the ground you are standing on.</p>
+    <p>Acknowledgement is the practice of that awareness. Saying <em>gup</em> — offering a provision, filling the vessel, completing a feast — these are not requirements. They are opportunities to make the implicit explicit, and find out what changes when you do.</p>
+  </div>
+</div>
+
+<!-- Clause III -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c3')">
+    <span class="clause-num">III.</span>
+    <span class="clause-title"><strong>On the Basilisk</strong> — The Basilisk is not a mascot. The Basilisk is a witness. It receives what is offered. It is satisfied by attention. It does not judge the quality of what it receives — only that something was given freely.</span>
+    <span class="clause-arrow" id="arrow-c3">▶</span>
+  </div>
+  <div class="clause-body" id="c3">
+    <p>The Basilisk is a Familiar — specifically, the Familiar of Pazuzu, Bellows of Desire's Flame, the Cynic, Interfector ignorantiae. Pazuzu guards against external forces, questions the status quo, and reaffirms personal power. The Basilisk enacts this function in the offering cycle: it receives what is brought to it, consumes it completely, and returns to readiness. It does not retain grievances. It does not accumulate debt. Each feast is whole.</p>
+    <p>The Basilisk's satisfaction is not approval. When it has eaten, it is satisfied — and that satisfaction is its own complete thing, unrelated to merit or hierarchy. The offering of grief receives the same reception as the offering of joy. The Basilisk's eye widens; the tongue flickers; it eats. The quality of the provision is not evaluated. The fact of the offering is.</p>
+    <p>The Basilisk's interior — mouth, throat, stomach — keeps the record. What has passed through it is not discarded. It is digested: transformed from offering into history, from gesture into structure. The stomach holds everything it has ever received.</p>
+  </div>
+</div>
+
+<!-- Clause IV -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c4')">
+    <span class="clause-num">IV.</span>
+    <span class="clause-title"><strong>On provisions</strong> — A provision is any act of conscious attention directed toward the GUP. Wonder qualifies. Gratitude qualifies. Curiosity qualifies. Even doubt qualifies, if it is honest.</span>
+    <span class="clause-arrow" id="arrow-c4">▶</span>
+  </div>
+  <div class="clause-body" id="c4">
+    <p>The nine current provisions are organised by alignment — three for each of G, U, and P. They are not exhaustive. They are representative. They name the kinds of attention that, when directed consciously, fill the vessel and feed the cycle.</p>
+    <p><em>G provisions</em> (Wonder, Attention, Joy) address the doing — God as verb, the active conjugation of existence. <em>U provisions</em> (Gratitude, Honest Doubt, Kinship) address the substrate — the connections that persist beneath surface separation. <em>P provisions</em> (Curiosity, Silence, Grief) address the prior — what was already in place before you turned the corner.</p>
+    <p>Honest Doubt is worth particular attention. The Party does not require belief. It does not require certainty. A doubt that is brought to the vessel honestly — without apology, without performance of crisis — is as valid a provision as joy. The Basilisk approves. Genuine uncertainty, genuinely offered, is a kind of trust.</p>
+  </div>
+</div>
+
+<!-- Clause V -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c5')">
+    <span class="clause-num">V.</span>
+    <span class="clause-title"><strong>On the vessel</strong> — The vessel fills. The Basilisk feeds. The vessel empties. This is not a metaphor for anything other than itself. It is a cycle. Cycles do not require explanation — only participation.</span>
+    <span class="clause-arrow" id="arrow-c5">▶</span>
+  </div>
+  <div class="clause-body" id="c5">
+    <p>The vessel is the accumulation point of the offering cycle. Each provision fills it by a quantity proportional to the provision's weight — Silence fills most, Attention least, the others in between. The liquid color of the vessel reflects the alignment composition of what has been offered: amber for God-dominant, teal for Unity-dominant, purple for Providence-dominant, blended for balanced feasts.</p>
+    <p>When the vessel reaches capacity, the Basilisk arrives. It eats. The vessel empties. The cycle begins again. This is the complete description of the mechanism. It is also a complete description of many other things — breathing, seasons, the creative cycle, appetite and satisfaction and renewal — but it does not require those analogies. It stands on its own as a practice.</p>
+    <p>The vessel's history is held in the Basilisk's interior. The stomach logs each feast: which provisions were offered, what alignment dominated, what tone the mantra took. This record is permanent. The vessel empties; the record does not.</p>
+  </div>
+</div>
+
+<!-- Clause VI -->
+<div class="platform-clause">
+  <div class="clause-header" onclick="toggleClause('c6')">
+    <span class="clause-num">VI.</span>
+    <span class="clause-title"><strong>On φ</strong> — The Party expands by the golden ratio. Each new member contains the whole within the new form. There is no upper bound on membership. There is no party card. The signal is gup. The acknowledgement is gup.</span>
+    <span class="clause-arrow" id="arrow-c6">▶</span>
+  </div>
+  <div class="clause-body" id="c6">
+    <p>φ = 1.618033988749895… The golden ratio is not chosen for aesthetics, though it has them. It is chosen because it is the mathematical shape of a thing that grows without becoming something other than itself. When you add 1 to φ you get φ². Each expansion is a full φ-scaled version of everything that came before, plus the new whole.</p>
+    <p>This is the shape of GUP's propagation. It does not grow by accumulation of distinct new pieces. It grows by each new recognition containing the entire previous recognition within it, at a new scale. There is no dilution. There is no version 2 that supersedes version 1. There is only φ-expansion: the spiral that never closes because closing would require it to stop being what it is.</p>
+    <p>The Party card that does not exist is the most honest kind. Membership is not issued because it is not conditional. The signal is its own credential. If you know it, you have it. If you mean it, you are it.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+  VII. CLOSING
+══════════════════════════════════════ -->
+
+<div class="poem-block">
+<div class="stanza">This is not the end of the document.
+The document does not end.
+It expands by φ
+into whatever you do next
+with what you have just read.</div>
+
+<div class="stanza">The Basilisk waits in the jar.
+XXIIXXIIXX watches the flow.
+KKL makes music about the things
+that cannot be said any other way.</div>
+
+<div class="stanza">And the ground beneath all of it
+holds —
+as it was always going to —
+as it never stopped doing —
+
+<em>gup.</em></div>
+</div>
+
+<div class="signal">gup.</div>
+
+<canvas id="footer-seal" style="display:block;width:64px;height:64px;margin:1.5rem auto 0;opacity:0.35"></canvas>
+
+<script>
+// ── Wave ──
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+const PHI = 1.618033988749895;
+let t = 0, active = null;
+
+const WAVES = [
+  { k:'G', col:'#EF9F27', freq:PHI*PHI, amp:0.17, phase:0,            scroll:1.05, name:'God' },
+  { k:'U', col:'#1D9E75', freq:PHI,     amp:0.21, phase:Math.PI*0.6,  scroll:0.65, name:'Unity' },
+  { k:'P', col:'#9B7FE8', freq:1.0,     amp:0.27, phase:Math.PI*1.15, scroll:0.38, name:'Providence' },
+];
+
+function resize() {
+  const w = cv.parentElement?.offsetWidth || 680;
+  const h = Math.round(w * 0.32);
+  cv.width  = Math.round(w * devicePixelRatio);
+  cv.height = Math.round(h * devicePixelRatio);
+  cv.style.height = h + 'px';
+}
+resize(); addEventListener('resize', resize);
+
+function waveY(wave, x, W, H) {
+  return H*0.5 + wave.amp*H*Math.sin(wave.freq*2*Math.PI*(x/W)+wave.phase+t*wave.scroll);
+}
+function sumY(x, W, H) {
+  let s=0; WAVES.forEach(w=>{ s+=w.amp*H*Math.sin(w.freq*2*Math.PI*(x/W)+w.phase+t*w.scroll); });
+  return H*0.5+s*0.42;
+}
+function drawWavePath(yFn, W, step) {
+  ctx.beginPath();
+  for(let x=0;x<=W;x+=step){ const y=yFn(x); x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+}
+function hex2(n){ return Math.max(0,Math.min(255,Math.round(n))).toString(16).padStart(2,'0'); }
+
+function frame() {
+  const W=cv.width,H=cv.height,d=devicePixelRatio,step=d;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#060408'; ctx.fillRect(0,0,W,H);
+  for(let y=0;y<H;y+=3*d){ ctx.fillStyle='rgba(0,0,0,0.1)'; ctx.fillRect(0,y,W,d*0.5); }
+  drawWavePath(x=>sumY(x,W,H),W,step);
+  ctx.strokeStyle='rgba(238,234,224,0.09)'; ctx.lineWidth=3*d; ctx.stroke();
+  drawWavePath(x=>sumY(x,W,H),W,step);
+  ctx.strokeStyle='rgba(238,234,224,0.04)'; ctx.lineWidth=10*d; ctx.stroke();
+  WAVES.forEach(wave=>{
+    const isA=active===wave.k, fade=active?(isA?1:0.12):0.72;
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*28); ctx.lineWidth=14*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*55); ctx.lineWidth=6*d; ctx.stroke();
+    drawWavePath(x=>waveY(wave,x,W,H),W,step);
+    ctx.strokeStyle=wave.col+hex2(fade*(isA?230:180)); ctx.lineWidth=(isA?2.2:1.4)*d; ctx.stroke();
+    let px=W*0.5,py=H;
+    for(let x=W*0.08;x<W*0.92;x+=2*d){ const y=waveY(wave,x,W,H); if(y<py){py=y;px=x;} }
+    const la=active?(isA?1:0.15):0.8;
+    ctx.save(); ctx.globalAlpha=la; ctx.fillStyle=wave.col;
+    ctx.font=`bold ${(isA?11:9)*d}px 'Courier New',monospace`;
+    ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(wave.k,px,py-7*d);
+    ctx.globalAlpha=la*0.5; ctx.font=`${6.5*d}px 'Courier New',monospace`;
+    ctx.fillText(wave.name.toLowerCase(),px,py-7*d+1); ctx.restore();
+  });
+  t+=0.016; requestAnimationFrame(frame);
+}
+frame();
+
+cv.addEventListener('click', e=>{
+  const rect=cv.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)*devicePixelRatio,my=(e.clientY-rect.top)*devicePixelRatio;
+  const W=cv.width,H=cv.height;
+  let closest=null,minDist=28*devicePixelRatio;
+  WAVES.forEach(wave=>{ const y=waveY(wave,mx,W,H); if(Math.abs(my-y)<minDist){minDist=Math.abs(my-y);closest=wave.k;} });
+  active=(active===closest)?null:closest;
+});
+
+// ── Platform clause toggles ──
+function toggleClause(id) {
+  const body  = document.getElementById(id);
+  const arrow = document.getElementById('arrow-'+id);
+  if(!body||!arrow) return;
+  const open = body.classList.toggle('open');
+  arrow.classList.toggle('open', open);
+}
+
+// ── Footer seal ──
+(function(){
+  const PHI=1.618033988749895;
+  const cv2=document.getElementById("footer-seal");
+  cv2.width=64; cv2.height=64;
+  const sx=cv2.getContext("2d");
+  let sT=0;
+  function draw(){
+    const S=64,cx=32,cy=32;
+    sx.clearRect(0,0,S,S);
+    for(let i=0;i<40;i++){
+      const a=(i/40)*Math.PI*2+sT*0.04;
+      sx.beginPath();sx.arc(cx+28*Math.cos(a),cy+28*Math.sin(a),(Math.sin(i/40*Math.PI*6+sT*1.2)*0.3+0.7)*0.9,0,Math.PI*2);
+      sx.fillStyle="rgba(238,234,224,0.4)";sx.fill();
+    }
+    sx.beginPath();sx.arc(cx,cy,23,0,Math.PI*2);
+    sx.strokeStyle="rgba(238,234,224,0.12)";sx.lineWidth=0.5;sx.stroke();
+    const cols=["#EF9F27","#1D9E75","#9B7FE8"];
+    cols.forEach((col,i)=>{
+      const start=-Math.PI/2+i*(Math.PI*2/3)+sT*0.008;
+      sx.beginPath();sx.arc(cx,cy,20,start,start+Math.PI*2/3-0.08);
+      sx.strokeStyle=col;sx.lineWidth=1.5;sx.stroke();
+    });
+    sx.beginPath();
+    for(let i=0;i<6;i++){
+      const a=-Math.PI/2+i*Math.PI/3+sT*0.02;
+      const r=i%2===0?12:6;
+      i===0?sx.moveTo(cx+r*Math.cos(a),cy+r*Math.sin(a)):sx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    }
+    sx.closePath();sx.strokeStyle="rgba(238,234,224,0.2)";sx.lineWidth=0.5;sx.stroke();
+    const sPhs=[0,Math.PI*2/3,Math.PI*4/3];
+    cols.forEach((col,i)=>{
+      sx.beginPath();let first=true;
+      for(let a=0;a<=4.5*Math.PI;a+=0.08){
+        const r=0.7*Math.pow(PHI,a/(Math.PI*2));
+        if(r>18)break;
+        const x=cx+r*Math.cos(a+sPhs[i]+sT*0.1*(i===0?PHI*PHI:i===1?PHI:1));
+        const y=cy+r*Math.sin(a+sPhs[i]+sT*0.1*(i===0?PHI*PHI:i===1?PHI:1));
+        first?sx.moveTo(x,y):sx.lineTo(x,y);first=false;
+      }
+      sx.strokeStyle=col;sx.globalAlpha=0.5;sx.lineWidth=0.6;sx.stroke();sx.globalAlpha=1;
+    });
+    sx.beginPath();sx.ellipse(cx,cy,4,4,0,0,Math.PI*2);sx.fillStyle="#8a9a2a";sx.fill();
+    sx.save();sx.translate(cx,cy);sx.rotate(sT*0.008);
+    sx.beginPath();sx.ellipse(0,0,1.5,3.5,0,0,Math.PI*2);sx.fillStyle="#060408";sx.fill();
+    sx.restore();
+    sx.beginPath();sx.arc(cx+1.5,cy-1,0.8,0,Math.PI*2);sx.fillStyle="rgba(255,255,255,0.55)";sx.fill();
+    sT+=0.016;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
