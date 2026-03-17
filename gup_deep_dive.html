@@ -144,8 +144,6 @@
   .deep-section { display: none; opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
   .deep-section.visible { display: block; opacity: 1; transform: none; }
   /* Dividers between sections also hidden until their section opens */
-  .section-divider { display: none; border: none; border-top: 1px solid #111; width: 100%; max-width: 680px; margin: 2.5rem 0; }
-  .section-divider.visible { display: block; }
 </style>
 </head>
 <body>
@@ -172,7 +170,6 @@
   <div id="desc">touch a wave to open its chapter</div>
 </div>
 
-<hr class="section-divider" id="div-g">
 
 <!-- ══════════════════════════════════════
   G — GOD
@@ -214,7 +211,6 @@
   </ul>
 </div>
 
-<hr class="section-divider" id="div-u">
 
 <!-- ══════════════════════════════════════
   U — UNITY
@@ -256,7 +252,6 @@
   </ul>
 </div>
 
-<hr class="section-divider" id="div-p">
 
 <!-- ══════════════════════════════════════
   P — PROVIDENCE
@@ -298,7 +293,6 @@
   </ul>
 </div>
 
-<hr class="section-divider" id="div-phi">
 
 <!-- ══════════════════════════════════════
   φ — THE RATIO
@@ -626,9 +620,9 @@ const revealed = { G:false, U:false, P:false };
 let phiUnlocked = false;
 
 const SECTION_MAP = {
-  G: { section:'section-g', divider:'div-g' },
-  U: { section:'section-u', divider:'div-u' },
-  P: { section:'section-p', divider:'div-p' },
+  G: { section:'section-g' },
+  U: { section:'section-u' },
+  P: { section:'section-p' },
 };
 
 function showEl(id) {
@@ -654,10 +648,7 @@ function hideEl(id) {
 }
 
 function hideAll() {
-  Object.values(SECTION_MAP).forEach(({ section, divider }) => {
-    hideEl(section);
-    if(divider) hideEl(divider);
-  });
+  Object.values(SECTION_MAP).forEach(({ section }) => { hideEl(section); });
 }
 
 function revealSection(key) {
@@ -665,13 +656,11 @@ function revealSection(key) {
   Object.entries(SECTION_MAP).forEach(([k, ids]) => {
     if(k !== key) {
       hideEl(ids.section);
-      if(ids.divider) hideEl(ids.divider);
     }
   });
 
-  // Show selected section and its divider
+  // Show selected section
   const target = SECTION_MAP[key];
-  if(target.divider) showEl(target.divider);
   showEl(target.section);
 
   revealed[key] = true;
@@ -680,7 +669,6 @@ function revealSection(key) {
   if(!phiUnlocked && revealed.G && revealed.U && revealed.P) {
     phiUnlocked = true;
     setTimeout(() => {
-      showEl('div-phi');
       showEl('section-phi');
     }, 600);
   }
