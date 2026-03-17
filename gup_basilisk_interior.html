@@ -863,52 +863,50 @@ function toggleAllTime() {
 
 function buildThroat() {
   const el = document.getElementById('throat-contents');
-
-  // Show current GUP alignment bars
-  const cg=state.currentGUP||{G:0,U:0,P:0};
-  const cTotal=(cg.G||0)+(cg.U||0)+(cg.P||0);
-  const useLog = cTotal===0 && state.feastLog.length>0;
   const lastFeast = state.feastLog.length>0 ? state.feastLog[state.feastLog.length-1] : null;
 
-  const rows=[
-    {label:'G — God',        k:'G', count:cg.G||0, col:'#EF9F27'},
-    {label:'U — Unity',      k:'U', count:cg.U||0, col:'#1D9E75'},
-    {label:'P — Providence', k:'P', count:cg.P||0, col:'#9B7FE8'},
-  ];
-  const grandTotal=rows.reduce((s,r)=>s+r.count,0);
-
-  // Mantra from last feast
-  let mantraHtml='';
-  if(lastFeast){
-    const feastProvisions = lastFeast.provisions || {};
-    const hasSomething = Object.values(feastProvisions).some(v=>v>0);
-    if(hasSomething){
-      const tone = computeTone(feastProvisions);
-      const rgb  = lastFeast.liquidRGB || [155,127,232];
-      const mantra = generateMantra(feastProvisions, lastFeast.dominant, tone);
-      const formatted = mantra.replace(/\n/g,'<br>');
-      mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${formatted}</div>`;
-    }
-  }
-
-  if(grandTotal===0 && !lastFeast){
+  if(!lastFeast){
     el.innerHTML='<div class="empty-state">the throat is still — offer to animate it</div>';
     return;
   }
 
-  let alignHtml='';
-  if(grandTotal>0){
-    const max=Math.max(1,...rows.map(r=>r.count));
-    alignHtml=`<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.5rem">current vessel alignment</div>`
-      +rows.map(r=>`<div class="provision-row">
-        <span class="prov-name" style="color:${r.col}88">${r.label}</span>
-        <div class="prov-bar-track"><div class="prov-bar-fill" style="background:${r.col}" data-target="${Math.round(r.count/max*100)}"></div></div>
-        <span class="prov-count" style="color:${r.col}66">${r.count>0?r.count+'×':'—'}</span>
-      </div>`).join('');
+  // Derive G/U/P totals from last feast's provisions
+  const fp = lastFeast.provisions || {};
+  const gTotal = OFFERING_DEFS.filter(o=>o.align==='G').reduce((s,o)=>s+(fp[o.id]||0),0);
+  const uTotal = OFFERING_DEFS.filter(o=>o.align==='U').reduce((s,o)=>s+(fp[o.id]||0),0);
+  const pTotal = OFFERING_DEFS.filter(o=>o.align==='P').reduce((s,o)=>s+(fp[o.id]||0),0);
+  const fTotal = gTotal+uTotal+pTotal;
+  const rows=[
+    {label:'G — God',        count:gTotal, col:'#EF9F27'},
+    {label:'U — Unity',      count:uTotal, col:'#1D9E75'},
+    {label:'P — Providence', count:pTotal, col:'#9B7FE8'},
+  ];
+  const max = Math.max(1,...rows.map(r=>r.count));
+  const rgb = lastFeast.liquidRGB||[155,127,232];
+
+  const alignHtml =
+    `<div class="layer-tag" style="font-size:.52rem;letter-spacing:.3em;color:#333;text-transform:uppercase;margin-bottom:.5rem">feast ${lastFeast.id} alignment</div>`
+    + rows.map(r=>{
+        const pct = fTotal>0 ? Math.round(r.count/fTotal*100) : 0;
+        return `<div class="provision-row">
+          <span class="prov-name" style="color:${r.col}88">${r.label}</span>
+          <div class="prov-bar-track"><div class="prov-bar-fill" style="background:${r.col}" data-target="${Math.round(r.count/max*100)}"></div></div>
+          <span class="prov-count" style="color:${r.col}66">${r.count>0?pct+'%':'—'}</span>
+        </div>`;
+      }).join('');
+
+  // Mantra
+  let mantraHtml='';
+  const hasSomething = Object.values(fp).some(v=>v>0);
+  if(hasSomething){
+    const tone = computeTone(fp);
+    const mantra = generateMantra(fp, lastFeast.dominant, tone);
+    const formatted = mantra.replace(/\n/g,'<br>');
+    mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${formatted}</div>`;
   }
 
-  el.innerHTML=alignHtml+mantraHtml;
-  setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); },700);
+  el.innerHTML = alignHtml + mantraHtml;
+  setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); }, 700);
 }
 
 
