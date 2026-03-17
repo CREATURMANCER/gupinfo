@@ -543,17 +543,242 @@ function buildStomachOrbs() {
 // ═══════════════════════════════════════════
 
 // ── Provision keyword map for mantra generation ──
-const PROVISION_WORDS = {
-  wonder:    ['suspension','unknowing','open','vast','unasked'],
-  attention: ['presence','witness','contact','here','now'],
-  joy:       ['pleasure','being','alive','light','play'],
-  gratitude: ['acknowledgement','received','given','held','thanks'],
-  doubt:     ['honest','uncertain','unresolved','questioning','open'],
-  kinship:   ['undivided','together','surface','beneath','one'],
-  curiosity: ['appetite','unknown','searching','threshold','open'],
-  silence:   ['unnamed','still','unspoken','listening','gup'],
-  grief:     ['love','lost','nowhere','held','remembered'],
+// ═══════════════════════════════════════════
+// MANTRA GENERATION v2
+// Three word pools per provision (nouns / verbs / textures)
+// Quantity-weighted draw — more of a provision = higher pull
+// Form selected by dominant alignment
+// Tone modulator applied after structure selection
+// ═══════════════════════════════════════════
+
+const PROVISION_VOCAB = {
+  wonder: {
+    nouns:    ['threshold','the unnamed','suspension','the unasked','the opening','the held breath'],
+    verbs:    ['holds open','widens','receives','suspends','rests before','does not yet name'],
+    textures: ['vast','prior','unheld','before knowing','unresolved','quietly enormous'],
+  },
+  attention: {
+    nouns:    ['the present','contact','witness','the surface','the instant','the fact of here'],
+    verbs:    ['touches','marks','stays','lands','notices','makes contact with'],
+    textures: ['exact','brief','here','deliberate','unhurried','precisely now'],
+  },
+  joy: {
+    nouns:    ['the fact of it','being','surplus','the given','the light','what was not owed'],
+    verbs:    ['rises','exceeds','spills','remains','holds','arrives unbidden'],
+    textures: ['bright','unearned','loose','generous','alive','more than enough'],
+  },
+  gratitude: {
+    nouns:    ['the receipt','what held','the gift','the prior','remainder','what was already there'],
+    verbs:    ['received','acknowledged','answered','counted','met','did not go unnoticed'],
+    textures: ['given','already there','intact','prior','quiet','without condition'],
+  },
+  doubt: {
+    nouns:    ['the open hand','the question','the honest lack','the gap','what cannot be closed'],
+    verbs:    ['opens','refuses to close','stands','waits','holds without resolving','stays open'],
+    textures: ['honest','unresolved','clean','necessary','open-palmed','offered as-is'],
+  },
+  kinship: {
+    nouns:    ['the substrate','the underneath','what holds both','the shared floor','depth','the same water'],
+    verbs:    ['underlies','connects at root','persists','holds without touching','cannot be severed'],
+    textures: ['undivided','beneath the surface','one thing','unbroken','the same beneath','prior to difference'],
+  },
+  curiosity: {
+    nouns:    ['the threshold','the appetite','the unknown shore','the question','the edge of knowing'],
+    verbs:    ['reaches','leans toward','seeks','approaches','opens toward','does not yet arrive'],
+    textures: ['hungry','alert','leaning','forward-facing','approaching without arrival'],
+  },
+  silence: {
+    nouns:    ['the space','what is not said','the unnamed','the still','the gap between'],
+    verbs:    ['withholds','remains','does not speak','holds','opens without filling'],
+    textures: ['unnamed','still','listening','prior to speech','gup','attending without asking'],
+  },
+  grief: {
+    nouns:    ['the weight','what remained','the after','the held loss','the shape of it','what love leaves'],
+    verbs:    ['stays','does not resolve','holds the shape','remains','endures','refuses to be nothing'],
+    textures: ['heavy','remembered','still present','unrelinquished','carried','the long after'],
+  },
 };
+
+const PROVISION_TONE = {
+  wonder:'open', attention:'still', joy:'bright', gratitude:'bright',
+  doubt:'open',  kinship:'still',  curiosity:'open', silence:'still', grief:'dark',
+};
+
+const PROVISION_ALIGN = {
+  wonder:'G', attention:'G', joy:'G',
+  gratitude:'U', doubt:'U', kinship:'U',
+  curiosity:'P', silence:'P', grief:'P',
+};
+
+// ── Compute dominant tone from feast provisions
+function computeTone(provisions) {
+  const score = {dark:0, still:0, bright:0, open:0};
+  Object.entries(provisions).forEach(([id,n])=>{
+    if(n>0 && PROVISION_TONE[id]) score[PROVISION_TONE[id]] += n;
+  });
+  return Object.entries(score).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+// ── Weighted draw from provision pools — quantity is weight
+function weightedDraw(provisions, poolKey) {
+  const entries = [];
+  Object.entries(provisions).forEach(([id,count])=>{
+    if(count>0 && PROVISION_VOCAB[id]){
+      const pool = PROVISION_VOCAB[id][poolKey] || [];
+      for(let i=0; i<count; i++) pool.forEach(w => entries.push(w));
+    }
+  });
+  if(!entries.length) return null;
+  return entries[Math.floor(Math.random()*entries.length)];
+}
+
+function draw(provisions, poolKey) {
+  return weightedDraw(provisions, poolKey)
+      || weightedDraw(provisions, 'nouns')
+      || 'the unnamed';
+}
+
+// Draw preferring provisions of a specific GUP alignment
+function drawAligned(provisions, align, poolKey) {
+  const sub = {};
+  Object.entries(provisions).forEach(([id,n])=>{
+    if(PROVISION_ALIGN[id]===align && n>0) sub[id]=n;
+  });
+  return Object.keys(sub).length ? draw(sub, poolKey) : draw(provisions, poolKey);
+}
+
+// ── FORM BUILDERS ─────────────────────────────────────
+
+// G → haiku: verb-centred, present-tense, three lines
+function buildHaiku(provisions, tone) {
+  const n1 = draw(provisions, 'nouns');
+  const v1 = draw(provisions, 'verbs');
+  const t1 = draw(provisions, 'textures');
+  const n2 = draw(provisions, 'nouns');
+
+  const closings = {
+    dark:   [n2, 'not yet resolved', 'the doing persists'],
+    still:  [n2, 'gup', draw(provisions,'textures')],
+    bright: [n2, draw(provisions,'textures'), 'still here'],
+    open:   [n2, 'open', draw(provisions,'textures')],
+  };
+  const close = closings[tone] || closings.open;
+
+  return `${t1} ${n1}\n${v1}\n${close[Math.floor(Math.random()*close.length)]}`;
+}
+
+// U → couplet: two lines with echo or mirror
+function buildCouplet(provisions, tone) {
+  const n1 = draw(provisions, 'nouns');
+  const v1 = draw(provisions, 'verbs');
+  const n2 = draw(provisions, 'nouns');
+  const t1 = draw(provisions, 'textures');
+
+  const forms = {
+    dark:  `${n1} ${v1}.\n${n2} — the same.`,
+    still: `${n1} ${v1}.\n${n2}: undivided.`,
+    bright:`${v1}: ${n1}.\n${t1}: ${n2}.`,
+    open:  `${n1} ${v1}.\nbeneath ${n2} — one thing.`,
+  };
+  return forms[tone] || forms.open;
+}
+
+// P → koan: question + tone-determined resolution
+function buildKoan(provisions, tone) {
+  const n1 = draw(provisions, 'nouns');
+  const t1 = draw(provisions, 'textures');
+  const n2 = draw(provisions, 'nouns');
+  const v1 = draw(provisions, 'verbs');
+
+  const question = `when ${n1} ${t1},\nwhat remains of ${n2}?`;
+
+  const resolutions = {
+    dark:  `\n\n...`,
+    still: `\n\ngup.`,
+    bright:`\n\n${v1}.`,
+    open:  `\n\n— ask again.`,
+  };
+  return question + (resolutions[tone] || resolutions.open);
+}
+
+// Balanced: tercet, clerihew, or sonnet depending on unique:repeated ratio
+function buildBalanced(provisions, tone) {
+  const ids    = Object.entries(provisions).filter(([,n])=>n>0);
+  const unique = ids.length;
+  const total  = ids.reduce((s,[,n])=>s+n, 0);
+  const repeated = total - unique;
+  const ratio  = repeated === 0 ? Infinity : unique / repeated;
+
+  if(ratio > 1.618033988749895) return buildSonnet(provisions, tone);
+  if(tone==='dark' || tone==='still') return buildTercet(provisions, tone);
+  return buildClerihew(provisions, tone);
+}
+
+// Tercet: one line per GUP alignment
+function buildTercet(provisions, tone) {
+  const gLine = drawAligned(provisions,'G','verbs') + ' — ' + drawAligned(provisions,'G','textures');
+  const uLine = drawAligned(provisions,'U','nouns')  + ', '  + drawAligned(provisions,'U','textures');
+  const pLine = drawAligned(provisions,'P','textures')+ ': ' + drawAligned(provisions,'P','nouns');
+
+  const sep = tone==='still' ? '\n' : '.\n';
+  return gLine + sep + uLine + sep + pLine + (tone==='still' ? '' : '.');
+}
+
+// Clerihew: AABB four lines, slightly oblique
+function buildClerihew(provisions, tone) {
+  const n1 = draw(provisions,'nouns');
+  const v1 = draw(provisions,'verbs');
+  const n2 = draw(provisions,'nouns');
+  const t1 = draw(provisions,'textures');
+  const t2 = draw(provisions,'textures');
+
+  return `${n1} ${v1},\n${n2} — the same call.\n${t1}, the ground holds.\n${t2}: gup unfolds.`;
+}
+
+// Sonnet: three GUP quatrains + closing couplet (14 lines)
+function buildSonnet(provisions, tone) {
+  const L = (a,k) => drawAligned(provisions,a,k);
+  const D = k => draw(provisions,k);
+
+  const closings = {
+    dark:  'the doing persists. gup.',
+    still: 'gup.',
+    bright:'still here. still doing. gup.',
+    open:  'the question holds. gup.',
+  };
+
+  return [
+    // Q1 — G
+    `${L('G','verbs')} — ${L('G','nouns')},`,
+    `${L('G','textures')}, ${L('G','verbs')};`,
+    `${L('G','nouns')} that ${L('G','verbs')},`,
+    `${L('G','textures')}.`,
+    '',
+    // Q2 — U
+    `${L('U','nouns')}: ${L('U','textures')},`,
+    `${L('U','verbs')}, ${L('U','nouns')};`,
+    `${L('U','textures')} — ${L('U','verbs')},`,
+    `${L('U','nouns')}.`,
+    '',
+    // Q3 — P
+    `${L('P','textures')}: ${L('P','nouns')},`,
+    `${L('P','verbs')} — ${L('P','textures')};`,
+    `${L('P','nouns')}, ${L('P','verbs')},`,
+    `${L('P','textures')}.`,
+    '',
+    // Closing couplet
+    `${D('nouns')} — ${D('verbs')}.`,
+    closings[tone] || closings.open,
+  ].join('\n');
+}
+
+// ── ENTRY POINT called by buildThroat
+function generateMantra(provisions, dominant, tone) {
+  if(dominant==='G') return buildHaiku(provisions, tone);
+  if(dominant==='U') return buildCouplet(provisions, tone);
+  if(dominant==='P') return buildKoan(provisions, tone);
+  return buildBalanced(provisions, tone);
+}
 
 function buildMouth() {
   const el    = document.getElementById('mouth-contents');
@@ -652,20 +877,17 @@ function buildThroat() {
   ];
   const grandTotal=rows.reduce((s,r)=>s+r.count,0);
 
-  // Mantra from last feast keywords
+  // Mantra from last feast
   let mantraHtml='';
   if(lastFeast){
-    const offeredIds=Object.entries(lastFeast.provisions)
-      .filter(([,v])=>v>0).map(([k])=>k);
-    const words=[];
-    offeredIds.forEach(id=>{
-      const pool=PROVISION_WORDS[id]||[];
-      if(pool.length) words.push(pool[Math.floor(Math.random()*pool.length)]);
-    });
-    if(words.length>=2){
-      const rgb=lastFeast.liquidRGB||[155,127,232];
-      const mantra=generateMantra(words, lastFeast.dominant);
-      mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.7);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${mantra}</div>`;
+    const feastProvisions = lastFeast.provisions || {};
+    const hasSomething = Object.values(feastProvisions).some(v=>v>0);
+    if(hasSomething){
+      const tone = computeTone(feastProvisions);
+      const rgb  = lastFeast.liquidRGB || [155,127,232];
+      const mantra = generateMantra(feastProvisions, lastFeast.dominant, tone);
+      const formatted = mantra.replace(/\n/g,'<br>');
+      mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${formatted}</div>`;
     }
   }
 
@@ -689,31 +911,6 @@ function buildThroat() {
   setTimeout(()=>{ el.querySelectorAll('.prov-bar-fill').forEach(b=>{ b.style.width=b.dataset.target+'%'; }); },700);
 }
 
-function generateMantra(words, dominant) {
-  const FRAMES = {
-    G:[
-      (w)=>`${w[0]} and ${w[1]||w[0]} — the doing continues`,
-      (w)=>`through ${w[0]}, god conjugated`,
-      (w)=>`${w[0]}, ${w[1]||'present'} — unnamed and acting`,
-    ],
-    U:[
-      (w)=>`${w[0]} holds. ${w[1]||w[0]} does not divide`,
-      (w)=>`beneath ${w[0]} — one thing`,
-      (w)=>`${w[0]} and ${w[1]||w[0]}, surface only`,
-    ],
-    P:[
-      (w)=>`${w[0]} — the corner was already guarded`,
-      (w)=>`${w[0]} arrived before it was needed`,
-      (w)=>`${w[0]}, ${w[1]||'silent'} — provision`,
-    ],
-    balanced:[
-      (w)=>`${w[0]}, ${w[1]||w[0]}, ${w[2]||w[0]} — gup`,
-      (w)=>`all three: ${w.slice(0,3).join(', ')}`,
-    ],
-  };
-  const pool=FRAMES[dominant]||FRAMES.balanced;
-  return pool[Math.floor(Math.random()*pool.length)](words);
-}
 
 function buildStomach() {
   const el    = document.getElementById('stomach-contents');
