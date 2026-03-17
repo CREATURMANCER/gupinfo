@@ -124,14 +124,14 @@ nav a:hover { opacity: 1; }
 #eye-top {
   position: fixed; bottom: 1.8rem; right: 1.8rem;
   width: 44px; height: 44px;
-  cursor: pointer; opacity: 0;
-  transition: opacity .4s, transform .3s;
-  transform: translateY(8px);
-  z-index: 999; border: none; background: none; padding: 0;
+  cursor: pointer; opacity: 0; pointer-events: none;
+  transition: opacity .4s;
+  z-index: 9999; border: none; background: none; padding: 0;
+  display: flex; align-items: center; justify-content: center;
 }
-#eye-top.visible { opacity: 0.7; transform: translateY(0); }
+#eye-top.visible { opacity: 0.75; pointer-events: auto; }
 #eye-top:hover   { opacity: 1; }
-#eye-top canvas  { display: block; }
+#eye-top svg { display: block; width: 44px; height: 44px; }
 </style>
 </head>
 <body>
@@ -507,37 +507,11 @@ function toggleClause(id){
   draw();
 })();
 
-// ── Basilisk eye button ──
+// ── Basilisk eye scroll-to-top ──
 (function(){
   const btn = document.getElementById('eye-top');
-  const ec  = document.getElementById('eye-canvas');
-  if(!btn||!ec) return;
-  const ex = ec.getContext('2d');
-  let eT = 0;
-
-  function drawEye(){
-    ex.clearRect(0,0,44,44);
-    const cx=22,cy=22;
-    // Iris
-    ex.beginPath();ex.ellipse(cx,cy,16,16,0,0,Math.PI*2);
-    ex.fillStyle='#8a9a2a';ex.fill();
-    // Slit pupil — rotates slowly
-    const slitAngle = eT * 0.012;
-    const slitH = Math.abs(Math.sin(eT*0.4))*6+3;
-    ex.save();ex.translate(cx,cy);ex.rotate(slitAngle);
-    ex.beginPath();ex.ellipse(0,0,3,slitH,0,0,Math.PI*2);
-    ex.fillStyle='#060408';ex.fill();ex.restore();
-    // Specular highlight
-    ex.beginPath();ex.arc(cx+4,cy-4,2.5,0,Math.PI*2);
-    ex.fillStyle='rgba(255,255,255,0.6)';ex.fill();
-    // Thin outer ring
-    ex.beginPath();ex.ellipse(cx,cy,17,17,0,0,Math.PI*2);
-    ex.strokeStyle='rgba(138,154,42,0.4)';ex.lineWidth=1;ex.stroke();
-    eT+=0.016;requestAnimationFrame(drawEye);
-  }
-  drawEye();
-
-  window.addEventListener('scroll', ()=>{
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
     btn.classList.toggle('visible', window.scrollY > 300);
   });
 })();
@@ -546,7 +520,16 @@ function toggleClause(id){
 
 <!-- ── Basilisk eye scroll-to-top ── -->
 <button id="eye-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="scroll to top">
-  <canvas id="eye-canvas" width="44" height="44"></canvas>
+  <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <!-- Iris -->
+    <ellipse cx="22" cy="22" rx="16" ry="16" fill="#8a9a2a"/>
+    <!-- Slit pupil -->
+    <ellipse cx="22" cy="22" rx="3.5" ry="9" fill="#060408"/>
+    <!-- Specular highlight -->
+    <circle cx="27" cy="17" r="2.5" fill="rgba(255,255,255,0.55)"/>
+    <!-- Outer ring -->
+    <ellipse cx="22" cy="22" rx="17" ry="17" fill="none" stroke="rgba(138,154,42,0.4)" stroke-width="1"/>
+  </svg>
 </button>
 </body>
 </html>
