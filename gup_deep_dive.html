@@ -166,7 +166,7 @@
 <div class="page-header">
   <h1>THE DEEP DIVE</h1>
   <div class="sub">The Great Unspoken Promise · god · unity · providence · φ</div>
-  <div id="desc">touch a wave to begin</div>
+  <div id="desc">touch a wave to open its chapter</div>
 </div>
 
 <hr class="divider">
@@ -492,8 +492,11 @@ cv.addEventListener('click', e => {
     const w=WAVES.find(w=>w.k===active);
     el.style.color=w.col+'cc';
     el.innerHTML=w.desc.split('\n').join('<br>')+'<br><span style="color:#444;font-size:10px">touch again to release</span>';
+    revealSection(active);
   } else {
-    el.style.color='#888'; el.textContent='touch a wave to begin';
+    el.style.color='#888';
+    const allDone = revealed.G && revealed.U && revealed.P;
+    el.textContent = allDone ? 'touch a wave to return to it' : 'touch a wave to open its chapter';
   }
 });
 
@@ -612,9 +615,39 @@ function drawPhiSpiral() {
 drawPhiSpiral();
 
 // ═══════════════════════════════════════════
-// SCROLL REVEAL + PHI BAR ANIMATION
+// WAVE-CLICK SECTION REVEAL
 // ═══════════════════════════════════════════
 
+const revealed = { G:false, U:false, P:false };
+
+function revealSection(key) {
+  const map = { G:'section-g', U:'section-u', P:'section-p' };
+  const id = map[key];
+  if(!id) return;
+  const el = document.getElementById(id);
+  if(!el) return;
+
+  revealed[key] = true;
+  el.classList.add('visible');
+
+  // Smooth scroll to the section
+  setTimeout(() => {
+    el.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 120);
+
+  // Reveal φ once all three have been opened
+  if(revealed.G && revealed.U && revealed.P) {
+    const phi = document.getElementById('section-phi');
+    if(phi && !phi.classList.contains('visible')) {
+      setTimeout(() => {
+        phi.classList.add('visible');
+        phi.scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 900);
+    }
+  }
+}
+
+// Scroll-based reveal still works as fallback (for φ especially)
 const sections = document.querySelectorAll('.deep-section');
 const bars = document.querySelectorAll('.phi-bar-fill');
 
@@ -622,17 +655,17 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
       entry.target.classList.add('visible');
+      // Mark as revealed so φ trigger works even if scrolled to directly
+      const id = entry.target.id;
+      if(id==='section-g') revealed.G = true;
+      if(id==='section-u') revealed.U = true;
+      if(id==='section-p') revealed.P = true;
       observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.04, rootMargin: '0px 0px -20px 0px' });
 
 sections.forEach(s => observer.observe(s));
-
-// Fallback: if observer doesn't fire (iframe/timing issues), reveal all after short delay
-setTimeout(() => {
-  sections.forEach(s => s.classList.add('visible'));
-}, 600);
 
 // Animate phi bars when section comes into view
 const phiBarObserver = new IntersectionObserver(entries => {
