@@ -642,7 +642,15 @@ function hideEl(id) {
   const el = document.getElementById(id);
   if(!el) return;
   el.classList.remove('visible');
-  el.addEventListener('transitionend', () => { if(!el.classList.contains('visible')) el.style.display = ''; }, { once:true });
+  // If element has a CSS transition, wait for it; otherwise hide immediately
+  const hasTransition = getComputedStyle(el).transitionDuration !== '0s';
+  if(hasTransition) {
+    el.addEventListener('transitionend', () => {
+      if(!el.classList.contains('visible')) el.style.display = 'none';
+    }, { once:true });
+  } else {
+    el.style.display = 'none';
+  }
 }
 
 function hideAll() {
