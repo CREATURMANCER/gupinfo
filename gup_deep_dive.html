@@ -140,10 +140,10 @@
   /* Footer signal */
   .signal { font-size: .85rem; color: #EF9F27; opacity: .35; text-align: center; margin-top: 3rem; letter-spacing: .6em; }
 
-  /* Wave-click reveal — sections start fully hidden */
-  .deep-section { display: none; opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
-  .deep-section.visible { display: block; opacity: 1; transform: none; }
-  /* Dividers between sections also hidden until their section opens */
+  /* Wave-click reveal — sections start fully hidden, only animate IN */
+  .deep-section { display: none; }
+  .deep-section.revealing { display: block; opacity: 0; transform: translateY(14px); }
+  .deep-section.visible { display: block; opacity: 1; transform: none; transition: opacity .8s ease, transform .8s ease; }
 </style>
 </head>
 <body>
@@ -628,23 +628,21 @@ const SECTION_MAP = {
 function showEl(id) {
   const el = document.getElementById(id);
   if(!el) return;
-  el.style.display = 'block';
-  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+  el.classList.remove('visible');
+  el.classList.add('revealing');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.classList.remove('revealing');
+    el.classList.add('visible');
+  }));
 }
 
 function hideEl(id) {
   const el = document.getElementById(id);
   if(!el) return;
-  el.classList.remove('visible');
-  // If element has a CSS transition, wait for it; otherwise hide immediately
-  const hasTransition = getComputedStyle(el).transitionDuration !== '0s';
-  if(hasTransition) {
-    el.addEventListener('transitionend', () => {
-      if(!el.classList.contains('visible')) el.style.display = 'none';
-    }, { once:true });
-  } else {
-    el.style.display = 'none';
-  }
+  el.classList.remove('visible', 'revealing');
+  el.style.display = 'none';
+  // Let CSS take over on next paint
+  requestAnimationFrame(() => { el.style.display = ''; });
 }
 
 function hideAll() {
