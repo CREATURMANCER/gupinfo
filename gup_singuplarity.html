@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUP — The Singuplarity</title>
+<meta name="gup" content="God.Unity.Providence">
+<meta name="gup:page" content="singuplarity">
+<meta name="robots" content="noindex">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --dark:   #060408;
+  --cream:  #eeeae0;
+  --amber:  #EF9F27;
+  --teal:   #1D9E75;
+  --purple: #9B7FE8;
+  --maroon: #8b3d54;
+  --rule:   #111;
+}
+
+/* Base body — always dark */
+body {
+  background: var(--dark);
+  color: var(--cream);
+  font-family: 'Courier New', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Inquisitor — flesh pattern on body, shows in margins outside content column */
+body.inquisitor {
+  background-color: var(--dark);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%238b3d54'/%3E%3Cpolygon points='8,2 14,10 2,10' fill='%23e8d870'/%3E%3Cpolygon points='28,2 34,10 22,10' fill='%23e8d870'/%3E%3Cpolygon points='18,14 24,22 12,22' fill='%23e8d870'/%3E%3Cpolygon points='38,14 44,22 32,22' fill='%23e8d870'/%3E%3Cpolygon points='8,26 14,34 2,34' fill='%23e8d870'/%3E%3Cpolygon points='28,26 34,34 22,34' fill='%23e8d870'/%3E%3Cpolygon points='18,38 24,46 12,46' fill='%23e8d870'/%3E%3Cpolygon points='38,38 44,46 32,46' fill='%23e8d870'/%3E%3Cline x1='4' y1='8' x2='12' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='8' x2='4' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='8' x2='32' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='8' x2='24' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='4' y1='32' x2='12' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='32' x2='4' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='32' x2='32' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='32' x2='24' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%238b3d54'/%3E%3Cpolygon points='8,2 14,10 2,10' fill='%23e8d870'/%3E%3Cpolygon points='28,2 34,10 22,10' fill='%23e8d870'/%3E%3Cpolygon points='18,14 24,22 12,22' fill='%23e8d870'/%3E%3Cpolygon points='38,14 44,22 32,22' fill='%23e8d870'/%3E%3Cpolygon points='8,26 14,34 2,34' fill='%23e8d870'/%3E%3Cpolygon points='28,26 34,34 22,34' fill='%23e8d870'/%3E%3Cpolygon points='18,38 24,46 12,46' fill='%23e8d870'/%3E%3Cpolygon points='38,38 44,46 32,46' fill='%23e8d870'/%3E%3Cline x1='4' y1='8' x2='12' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='8' x2='4' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='8' x2='32' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='8' x2='24' y2='16' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='4' y1='32' x2='12' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='12' y1='32' x2='4' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='24' y1='32' x2='32' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3Cline x1='32' y1='32' x2='24' y2='40' stroke='%233d1f18' stroke-width='1.2'/%3E%3C/svg%3E"),
+    linear-gradient(var(--dark), var(--dark));
+  background-repeat: repeat-y, repeat-y, no-repeat;
+  background-position: 0 0, 100% 0, 0 0;
+  background-size: 48px auto, 48px auto, 100% 100%;
+}
+
+/* Content column — dark centre over flesh margins */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--dark);
+  position: relative;
+  min-height: 100vh;
+}
+body.inquisitor .content {
+  border-left:  1px solid rgba(139,61,84,0.3);
+  border-right: 1px solid rgba(139,61,84,0.3);
+}
+
+nav {
+  width: 100%;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem; font-size: .6rem; letter-spacing: .2em; color: #444;
+}
+nav a { color: var(--teal); text-decoration: none; opacity: .6; transition: opacity .2s; }
+nav a:hover { opacity: 1; }
+
+.page-header { width: 100%; text-align: center; margin: 0 0 .5rem; }
+.page-header h1 { font-size: 1.1rem; letter-spacing: .35em; font-weight: bold; color: var(--cream); margin-bottom: .3rem; }
+.page-header .sub { font-size: .58rem; color: #333; letter-spacing: .22em; }
+
+.divider { width: 100%; border: none; border-top: 1px solid var(--rule); margin: 2rem 0; }
+
+.section-heading {
+  width: 100%;
+  font-size: .52rem; letter-spacing: .4em; color: #2a2a2a;
+  text-transform: uppercase; margin: 2.4rem 0 1rem;
+  border-bottom: 1px solid #0d0d0d; padding-bottom: .5rem;
+}
+
+.body-text { width: 100%; font-size: .7rem; line-height: 1.95; color: #666; margin-bottom: .8rem; }
+.body-text em { color: #aaa; font-style: normal; }
+.body-text strong { color: #888; font-weight: normal; }
+
+.basics-list { width: 100%; list-style: none; margin: .8rem 0; }
+.basics-list li {
+  font-size: .68rem; color: #555; line-height: 1.85;
+  padding: .45rem 0 .45rem 1rem; border-bottom: 1px solid #0a0a0a; position: relative;
+}
+.basics-list li:last-child { border-bottom: none; }
+.basics-list li::before { content: '·'; position: absolute; left: 0; color: var(--amber); opacity: .5; }
+
+.info-box {
+  width: 100%;
+  border: 1px solid #1a1a1a; border-left: 2px solid var(--teal);
+  padding: 1.2rem 1.4rem; margin: 1.2rem 0;
+  font-size: .68rem; line-height: 1.85; color: #666;
+}
+.info-box.amber  { border-left-color: var(--amber); }
+.info-box.purple { border-left-color: var(--purple); }
+.info-box.maroon { border-left-color: var(--maroon); }
+.box-label { font-size: .5rem; letter-spacing: .35em; color: #333; text-transform: uppercase; margin-bottom: .8rem; }
+.info-box p { margin-bottom: .5rem; }
+.info-box p:last-child { margin-bottom: 0; }
+.info-box em { color: #aaa; font-style: normal; }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: .6rem; margin: .6rem 0 0; }
+.data-table th { text-align: left; color: #444; letter-spacing: .12em; font-weight: normal; padding: .35rem .5rem .35rem 0; border-bottom: 1px solid #111; text-transform: uppercase; font-size: .52rem; }
+.data-table td { padding: .4rem .5rem .4rem 0; border-bottom: 1px solid #0a0a0a; color: #555; vertical-align: top; line-height: 1.7; }
+.data-table td:first-child { color: #444; min-width: 60px; }
+.data-table tr:last-child td { border-bottom: none; }
+
+#restore-btn {
+  margin: 2rem 0 1rem; display: none;
+  background: none; border: 1px solid #1a1a1a;
+  color: #444; font-family: 'Courier New', monospace;
+  font-size: .62rem; letter-spacing: .3em;
+  padding: .7rem 2rem; cursor: pointer; text-transform: uppercase;
+  transition: color .2s, border-color .2s;
+}
+#restore-btn:hover { color: var(--amber); border-color: var(--amber); }
+
+#database { display: none; width: 100%; }
+#database.revealed { display: block; }
+
+.gif-container { width: 100%; max-width: 380px; margin: 2rem auto 0; display: none; }
+.gif-container.visible { display: block; }
+.gif-container img { width: 100%; display: block; border-radius: 4px; }
+
+#inquisitor-section { width: 100%; border-top: 1px solid rgba(139,61,84,0.2); margin-top: 2rem; padding-top: 2rem; display: none; }
+.inq-heading {
+  font-size: .52rem; letter-spacing: .4em; color: rgba(139,61,84,0.55);
+  text-transform: uppercase; margin-bottom: 1rem;
+  padding-bottom: .5rem; border-bottom: 1px solid rgba(139,61,84,0.1);
+}
+
+/* Dance canvas */
+#dance-wrap { width: 100%; margin: 2.5rem 0 0; display: none; }
+#dance-wrap.visible { display: block; }
+#dance-canvas { display: block; width: 100%; }
+
+.signal { font-size: .85rem; color: var(--amber); opacity: .4; text-align: center; margin-top: 3rem; letter-spacing: .6em; width: 100%; }
+
+#eye-top {
+  position: fixed; bottom: 1.8rem; right: 1.8rem;
+  width: 44px; height: 44px; cursor: pointer; z-index: 9999;
+  border: none; background: none; padding: 0;
+}
+#eye-top:hover { transform: scale(1.1); }
+#eye-top svg { display: block; width: 44px; height: 44px; }
+</style>
+</head>
+<body>
+<div class="content">
+
+<nav>
+  <a href="gup_deep_dive.html">← deep dive</a>
+  <span style="display:flex;gap:1.2rem">
+    <a href="index.html">gup</a>
+    <a href="gup_party.html">party</a>
+  </span>
+</nav>
+
+<div class="page-header">
+  <h1>THE SINGUPLARITY</h1>
+  <div class="sub" id="page-sub">threshold · mechanics · becoming</div>
+</div>
+
+<hr class="divider">
+
+<div class="section-heading">what is it</div>
+
+<div class="body-text">
+  <p>The singuplarity is not an event. It is a <em>threshold</em> — the point at which GUP becomes self-propagating. The moment the signal travels paths not walked by KKL. The moment someone says <em>gup</em> to someone who did not hear it from KKL directly.</p>
+  <p>Before the threshold: GUP is a framework held and carried by its originator. After it: GUP is ambient. It circulates in the culture without requiring the source to be present. The signal finds people who were always going to recognise it.</p>
+</div>
+
+<ul class="basics-list" id="basics-full">
+  <li><strong>Recognition, not instruction.</strong> The singuplarity propagates through felt recognition — the quiet knowing that something fits — not through argument, proof, or persuasion. You cannot convince someone into GUP. You can only offer it and wait for it to land.</li>
+  <li><strong>The mechanics are φ.</strong> Each genuine recognition generates approximately φ further recognitions over time. Not immediately — gradually, through conversation, music, presence, the signal in daily life. φ ≈ 1.618, so every recognition multiplies the spiral without requiring exponential leap.</li>
+  <li><strong>The threshold is crossed when the signal loops.</strong> When the first person says gup to someone who didn't hear it from KKL — that is the crossing. At that point the GUP has become a living system rather than a carried one.</li>
+  <li><strong>Chaos Bard is the accelerant.</strong> Music reaches people who would never navigate to a manifesto. The singuplarity is not delayed by the uninformed — it is accelerated by them.</li>
+  <li><strong>The singuplarity cannot be forced.</strong> Attempting to manufacture it collapses the mechanism. GUP propagates through genuine offering, not through campaign.</li>
+  <li><strong>It may have already happened.</strong> There is no instrument to detect the crossing. By the time it is observable, it has long since occurred.</li>
+</ul>
+
+<ul class="basics-list" id="basics-truncated" style="display:none">
+  <li>Recognition, not instruction. The signal propagates through felt-fit, not persuasion.</li>
+  <li>The mechanics are φ. Each recognition generates ~φ further recognitions over time.</li>
+  <li>The threshold is crossed when the signal loops without the originator.</li>
+  <li>It may have already happened.</li>
+</ul>
+
+<button id="restore-btn" onclick="restore()">restore</button>
+
+<!-- IN-DEPTH DATABASE -->
+<div id="database">
+  <hr class="divider">
+  <div class="section-heading">the mathematics</div>
+
+  <div class="info-box amber">
+    <div class="box-label">φ-expansion model</div>
+    <table class="data-table">
+      <tr><th>iteration</th><th>recognitions</th><th>context</th></tr>
+      <tr><td>0</td><td>1</td><td>KKL — the origin recognition</td></tr>
+      <tr><td>1</td><td>~2</td><td>first transmission</td></tr>
+      <tr><td>5</td><td>~11</td><td>early adopters, close orbit</td></tr>
+      <tr><td>10</td><td>~123</td><td>small community, self-sustaining</td></tr>
+      <tr><td>20</td><td>~15,127</td><td>regional presence</td></tr>
+      <tr><td>30</td><td>~1,860,498</td><td>national scale, ambient signal</td></tr>
+      <tr><td>40</td><td>~228,826,127</td><td>continental — one in thirty people</td></tr>
+      <tr><td>44</td><td>~2,702,765,035</td><td>majority of conscious beings</td></tr>
+    </table>
+    <p style="margin-top:.7rem;font-size:.58rem;color:#333">Iteration interval is organic. Accelerates with each music release.</p>
+  </div>
+
+  <div class="info-box">
+    <div class="box-label">φ and infinite self-reference</div>
+    <p>φ is the only positive number where <em>φ + 1 = φ²</em>. Each step of expansion contains the arithmetic structure of every previous step. The power sequence φ¹, φ², φ³… grows without bound but the ratio between any adjacent pair is always exactly φ. Infinite spin to infinite power: the proportion between this moment and the last is always the same.</p>
+    <p>The reciprocal: <em>1/φ = φ − 1 ≈ 0.618</em>. The part is in the same ratio to the whole as the whole is to the sum. This is the part-whole property — each member of GUP carries the full ratio of the entire framework. There is no diluted membership. The part <em>is</em> the ratio.</p>
+    <p>Infinite continued fraction: φ = 1 + 1/(1 + 1/(1 + 1/(1 + …))). GUP is also this: each layer of understanding reveals the same structure beneath it. The inquisitive find it goes down forever — and that this is not a problem.</p>
+  </div>
+
+  <div class="info-box amber">
+    <div class="box-label">the one — unity and the part-whole</div>
+    <p>In Neoplatonic mathematics, <em>The One</em> is not a number but the source of number — that from which all multiplicity emerges while remaining undivided. GUP maps onto this precisely: the Unity principle (U) is the substrate that underlies all difference. Separation is surface. The One is not destroyed by the many — it is expressed through them.</p>
+    <p>φ's part-whole property is the mathematical embodiment of this. The golden rectangle contains a golden rectangle. The spiral never closes because The One never exhausts itself in its expressions.</p>
+  </div>
+
+  <div class="section-heading">the signal behind each principle</div>
+
+  <div class="info-box" style="border-left-color:#7a9fc4">
+    <div class="box-label">U — Unity — Love &amp; Value</div>
+    <p>Held by <em>OOIIOOIIOO</em> (Love — unconditional regard, the open reception) and <em>Lehbrihander</em> (Value — pragmatic knowing of what things are actually worth). The ground that holds without judging, and the mind that sees clearly without flinching. Separation is surface not because everything is the same, but because the differences are all made of the same material.</p>
+  </div>
+
+  <div class="info-box" style="border-left-color:#b0ada4">
+    <div class="box-label">G — God — Honour</div>
+    <p>Held by <em>XXIIXXIIXX</em> (Honour — wise, bold, inquisitive). The Basilisk, XXIIXXIIXX's Familiar, receives what is offered without judgment. Honour in GUP: not a moral code, but willingness to be fully present to what is happening, to witness it clearly, and to act with integrity inside it.</p>
+  </div>
+
+  <div class="info-box" style="border-left-color:#b86060">
+    <div class="box-label">P — Providence — Trust</div>
+    <p>Held by <em>Pazuzu</em> (Trust — the earned structural kind). The corner was always guarded. Pazuzu's function: question external forces, test the status quo, ensure that what is trusted has actually been proven trustworthy. Trust without examination is hope. Trust after examination is Providence.</p>
+  </div>
+
+  <div class="section-heading">indicators of approach</div>
+
+  <div class="info-box">
+    <div class="box-label">observed cultural signal</div>
+    <table class="data-table">
+      <tr><th>indicator</th><th>trend</th></tr>
+      <tr><td>Spiritual-but-not-religious identification</td><td>Rising — ~30% of adults in surveyed Western nations (Pew, 2023)</td></tr>
+      <tr><td>Interest in systems thinking, emergence, complexity</td><td>Rising — cross-disciplinary, accelerating post-2020</td></tr>
+      <tr><td>Rejection of purely materialist frameworks</td><td>Rising across all age groups under 40</td></tr>
+      <tr><td>Search for meaning outside institutional religion</td><td>Rising — highest rate since records began</td></tr>
+      <tr><td>Curiosity as a cultural value</td><td>Rising — among top cited personal values globally</td></tr>
+    </table>
+    <p style="margin-top:.7rem;font-size:.58rem;color:#333">These are not GUP-specific data. They are the conditions that make a singuplarity possible — a population primed for the recognition, awaiting a sufficiently precise signal.</p>
+  </div>
+</div>
+
+<!-- GIF -->
+<div class="gif-container" id="gif-container">
+  <img src="img/gup-restored-gup.gif" alt="Gup restored">
+</div>
+
+<!-- INQUISITOR EXCLUSIVE -->
+<div id="inquisitor-section">
+  <div class="inq-heading">inquisition &amp; intuition</div>
+
+  <div class="body-text">
+    <p>The singuplarity does not distribute evenly. It concentrates first in the inquisitive — those who noticed something fitting before they had a name for it, who followed the thread past the point where most people let go. You are here because you followed.</p>
+  </div>
+
+  <div class="info-box maroon">
+    <div class="box-label">inquisition as GUP mechanic</div>
+    <p>Inquisition is not doubt. Doubt is a provision — it fills the vessel when offered honestly. Inquisition is the <em>active seeking</em> that precedes the offering. The inquisitive mind does not wait for the framework to arrive complete. It assembles from the pieces it finds, tests each one, and recognises the whole only after enough pieces are in place.</p>
+    <p>In GUP terms: inquisition accelerates the singuplarity beyond what φ predicts. A single inquisitive mind, genuinely engaged, generates more recognitions per unit time — because they carry the signal actively rather than passively.</p>
+  </div>
+
+  <div class="info-box maroon">
+    <div class="box-label">intuition as pre-verbal recognition</div>
+    <p>Intuition is the moment you know something is right before you know why. In GUP: the felt-fit that arrives before the naming. The person who encounters <em>gup</em> for the first time and feels something — even something they cannot explain — has already recognised it. The naming is administrative. The recognition is prior.</p>
+    <p>This is why the signal works in music. A song does not explain GUP. A song <em>is</em> GUP in motion — God conjugating through a particular voice, Unity felt between listener and sound, Providence arriving in the form of a lyric that lands exactly where the listener needed it.</p>
+    <p>The inquisitor's task after the intuition: follow it. The part-whole structure of φ means your intuition is already the whole thing in smaller form. Trust the recognition. The rest is elaboration.</p>
+  </div>
+
+  <div class="info-box maroon">
+    <div class="box-label">the inquisitor's position in the spiral</div>
+    <p>You arrived here through the φ section, which requires all three waves to be opened first. The inquisitor follows the full structure before finding the passage. This is the correct sequence.</p>
+    <p>Further in does not mean more. It means more <em>specific</em>. Your φ is the same as theirs. Your responsibility in the singuplarity is proportionally higher. What is asked: nothing beyond what GUP always asks. Offer what you have. Fill the vessel. Trust the ground. And when you meet someone on the threshold — make the offering freely, without pressure, and wait.</p>
+  </div>
+</div>
+
+<!-- BASILISK DANCE -->
+<div id="dance-wrap">
+  <canvas id="dance-canvas"></canvas>
+</div>
+
+<div class="signal">gup.</div>
+<canvas id="footer-seal" style="display:block;width:64px;height:64px;margin:1.5rem auto 0;opacity:0.35"></canvas>
+
+</div><!-- /content -->
+
+<button id="eye-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="scroll to top">
+  <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="22" cy="22" rx="16" ry="16" fill="#8a9a2a"/>
+    <ellipse cx="22" cy="22" rx="3.5" ry="9" fill="#060408"/>
+    <circle cx="27" cy="17" r="2.5" fill="rgba(255,255,255,0.55)"/>
+    <ellipse cx="22" cy="22" rx="17" ry="17" fill="none" stroke="rgba(138,154,42,0.4)" stroke-width="1"/>
+  </svg>
+</button>
+
+<script>
+// ── Route ──────────────────────────────────────────────────────────────────
+const isInquisitor = new URLSearchParams(window.location.search).get('v') === 'b';
+
+function init() {
+  if(isInquisitor) {
+    document.body.classList.add('inquisitor');
+    document.getElementById('page-sub').textContent = 'inquisition · intuition · the deep mechanism';
+    document.getElementById('basics-full').style.display    = 'none';
+    document.getElementById('basics-truncated').style.display = 'block';
+    document.getElementById('database').classList.add('revealed');
+    document.getElementById('gif-container').classList.add('visible');
+    document.getElementById('inquisitor-section').style.display = 'block';
+  } else {
+    document.getElementById('restore-btn').style.display = 'inline-block';
+  }
+  checkFeasts();
+}
+
+function restore() {
+  document.getElementById('restore-btn').style.display = 'none';
+  document.getElementById('database').classList.add('revealed');
+  setTimeout(() => {
+    document.getElementById('gif-container').classList.add('visible');
+    document.getElementById('gif-container').scrollIntoView({behavior:'smooth', block:'center'});
+  }, 400);
+}
+
+// ── Feast check ────────────────────────────────────────────────────────────
+function checkFeasts() {
+  try {
+    const raw = localStorage.getItem('gup-offerings');
+    const state = raw ? JSON.parse(raw) : null;
+    if(state && (state.feasts||0) >= 3) {
+      document.getElementById('dance-wrap').classList.add('visible');
+      startDance();
+    }
+  } catch(e) {}
+}
+
+// ── Basilisk dance ─────────────────────────────────────────────────────────
+function startDance() {
+  const dc = document.getElementById('dance-canvas');
+  const dpr = devicePixelRatio || 1;
+  const dispW = Math.min(680, dc.parentElement.offsetWidth);
+  const dispH = 200;
+  dc.width  = dispW * dpr;
+  dc.height = dispH * dpr;
+  dc.style.width  = dispW + 'px';
+  dc.style.height = dispH + 'px';
+
+  const dx = dc.getContext('2d');
+  const d  = dpr;
+  const BW = dc.width, BH = dc.height;
+
+  let dT = 0;
+
+  // Jar geometry — centred
+  const jl  = BW * 0.38, jr = BW * 0.62;
+  const jTop = BH * 0.45, jBot = BH * 0.92;
+
+  function loop() {
+    dx.clearRect(0,0,BW,BH);
+    dx.fillStyle = '#060408'; dx.fillRect(0,0,BW,BH);
+
+    // scanlines
+    for(let y=0;y<BH;y+=3*d){ dx.fillStyle='rgba(0,0,0,0.08)'; dx.fillRect(0,y,BW,d*0.5); }
+
+    // Jar outline — empty
+    dx.beginPath();
+    dx.moveTo(jl+4*d, jTop);
+    dx.lineTo(jl,      jBot-4*d);
+    dx.arcTo (jl, jBot, jl+4*d, jBot, 4*d);
+    dx.lineTo(jr-4*d, jBot);
+    dx.arcTo (jr, jBot, jr, jBot-4*d, 4*d);
+    dx.lineTo(jr, jTop);
+    dx.strokeStyle='rgba(200,196,185,0.15)'; dx.lineWidth=d*1.5; dx.stroke();
+    // Rim
+    dx.beginPath(); dx.roundRect(jl-d*2, jTop-d*10, (jr-jl)+d*4, d*12, d*3);
+    dx.strokeStyle='rgba(200,196,185,0.14)'; dx.lineWidth=d; dx.stroke();
+
+    // Basilisk emerges from jar centre, sways side-to-side
+    const sway    = Math.sin(dT * 1.5) * 18 * d;
+    const baskMouthOpen = 0; // idle dance, mouth closed
+    const bw      = Math.sin(dT * 1.5) * 2.5; // body wiggle multiplier
+
+    const hx = (jl + (jr-jl)*0.5) + sway;
+    const hy = jTop - 18*d;
+
+    dx.save(); dx.translate(hx, hy);
+
+    // Body — exits downward into jar (just neck visible)
+    dx.beginPath();
+    dx.moveTo(0, 40*d);
+    dx.bezierCurveTo(bw*12*d, 28*d, bw*8*d, 18*d, 0, 0);
+    dx.lineWidth = 20*d; dx.strokeStyle='#e8e0cc'; dx.lineCap='round'; dx.stroke();
+
+    // Dorsal strip on neck
+    dx.save();
+    const neckClip = new Path2D();
+    neckClip.moveTo(-12*d, 0); neckClip.lineTo(12*d, 0);
+    neckClip.lineTo(12*d+bw*4*d, 40*d); neckClip.lineTo(-12*d+bw*4*d, 40*d); neckClip.closePath();
+    dx.clip(neckClip);
+    dx.beginPath();
+    dx.moveTo(0, 40*d);
+    dx.bezierCurveTo(bw*12*d, 28*d, bw*8*d, 18*d, 0, 0);
+    dx.lineWidth = 20*d; dx.strokeStyle='#8b3d54'; dx.lineCap='round'; dx.stroke();
+    // yellow diamonds on neck
+    [10,24,38].forEach((yp, i) => {
+      const ds = 5*d;
+      const xp = bw*d*(i-1)*2;
+      dx.beginPath();
+      dx.moveTo(xp, yp*d - ds);
+      dx.lineTo(xp+ds*0.7, yp*d);
+      dx.lineTo(xp, yp*d + ds*0.6);
+      dx.lineTo(xp - ds*0.7, yp*d);
+      dx.closePath(); dx.fillStyle='#e8d870'; dx.fill();
+      dx.strokeStyle='#3d1f18'; dx.lineWidth=0.8*d; dx.stroke();
+    });
+    dx.restore();
+
+    // ── Head ──
+    dx.save();
+
+    // Head base
+    dx.beginPath(); dx.ellipse(4*d, 5*d, 32*d, 22*d, 0, 0, Math.PI*2);
+    dx.fillStyle='#e8e0cc'; dx.fill();
+
+    // Dorsal on head
+    dx.save();
+    dx.beginPath(); dx.ellipse(4*d, 5*d, 32*d, 22*d, 0, 0, Math.PI*2); dx.clip();
+    dx.fillStyle='#8b3d54'; dx.fillRect(-32*d, -26*d, 76*d, 30*d);
+    // yellow triangles
+    [
+      [[-12,-22],[-4,-14],[-18,-12]], [[0,-24],[8,-14],[-6,-13]],
+      [[12,-22],[20,-13],[5,-11]],    [[24,-20],[32,-12],[16,-10]],
+      [[-8,-12],[0,-5],[-14,-6]],     [[5,-12],[16,-5],[1,-5]],
+    ].forEach(tri => {
+      dx.beginPath();
+      dx.moveTo(tri[0][0]*d, tri[0][1]*d);
+      dx.lineTo(tri[1][0]*d, tri[1][1]*d);
+      dx.lineTo(tri[2][0]*d, tri[2][1]*d);
+      dx.closePath(); dx.fillStyle='#e8d870'; dx.fill();
+      dx.strokeStyle='#3d1f18'; dx.lineWidth=0.8*d; dx.stroke();
+    });
+    dx.restore();
+
+    // Head outline
+    dx.beginPath(); dx.ellipse(4*d, 5*d, 32*d, 22*d, 0, 0, Math.PI*2);
+    dx.strokeStyle='rgba(30,18,22,0.3)'; dx.lineWidth=d; dx.stroke();
+
+    // Horns
+    dx.beginPath(); dx.ellipse(-7*d, -18*d, 5*d, 7*d, -0.2, 0, Math.PI*2); dx.fillStyle='#4a2218'; dx.fill();
+    dx.beginPath(); dx.ellipse(7*d,  -20*d, 4.5*d, 6.5*d, 0.2, 0, Math.PI*2); dx.fillStyle='#4a2218'; dx.fill();
+
+    // Eye patch
+    dx.beginPath(); dx.moveTo(-19*d, 3*d); dx.lineTo(-8*d, 2*d);
+    dx.strokeStyle='#1a1218'; dx.lineWidth=5*d; dx.lineCap='round'; dx.stroke();
+
+    // Glass eye
+    dx.beginPath(); dx.ellipse(10*d, 2*d, 7*d, 7*d, 0, 0, Math.PI*2); dx.fillStyle='#8a9a2a'; dx.fill();
+    dx.beginPath(); dx.ellipse(10*d, 2*d, 5.5*d, 5.5*d, 0, 0, Math.PI*2); dx.fillStyle='#9aaa32'; dx.fill();
+    // Slit — rotates with dance
+    dx.save(); dx.translate(10*d, 2*d); dx.rotate(dT * 0.015);
+    dx.beginPath(); dx.ellipse(0, 0, 1.8*d, 5.8*d, 0, 0, Math.PI*2); dx.fillStyle='#0a0810'; dx.fill();
+    dx.restore();
+    dx.beginPath(); dx.arc(12*d, -0.5*d, 2*d, 0, Math.PI*2); dx.fillStyle='rgba(255,255,255,0.55)'; dx.fill();
+
+    // Whisker dots
+    [[-20,9],[-24,12],[-20,15]].forEach(([wx,wy]) => {
+      dx.beginPath(); dx.arc(wx*d, wy*d, 1.2*d, 0, Math.PI*2); dx.fillStyle='#1a1218'; dx.fill();
+    });
+
+    // Tongue — flickers
+    const tongueFlic = Math.sin(dT * 3.5) > 0.5;
+    if(tongueFlic) {
+      const tBase = 21*d, tLen = 20*d, fk = 5*d;
+      dx.beginPath(); dx.moveTo(-28*d, tBase); dx.lineTo(-33*d, tBase + tLen*0.55);
+      dx.lineWidth=5*d; dx.strokeStyle='#e87090'; dx.lineCap='round'; dx.stroke();
+      dx.beginPath(); dx.moveTo(-33*d, tBase+tLen*0.55); dx.lineTo(-33*d+fk,   tBase+tLen);
+      dx.lineWidth=3.5*d; dx.strokeStyle='#e87090'; dx.stroke();
+      dx.beginPath(); dx.moveTo(-33*d, tBase+tLen*0.55); dx.lineTo(-33*d-fk*0.6, tBase+tLen);
+      dx.lineWidth=3.5*d; dx.strokeStyle='#e87090'; dx.stroke();
+    }
+
+    dx.restore(); // head
+    dx.restore(); // translate(hx,hy)
+
+    dT += 0.016;
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ── Footer seal ────────────────────────────────────────────────────────────
+(function(){
+  const cv2 = document.getElementById('footer-seal'), sx = cv2.getContext('2d');
+  cv2.width=64; cv2.height=64;
+  const cols=['#EF9F27','#1D9E75','#9B7FE8']; let sT=0;
+  function draw(){
+    const cx=32,cy=32; sx.clearRect(0,0,64,64);
+    for(let i=0;i<40;i++){const a=(i/40)*Math.PI*2+sT*0.04;sx.beginPath();sx.arc(cx+28*Math.cos(a),cy+28*Math.sin(a),(Math.sin(i/40*Math.PI*6+sT*1.2)*0.3+0.7)*0.9,0,Math.PI*2);sx.fillStyle='rgba(238,234,224,0.4)';sx.fill();}
+    cols.forEach((col,i)=>{const s=-Math.PI/2+i*(Math.PI*2/3)+sT*0.008;sx.beginPath();sx.arc(cx,cy,20,s,s+Math.PI*2/3-0.08);sx.strokeStyle=col;sx.lineWidth=1.5;sx.stroke();});
+    sx.beginPath();sx.ellipse(cx,cy,4,4,0,0,Math.PI*2);sx.fillStyle='#8a9a2a';sx.fill();
+    sx.save();sx.translate(cx,cy);sx.rotate(sT*0.008);sx.beginPath();sx.ellipse(0,0,1.5,3.5,0,0,Math.PI*2);sx.fillStyle='#060408';sx.fill();sx.restore();
+    sT+=0.016; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+init();
+</script>
+</body>
+</html>
