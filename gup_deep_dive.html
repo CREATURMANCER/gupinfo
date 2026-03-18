@@ -154,6 +154,16 @@
 }
 #eye-top:hover { transform: scale(1.1); }
 #eye-top svg { display: block; width: 44px; height: 44px; }
+
+/* Footer φ — Version A access, glowing green */
+#phi-footer-link {
+  color: #1D9E75; text-decoration: none;
+  text-shadow: 0 0 8px rgba(29,158,117,0.6), 0 0 18px rgba(29,158,117,0.3);
+  animation: phi-pulse 2.8s ease-in-out infinite;
+}
+#phi-footer-link:hover { text-shadow: 0 0 14px rgba(29,158,117,1), 0 0 28px rgba(29,158,117,0.5); }
+@keyframes phi-pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+
 </style>
 </head>
 <body>
@@ -372,7 +382,7 @@
 <!-- ── Footer nav ── -->
 <nav style="margin-top:0;margin-bottom:0;">
   <a href="index.html">← back to gup</a>
-  <span class="page-id">god · unity · providence · φ</span>
+  <span class="page-id">god · unity · providence · <a href="gup_singuplarity.html" id="phi-footer-link">φ</a></span>
   <span style="display:flex;gap:1.2rem">
     <a href="gup_offerings.html">offerings</a>
     <a href="gup_basilisk_interior.html">interior</a>
@@ -627,7 +637,7 @@ let phiT = 0;
 
 function resizePhi() {
   const w = phiCanvas.parentElement?.offsetWidth || 680;
-  const h = Math.round(w * 0.32);
+  const h = Math.round(w * 0.75);
   phiCanvas.width = Math.round(w * devicePixelRatio);
   phiCanvas.height = Math.round(h * devicePixelRatio);
   phiCanvas.style.height = h + 'px';
@@ -653,15 +663,18 @@ function drawPhiSpiral() {
   arms.forEach(arm => {
     phiCtx.beginPath();
     let first=true;
+    // Spiral makes 3 full turns (a goes 0→6π), grows by PHI per turn
+    // PHI^3 ≈ 4.236 — so startR * PHI^3 = maxR*0.95 → startR = maxR*0.95/PHI^3
+    const startR = maxR * 0.95 / Math.pow(PHI, 3);
     for(let a=0; a<=6*Math.PI; a+=0.025) {
-      const r = 3*d * Math.pow(PHI, a/(Math.PI*2));
+      const r = startR * Math.pow(PHI, a/(Math.PI*2));
       if(r > maxR) break;
       const x = cx + r*Math.cos(a + arm.phase + phiT*0.15);
       const y = cy + r*Math.sin(a + arm.phase + phiT*0.15);
       first ? phiCtx.moveTo(x,y) : phiCtx.lineTo(x,y);
       first=false;
     }
-    phiCtx.strokeStyle=arm.col; phiCtx.globalAlpha=arm.alpha*0.6; phiCtx.lineWidth=d; phiCtx.stroke();
+    phiCtx.strokeStyle=arm.col; phiCtx.globalAlpha=arm.alpha*0.7; phiCtx.lineWidth=1.5*d; phiCtx.stroke();
   });
 
   // Outer glow ring
@@ -669,10 +682,11 @@ function drawPhiSpiral() {
   phiCtx.beginPath(); phiCtx.arc(cx,cy,maxR*0.95,0,Math.PI*2);
   phiCtx.strokeStyle='#eeeae0'; phiCtx.lineWidth=d; phiCtx.stroke();
 
-  // φ label at center
-  phiCtx.globalAlpha=0.3+Math.sin(phiT*0.4)*0.08;
+  // φ label at center — clickable link to inquisitor page
+  const phiPulse = 0.3+Math.sin(phiT*0.4)*0.08;
+  phiCtx.globalAlpha = phiPulse;
   phiCtx.fillStyle='#EF9F27';
-  phiCtx.font=`${18*d}px serif`;
+  phiCtx.font=`${22*d}px serif`;
   phiCtx.textAlign='center'; phiCtx.textBaseline='middle';
   phiCtx.fillText('φ',cx,cy);
 
@@ -681,6 +695,33 @@ function drawPhiSpiral() {
   requestAnimationFrame(drawPhiSpiral);
 }
 drawPhiSpiral();
+
+// Canvas φ click — navigate to inquisitor page
+phiCanvas.style.cursor = 'default';
+phiCanvas.addEventListener('click', e => {
+  const rect = phiCanvas.getBoundingClientRect();
+  const d = devicePixelRatio;
+  const mx = (e.clientX - rect.left) * d;
+  const my = (e.clientY - rect.top)  * d;
+  const cx = phiCanvas.width  * 0.5;
+  const cy = phiCanvas.height * 0.5;
+  const dist = Math.sqrt((mx-cx)**2 + (my-cy)**2);
+  const hitR = 24 * d;
+  if(dist < hitR) {
+    window.location.href = 'gup_singuplarity.html?v=b';
+  }
+  phiCanvas.style.cursor = dist < hitR ? 'pointer' : 'default';
+});
+phiCanvas.addEventListener('mousemove', e => {
+  const rect = phiCanvas.getBoundingClientRect();
+  const d = devicePixelRatio;
+  const mx = (e.clientX - rect.left) * d;
+  const my = (e.clientY - rect.top)  * d;
+  const cx = phiCanvas.width  * 0.5;
+  const cy = phiCanvas.height * 0.5;
+  const dist = Math.sqrt((mx-cx)**2 + (my-cy)**2);
+  phiCanvas.style.cursor = dist < 24*d ? 'pointer' : 'default';
+});
 
 // ═══════════════════════════════════════════
 // WAVE-CLICK SECTION REVEAL
