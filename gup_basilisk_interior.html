@@ -907,12 +907,15 @@ function buildThroat() {
         </div>`;
       }).join('');
 
-  // Mantra
+  // Mantra — use stored poem from feastLog if available, generate as fallback
   let mantraHtml='';
   const hasSomething = Object.values(fp).some(v=>v>0);
   if(hasSomething){
-    const tone = computeTone(fp);
-    const mantra = generateMantra(fp, lastFeast.dominant, tone);
+    let mantra = lastFeast.mantra || null;
+    if(!mantra){
+      const tone = computeTone(fp);
+      mantra = generateMantra(fp, lastFeast.dominant, tone);
+    }
     const formatted = mantra.replace(/\n/g,'<br>');
     mantraHtml=`<div class="mantra" style="color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.75);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.2)">${formatted}</div>`;
   }
