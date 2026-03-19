@@ -689,30 +689,30 @@ function updateBasilisk() {
       updateLevelDisplay();
       saveState();
     }
-    if(uneaten.length===0 && baskEatTimer>0.6){
-      basiliskState='satisfied'; baskT=0; baskMouthOpen=0; baskSatisfiedGlow=0;
-      gupState.feasts++;
+  if(uneaten.length===0 && baskEatTimer>0.6){
+    basiliskState='satisfied'; baskT=0; baskMouthOpen=0; baskSatisfiedGlow=0;
+    gupState.feasts++;
       // Compute and log feast effect before resetting currentGUP
-      const effect = computeFeastEffect();
-      const g=gupState.currentGUP.G||0,u=gupState.currentGUP.U||0,p=gupState.currentGUP.P||0;
-      const tot=Math.max(1,g+u+p);
-      let feastMantra = '';
-      try {
-        const feastTone = _ct({...gupState.currentProvisions});
-        feastMantra = generateFeastMantra({...gupState.currentProvisions}, effect.dominant, feastTone);
-      } catch(e) { console.warn('GUP: mantra generation failed', e); }
-      gupState.feastLog.push({
-        id: gupState.feasts,
-        dominant: effect.dominant,
-        provisions: {...gupState.currentProvisions},
-        effect: effect.text,
-        mantra: feastMantra,
-        liquidRGB: [
-          Math.round(239*g/tot+29*u/tot+155*p/tot),
-          Math.round(159*g/tot+158*u/tot+127*p/tot),
-          Math.round(39*g/tot+117*u/tot+232*p/tot),
-        ],
-        ts: Date.now(),
+    const effect = computeFeastEffect();
+    const g=gupState.currentGUP.G||0,u=gupState.currentGUP.U||0,p=gupState.currentGUP.P||0;
+    const tot=Math.max(1,g+u+p);
+    let feastMantra = '';
+    try {
+      const feastTone = _ct({...gupState.currentProvisions});
+      feastMantra = generateFeastMantra({...gupState.currentProvisions}, effect.dominant, feastTone);
+    } catch(e) { console.warn('GUP: mantra generation failed', e); }
+    gupState.feastLog.push({
+      id: gupState.feasts,
+      dominant: effect.dominant,
+      provisions: {...gupState.currentProvisions},
+      effect: effect.text,
+      mantra: feastMantra,
+       liquidRGB: [
+        Math.round(239*g/tot+29*u/tot+155*p/tot),
+         Math.round(159*g/tot+158*u/tot+127*p/tot),
+         Math.round(39*g/tot+117*u/tot+232*p/tot),
+      ],
+       ts: Date.now(),
     }
   }
   if(basiliskState==='satisfied'){
