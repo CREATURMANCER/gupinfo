@@ -697,7 +697,7 @@ const OFFERINGS = [
 // counts and totalOfferings are cumulative (never reset)
 // ═══════════════════════════════════════════
 
-let devState = {
+let gupState = {
   level: 0,
   totalOfferings: 0,
   feasts: 0,
@@ -711,11 +711,11 @@ let devState = {
   animatedThresholds: [],  // feast counts whose animation has been triggered
   animatedMedalThresholds: [], // offering counts whose medal animation has been triggered
 };
-OFFERINGS.forEach(o => { devState.counts[o.id]=0; devState.currentProvisions[o.id]=0; });
+OFFERINGS.forEach(o => { gupState.counts[o.id]=0; gupState.currentProvisions[o.id]=0; });
 
 // Derive cumulative G/U/P totals from counts — survives feast resets
 function alignTotal(align) {
-  return OFFERINGS.filter(o=>o.align===align).reduce((s,o)=>s+(devState.counts[o.id]||0),0);
+  return OFFERINGS.filter(o=>o.align===align).reduce((s,o)=>s+(gupState.counts[o.id]||0),0);
 }
 
 // Feast effects — 3 per alignment + 2 balanced
@@ -761,14 +761,14 @@ function _balanced(prov,tone){const ids=Object.entries(prov).filter(([,n])=>n>0)
 function generateFeastMantra(prov,dominant,tone){_ru();const lid=_dsp(prov);if(lid)return _litany(prov,lid,tone);if(dominant==='G')return _haiku(prov,tone);if(dominant==='U')return _couplet(prov,tone);if(dominant==='P')return _koan(prov,tone);return _balanced(prov,tone);}
 
 function computeFeastEffect() {
-  const g=devState.currentGUP.G||0, u=devState.currentGUP.U||0, p=devState.currentGUP.P||0;
+  const g=gupState.currentGUP.G||0, u=gupState.currentGUP.U||0, p=gupState.currentGUP.P||0;
   const total=Math.max(1,g+u+p);
   let dominant='balanced';
   if(g/total>=0.6) dominant='G';
   else if(u/total>=0.6) dominant='U';
   else if(p/total>=0.6) dominant='P';
   const pool=FEAST_EFFECTS[dominant];
-  return { dominant, text: pool[devState.feasts % pool.length] };
+  return { dominant, text: pool[gupState.feasts % pool.length] };
 }
 
 const cookies = [];
@@ -841,11 +841,11 @@ let idleWiggle = 0;
 
 function liquidFillY_b(jTop, jBot) {
   // Fill proportionally within the jar's actual drawn bounds
-  return jTop + (1 - devState.level) * (jBot - jTop);
+  return jTop + (1 - gupState.level) * (jBot - jTop);
 }
 
 function jarLiquidColor_b(alpha) {
-  const g=devState.currentGUP.G||0, u=devState.currentGUP.U||0, p=devState.currentGUP.P||0;
+  const g=gupState.currentGUP.G||0, u=gupState.currentGUP.U||0, p=gupState.currentGUP.P||0;
   const total=Math.max(1,g+u+p);
   const gr=g/total, ur=u/total, pr=p/total;
   const r=Math.round(239*gr+29*ur+155*pr);
@@ -858,7 +858,7 @@ function spawnCookie(offering) {
   const col = offering.col;
   const BW = bc.width, BH = bc.height, d = devicePixelRatio;
   const jTop = BH*0.38, jBot = BH*0.90;
-  const fillY = jTop + (1 - devState.level) * (jBot - jTop);
+  const fillY = jTop + (1 - gupState.level) * (jBot - jTop);
   cookies.push({
     x: BW*0.25 + Math.random()*BW*0.3,
     y: fillY - 4*d,
@@ -876,42 +876,42 @@ function setStatus(text, color) {
 }
 
 function updateMeter() {
-  const pct = Math.round(devState.level*100);
+  const pct = Math.round(gupState.level*100);
   document.getElementById('meter-fill').style.width = pct+'%';
   document.getElementById('meter-fill').style.background =
-    devState.level > 0.66 ? '#9B7FE8' : devState.level > 0.33 ? '#1D9E75' : '#EF9F27';
+    gupState.level > 0.66 ? '#9B7FE8' : gupState.level > 0.33 ? '#1D9E75' : '#EF9F27';
   document.getElementById('meter-val').textContent = pct+'%';
 }
 
 function updateTally() {
-  document.getElementById('tally-total').textContent = devState.totalOfferings;
-  document.getElementById('tally-feasts').textContent = devState.feasts;
+  document.getElementById('tally-total').textContent = gupState.totalOfferings;
+  document.getElementById('tally-feasts').textContent = gupState.feasts;
   // Favourite
   let maxCount=0, fav='—';
-  OFFERINGS.forEach(o=>{ if(devState.counts[o.id]>maxCount){maxCount=devState.counts[o.id];fav=o.name;} });
+  OFFERINGS.forEach(o=>{ if(gupState.counts[o.id]>maxCount){maxCount=gupState.counts[o.id];fav=o.name;} });
   document.getElementById('tally-fav').textContent = fav;
   // Sync debug counters if present
-  const df=document.getElementById('debug-feast-count'); if(df) df.textContent=devState.feasts;
-  const dl=document.getElementById('debug-luck-count');  if(dl) dl.textContent='luck: '+(devState.luck||0);
-  const dof=document.getElementById('debug-offer-count'); if(dof) dof.textContent=devState.totalOfferings;
+  const df=document.getElementById('debug-feast-count'); if(df) df.textContent=gupState.feasts;
+  const dl=document.getElementById('debug-luck-count');  if(dl) dl.textContent='luck: '+(gupState.luck||0);
+  const dof=document.getElementById('debug-offer-count'); if(dof) dof.textContent=gupState.totalOfferings;
 }
 
 function offerProvision(offering) {
   if(basiliskState!=='idle') return;
 
-  devState.level = Math.min(1, devState.level + offering.fill);
-  devState.totalOfferings++;
-  devState.counts[offering.id] = (devState.counts[offering.id]||0)+1;
-  devState.currentProvisions[offering.id] = (devState.currentProvisions[offering.id]||0)+1;
-  devState.currentGUP[offering.align] = (devState.currentGUP[offering.align]||0)+1;
+  gupState.level = Math.min(1, gupState.level + offering.fill);
+  gupState.totalOfferings++;
+  gupState.counts[offering.id] = (gupState.counts[offering.id]||0)+1;
+  gupState.currentProvisions[offering.id] = (gupState.currentProvisions[offering.id]||0)+1;
+  gupState.currentGUP[offering.align] = (gupState.currentGUP[offering.align]||0)+1;
 
   const btn = document.getElementById('btn-'+offering.id);
   if(btn){ btn.classList.add('flash'); setTimeout(()=>btn.classList.remove('flash'),400); }
   const countEl = document.getElementById('count-'+offering.id);
-  if(countEl) countEl.textContent = '×'+devState.counts[offering.id];
+  if(countEl) countEl.textContent = '×'+gupState.counts[offering.id];
   const barEl = document.getElementById('bar-'+offering.id);
   if(barEl){
-    barEl.style.width = Math.min(100,(devState.counts[offering.id]/20)*100)+'%';
+    barEl.style.width = Math.min(100,(gupState.counts[offering.id]/20)*100)+'%';
     barEl.style.background = offering.col;
   }
 
@@ -926,7 +926,7 @@ function offerProvision(offering) {
   updateTally();
   checkMedalThresholds();
 
-  if(devState.level>=0.99 && basiliskState==='idle') beginFeast();
+  if(gupState.level>=0.99 && basiliskState==='idle') beginFeast();
   saveState();
 }
 
@@ -963,26 +963,26 @@ function updateBasilisk() {
     if(baskEatTimer>0.85 && uneaten.length>0){
       const target=uneaten.reduce((a,b)=>a.y<b.y?a:b);
       target.eaten=true; baskEatTimer=0;
-      devState.level=Math.max(0, devState.level-(1.0/Math.max(1,cookies.length)));
+      gupState.level=Math.max(0, gupState.level-(1.0/Math.max(1,cookies.length)));
       updateMeter();
       saveState(); // persist level change immediately as each cookie is eaten
     }
     if(uneaten.length===0 && baskEatTimer>0.6){
       basiliskState='satisfied'; baskT=0; baskMouthOpen=0; baskSatisfiedGlow=0;
-      devState.feasts++;
+      gupState.feasts++;
       // Compute and log feast effect before resetting currentGUP
       const effect = computeFeastEffect();
-      const g=devState.currentGUP.G||0,u=devState.currentGUP.U||0,p=devState.currentGUP.P||0;
+      const g=gupState.currentGUP.G||0,u=gupState.currentGUP.U||0,p=gupState.currentGUP.P||0;
       const tot=Math.max(1,g+u+p);
       let feastMantra = '';
       try {
-        const feastTone = _ct({...devState.currentProvisions});
-        feastMantra = generateFeastMantra({...devState.currentProvisions}, effect.dominant, feastTone);
+        const feastTone = _ct({...gupState.currentProvisions});
+        feastMantra = generateFeastMantra({...gupState.currentProvisions}, effect.dominant, feastTone);
       } catch(e) { console.warn('GUP: mantra generation failed', e); }
-      devState.feastLog.push({
-        id: devState.feasts,
+      gupState.feastLog.push({
+        id: gupState.feasts,
         dominant: effect.dominant,
-        provisions: {...devState.currentProvisions},
+        provisions: {...gupState.currentProvisions},
         effect: effect.text,
         mantra: feastMantra,
         liquidRGB: [
@@ -992,7 +992,7 @@ function updateBasilisk() {
         ],
         ts: Date.now(),
       });
-      if(devState.feastLog.length>5) devState.feastLog.shift();
+      if(gupState.feastLog.length>5) gupState.feastLog.shift();
       setStatus('the basilisk is satisfied 😌','#1D9E75bb');
       updateTally();
       saveState(); // persist feast log immediately so it's available to interior
@@ -1009,12 +1009,12 @@ function updateBasilisk() {
     if(baskT>2.5){
       basiliskState='idle'; baskT=0;
       // Only reset transient fields — counts, totalOfferings, feasts, feastLog persist
-      devState.level=0;
-      devState.currentGUP={G:0,U:0,P:0};
-      OFFERINGS.forEach(o=>{ devState.currentProvisions[o.id]=0; });
+      gupState.level=0;
+      gupState.currentGUP={G:0,U:0,P:0};
+      OFFERINGS.forEach(o=>{ gupState.currentProvisions[o.id]=0; });
       cookies.length=0; updateMeter();
       // Check servitor thresholds
-      const nextThreshold = THRESHOLDS.find(t => t.feast === devState.feasts && !devState.animatedThresholds.includes(t.feast));
+      const nextThreshold = THRESHOLDS.find(t => t.feast === gupState.feasts && !gupState.animatedThresholds.includes(t.feast));
       if(nextThreshold) {
         setTimeout(() => queueServitor(nextThreshold, 'gift'), 600);
       } else if(servitorQueue.length === 0) {
@@ -1036,8 +1036,8 @@ function drawBasiliskStage() {
   const jTop=BH*0.38, jBot=BH*0.90, jRad=d*10;
 
   const fillY = liquidFillY_b(jTop, jBot);
-  const hasliquid = devState.level > 0.002;
-  const sA = Math.min(5, devState.level*8)*d;
+  const hasliquid = gupState.level > 0.002;
+  const sA = Math.min(5, gupState.level*8)*d;
   function surfaceAtX(x){ return fillY+Math.sin((x/40)+baskT2*1.1)*sA+Math.sin((x/24)+baskT2*0.72)*sA*0.4; }
 
   function jarPath() {
@@ -1314,22 +1314,22 @@ function dequeueServitor() {
 
 function applyThresholdEffects(threshold) {
   // Gift visits only — medals handled separately by checkMedalThresholds()
-  if(!devState.giftsReceived.includes(threshold.who)) devState.giftsReceived.push(threshold.who);
-  if(threshold.who === 'OOIIOOIIOO') devState.luck = (devState.luck||0) + 30;
-  if(!devState.animatedThresholds.includes(threshold.feast)) devState.animatedThresholds.push(threshold.feast);
+  if(!gupState.giftsReceived.includes(threshold.who)) gupState.giftsReceived.push(threshold.who);
+  if(threshold.who === 'OOIIOOIIOO') gupState.luck = (gupState.luck||0) + 30;
+  if(!gupState.animatedThresholds.includes(threshold.feast)) gupState.animatedThresholds.push(threshold.feast);
   saveState();
   updateMantle();
 }
 
 function checkMedalThresholds() {
   MEDAL_THRESHOLDS.forEach(t => {
-    if(devState.totalOfferings >= t.offerings &&
-       !devState.animatedMedalThresholds.includes(t.offerings)) {
-      const current = devState.medals[t.who] || 0;
+    if(gupState.totalOfferings >= t.offerings &&
+       !gupState.animatedMedalThresholds.includes(t.offerings)) {
+      const current = gupState.medals[t.who] || 0;
       if(t.medal > current) {
         // Award immediately
-        devState.medals[t.who] = t.medal;
-        devState.animatedMedalThresholds.push(t.offerings);
+        gupState.medals[t.who] = t.medal;
+        gupState.animatedMedalThresholds.push(t.offerings);
         updateMantle();
         saveState();
         // Queue Servitor animation if idle
@@ -1350,7 +1350,7 @@ function tickServitor() {
     if(Math.abs(servitorX - targetX) < 2*d){
       servitorState='presenting'; servitorT=0;
       const msg = activeVisitType==='medal'
-        ? MEDAL_MSGS[activeServitor](devState.medals[activeServitor]||0)
+        ? MEDAL_MSGS[activeServitor](gupState.medals[activeServitor]||0)
         : ARRIVAL_MSGS[activeServitor][1];
       setStatus(msg, '#c8c4b8bb');
     }
@@ -1422,7 +1422,7 @@ function drawShelf(BW, BH, d) {
   ];
 
   gifts.forEach(g => {
-    if(!devState.giftsReceived.includes(g.who)) return;
+    if(!gupState.giftsReceived.includes(g.who)) return;
     const cx = shelfX + slotW*0.5;
     const cy = jBot - slotH*(g.slot) - slotH*0.5;
     bx.save(); bx.translate(cx, cy);
@@ -1876,7 +1876,7 @@ function updateMantle() {
   const ORDER = ['XXIIXXIIXX','Pazuzu','Lehbrihander','OOIIOOIIOO'];
   ORDER.forEach(who => {
     const medalEl = document.getElementById('medal-'+who);
-    if(medalEl) renderMedal(medalEl, devState.medals[who]||0, SERVITOR_CFG[who].ribbon);
+    if(medalEl) renderMedal(medalEl, gupState.medals[who]||0, SERVITOR_CFG[who].ribbon);
   });
 }
 
@@ -1938,7 +1938,7 @@ function mainLoop() {
 function buildOfferings() {
   const grid = document.getElementById('offerings-grid');
   OFFERINGS.forEach(o=>{
-    const count = devState.counts[o.id] || 0;
+    const count = gupState.counts[o.id] || 0;
     const barPct = Math.min(100, (count/20)*100);
     const btn = document.createElement('button');
     btn.className='offering-btn';
@@ -1959,25 +1959,25 @@ function buildOfferings() {
 // ═══════════════════════════════════════════
 
 function applyState(saved) {
-  devState.level               = saved.level               ?? 0;
-  devState.totalOfferings      = saved.totalOfferings      ?? saved.totalEvents ?? 0;
-  devState.feasts              = saved.feasts              ?? 0;
-  devState.feastLog            = saved.feastLog            ?? [];
-  devState.currentGUP          = saved.currentGUP          ?? {G:0,U:0,P:0};
-  devState.giftsReceived       = saved.giftsReceived       ?? [];
-  devState.medals              = Object.assign({XXIIXXIIXX:0,Pazuzu:0,Lehbrihander:0,OOIIOOIIOO:0}, saved.medals||{});
-  devState.luck                = saved.luck                ?? 0;
-  devState.animatedThresholds       = saved.animatedThresholds       ?? [];
-  devState.animatedMedalThresholds  = saved.animatedMedalThresholds  ?? [];
+  gupState.level               = saved.level               ?? 0;
+  gupState.totalOfferings      = saved.totalOfferings      ?? saved.totalEvents ?? 0;
+  gupState.feasts              = saved.feasts              ?? 0;
+  gupState.feastLog            = saved.feastLog            ?? [];
+  gupState.currentGUP          = saved.currentGUP          ?? {G:0,U:0,P:0};
+  gupState.giftsReceived       = saved.giftsReceived       ?? [];
+  gupState.medals              = Object.assign({XXIIXXIIXX:0,Pazuzu:0,Lehbrihander:0,OOIIOOIIOO:0}, saved.medals||{});
+  gupState.luck                = saved.luck                ?? 0;
+  gupState.animatedThresholds       = saved.animatedThresholds       ?? [];
+  gupState.animatedMedalThresholds  = saved.animatedMedalThresholds  ?? [];
   OFFERINGS.forEach(o => {
-    devState.counts[o.id]            = saved.counts?.[o.id]            ?? 0;
-    devState.currentProvisions[o.id] = saved.currentProvisions?.[o.id] ?? 0;
+    gupState.counts[o.id]            = saved.counts?.[o.id]            ?? 0;
+    gupState.currentProvisions[o.id] = saved.currentProvisions?.[o.id] ?? 0;
   });
 }
 
 function spawnRestoredCookies() {
   cookies.length = 0;
-  const count = Math.floor(devState.level * 20);
+  const count = Math.floor(gupState.level * 20);
   for(let i=0; i<count; i++){
     const o = OFFERINGS[i % OFFERINGS.length];
     spawnCookie(o);
@@ -1996,24 +1996,24 @@ function loadState() {
       requestAnimationFrame(spawnRestoredCookies);
       // Restore gift servitor state from feasts already passed
       THRESHOLDS.forEach(t => {
-        if(devState.feasts >= t.feast && !devState.animatedThresholds.includes(t.feast)) {
-          if(!devState.giftsReceived.includes(t.who)) {
-            devState.giftsReceived.push(t.who);
-            if(t.who==='OOIIOOIIOO') devState.luck=(devState.luck||0)+30;
+        if(gupState.feasts >= t.feast && !gupState.animatedThresholds.includes(t.feast)) {
+          if(!gupState.giftsReceived.includes(t.who)) {
+            gupState.giftsReceived.push(t.who);
+            if(t.who==='OOIIOOIIOO') gupState.luck=(gupState.luck||0)+30;
           }
-          devState.animatedThresholds.push(t.feast);
+          gupState.animatedThresholds.push(t.feast);
         }
       });
       // Restore medals from totalOfferings — silently mark as animated
       MEDAL_THRESHOLDS.forEach(t => {
-        if(devState.totalOfferings >= t.offerings) {
-          const current = devState.medals[t.who] || 0;
-          if(t.medal > current) devState.medals[t.who] = t.medal;
-          if(!devState.animatedMedalThresholds.includes(t.offerings))
-            devState.animatedMedalThresholds.push(t.offerings);
+        if(gupState.totalOfferings >= t.offerings) {
+          const current = gupState.medals[t.who] || 0;
+          if(t.medal > current) gupState.medals[t.who] = t.medal;
+          if(!gupState.animatedMedalThresholds.includes(t.offerings))
+            gupState.animatedMedalThresholds.push(t.offerings);
         }
       });
-      if(devState.giftsReceived.length > 0) {
+      if(gupState.giftsReceived.length > 0) {
         servitorState = 'departed';
         servitorGiftReveal = 1;
       }
@@ -2026,19 +2026,19 @@ function loadState() {
 function saveState() {
   try {
     localStorage.setItem('gup-offerings', JSON.stringify({
-      level:               devState.level,
-      totalOfferings:      devState.totalOfferings,
-      totalEvents:         devState.totalOfferings,
-      feasts:              devState.feasts,
-      counts:              devState.counts,
-      currentProvisions:   devState.currentProvisions,
-      currentGUP:          devState.currentGUP,
-      feastLog:            devState.feastLog,
-      giftsReceived:       devState.giftsReceived,
-      medals:              devState.medals,
-      luck:                devState.luck,
-      animatedThresholds:        devState.animatedThresholds,
-      animatedMedalThresholds:  devState.animatedMedalThresholds,
+      level:               gupState.level,
+      totalOfferings:      gupState.totalOfferings,
+      totalEvents:         gupState.totalOfferings,
+      feasts:              gupState.feasts,
+      counts:              gupState.counts,
+      currentProvisions:   gupState.currentProvisions,
+      currentGUP:          gupState.currentGUP,
+      feastLog:            gupState.feastLog,
+      giftsReceived:       gupState.giftsReceived,
+      medals:              gupState.medals,
+      luck:                gupState.luck,
+      animatedThresholds:        gupState.animatedThresholds,
+      animatedMedalThresholds:  gupState.animatedMedalThresholds,
     }));
   } catch(e) { console.warn('GUP: could not save state', e); }
 }
@@ -2054,9 +2054,9 @@ window.addEventListener('storage', e => {
     updateMeter(); updateTally();
     OFFERINGS.forEach(o => {
       const countEl = document.getElementById('count-'+o.id);
-      if(countEl) countEl.textContent = '×'+devState.counts[o.id];
+      if(countEl) countEl.textContent = '×'+gupState.counts[o.id];
       const barEl = document.getElementById('bar-'+o.id);
-      if(barEl){ barEl.style.width=Math.min(100,(devState.counts[o.id]/20)*100)+'%'; }
+      if(barEl){ barEl.style.width=Math.min(100,(gupState.counts[o.id]/20)*100)+'%'; }
     });
     requestAnimationFrame(spawnRestoredCookies);
   } catch(e2){ console.warn('GUP: storage sync error',e2); }
