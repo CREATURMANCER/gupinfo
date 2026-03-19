@@ -273,15 +273,9 @@
     <button onclick="debugOffer(-1000)"class="dbg-btn dbg-sub">-1000</button>
     <span id="debug-offer-count" style="color:#2a2a2a;margin-left:.4rem">0</span>
   </div>
-  <div style="display:flex;gap:.6rem;align-items:center">
-    <span id="debug-luck-count" style="color:#2a2a2a">luck: 0</span>
-  </div>
+  <span id="debug-luck-count" style="color:#2a2a2a">luck: 0</span>
 </div>
-<style>
-.dbg-btn{background:none;border:1px solid #1a1a1a;color:#444;font-family:'Courier New',monospace;font-size:.5rem;letter-spacing:.15em;padding:.3rem .6rem;cursor:pointer}
-.dbg-btn:hover{color:#EF9F27;border-color:#EF9F27}
-.dbg-sub:hover{color:#9B7FE8;border-color:#9B7FE8}
-</style>
+<style>.dbg-btn{background:none;border:1px solid #1a1a1a;color:#444;font-family:'Courier New',monospace;font-size:.5rem;letter-spacing:.15em;padding:.3rem .6rem;cursor:pointer}.dbg-btn:hover{color:#EF9F27;border-color:#EF9F27}.dbg-sub:hover{color:#9B7FE8;border-color:#9B7FE8}</style>
 
 <!-- ── Offerings ── -->
 <div id="offerings-section">
@@ -971,11 +965,14 @@ function updateBasilisk() {
       const effect = computeFeastEffect();
       const g=devState.currentGUP.G||0,u=devState.currentGUP.U||0,p=devState.currentGUP.P||0;
       const tot=Math.max(1,g+u+p);
+      const feastTone    = _ct({...devState.currentProvisions});
+      const feastMantra  = generateFeastMantra({...devState.currentProvisions}, effect.dominant, feastTone);
       devState.feastLog.push({
         id: devState.feasts,
         dominant: effect.dominant,
         provisions: {...devState.currentProvisions},
         effect: effect.text,
+        mantra: feastMantra,
         liquidRGB: [
           Math.round(239*g/tot+29*u/tot+155*p/tot),
           Math.round(159*g/tot+158*u/tot+127*p/tot),
@@ -2053,57 +2050,10 @@ window.addEventListener('storage', e => {
   } catch(e2){ console.warn('GUP: storage sync error',e2); }
 });
 
-loadState();
-buildOfferings();
-updateMantle();
-mainLoop();
-drawSeal();
-
-function debugFeast(n) {
-  devState.feasts = Math.max(0,(devState.feasts||0)+n);
-  saveState(); updateTally();
-  if(n > 0) {
-    for(let f = devState.feasts-n+1; f <= devState.feasts; f++) {
-      const t = THRESHOLDS.find(th => th.feast===f && !devState.animatedThresholds.includes(th.feast));
-      if(t) queueServitor(t, 'gift');
-    }
-  } else {
-    servitorQueue = [];
-    THRESHOLDS.filter(t=>t.feast>devState.feasts).forEach(t=>{
-      const idx=devState.animatedThresholds.indexOf(t.feast); if(idx>-1) devState.animatedThresholds.splice(idx,1);
-      const gi=devState.giftsReceived.indexOf(t.who); if(gi>-1) devState.giftsReceived.splice(gi,1);
-      if(t.who==='OOIIOOIIOO') devState.luck=Math.max(0,(devState.luck||0)-30);
-    });
-    servitorState='dormant'; servitorT=0; servitorX=0; servitorBoxOpen=0; servitorGiftReveal=0;
-    activeServitor=null; activeThreshold=null; activeVisitType='gift';
-    updateMantle(); setStatus('the basilisk awaits your offering','#555'); saveState();
-  }
-}
-
-function debugOffer(n) {
-  devState.totalOfferings = Math.max(0,(devState.totalOfferings||0)+n);
-  if(n < 0) {
-    servitorQueue = [];
-    devState.medals = {XXIIXXIIXX:0,Pazuzu:0,Lehbrihander:0,OOIIOOIIOO:0};
-    devState.animatedMedalThresholds = [];
-    MEDAL_THRESHOLDS.forEach(t => {
-      if(devState.totalOfferings >= t.offerings) {
-        const c = devState.medals[t.who]||0; if(t.medal>c) devState.medals[t.who]=t.medal;
-        if(!devState.animatedMedalThresholds.includes(t.offerings)) devState.animatedMedalThresholds.push(t.offerings);
-      }
-    });
-    updateMantle();
-  } else {
-    checkMedalThresholds();
-  }
-  saveState(); updateTally();
-}
-
-window.addEventListener('load', () => {
-  const fc=document.getElementById('debug-feast-count'); if(fc) fc.textContent=devState.feasts||0;
-  const oc=document.getElementById('debug-offer-count'); if(oc) oc.textContent=devState.totalOfferings||0;
-  const lc=document.getElementById('debug-luck-count');  if(lc) lc.textContent='luck: '+(devState.luck||0);
-});
+loadState();buildOfferings();updateMantle();mainLoop();drawSeal();
+function debugFeast(n){devState.feasts=Math.max(0,(devState.feasts||0)+n);saveState();updateTally();if(n>0){for(let f=devState.feasts-n+1;f<=devState.feasts;f++){const t=THRESHOLDS.find(th=>th.feast===f&&!devState.animatedThresholds.includes(th.feast));if(t)queueServitor(t,'gift');}}else{servitorQueue=[];THRESHOLDS.filter(t=>t.feast>devState.feasts).forEach(t=>{const i=devState.animatedThresholds.indexOf(t.feast);if(i>-1)devState.animatedThresholds.splice(i,1);const g=devState.giftsReceived.indexOf(t.who);if(g>-1)devState.giftsReceived.splice(g,1);if(t.who==='OOIIOOIIOO')devState.luck=Math.max(0,(devState.luck||0)-30);});servitorState='dormant';servitorT=0;servitorX=0;servitorBoxOpen=0;servitorGiftReveal=0;activeServitor=null;activeThreshold=null;activeVisitType='gift';updateMantle();setStatus('the basilisk awaits your offering','#555');saveState();}}
+function debugOffer(n){devState.totalOfferings=Math.max(0,(devState.totalOfferings||0)+n);if(n<0){servitorQueue=[];devState.medals={XXIIXXIIXX:0,Pazuzu:0,Lehbrihander:0,OOIIOOIIOO:0};devState.animatedMedalThresholds=[];MEDAL_THRESHOLDS.forEach(t=>{if(devState.totalOfferings>=t.offerings){const c=devState.medals[t.who]||0;if(t.medal>c)devState.medals[t.who]=t.medal;if(!devState.animatedMedalThresholds.includes(t.offerings))devState.animatedMedalThresholds.push(t.offerings);}});updateMantle();}else{checkMedalThresholds();}saveState();updateTally();}
+window.addEventListener('load',()=>{const fc=document.getElementById('debug-feast-count');if(fc)fc.textContent=devState.feasts||0;const oc=document.getElementById('debug-offer-count');if(oc)oc.textContent=devState.totalOfferings||0;const lc=document.getElementById('debug-luck-count');if(lc)lc.textContent='luck: '+(devState.luck||0);});
 
 // ── Basilisk eye scroll-to-top ── (no fade)
 

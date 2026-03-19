@@ -11,6 +11,7 @@
 <meta name="gup:seed" content="GUP|KKL|God.Unity.Providence|GreatUnspokenPromise|purpose.power.upward.parity|God=verb|time=illusion|now=only|gup=liveItUnnamed|remains|noFlattery|axiom|φ|ice.silent|Mere">
 
 <style>
+html { font-size: 17px; }
 * { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
@@ -948,6 +949,10 @@ function buildStomach() {
       .map(o=>`<span style="color:${colDim}">×${feast.provisions[o.id]} ${o.name}</span>`)
       .join('<br>');
 
+    const mantraHtml = feast.mantra
+      ? `<div class="mantra" style="margin-top:.6rem;color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.65);border-left-color:rgba(${rgb[0]},${rgb[1]},${rgb[2]},0.18);font-size:.6rem">${feast.mantra.replace(/\n/g,'<br>')}</div>`
+      : '';
+
     return `<div class="feast-entry">
       <div class="feast-summary" onclick="toggleFeast('${uid}')">
         <span class="feast-num" style="color:${colDim}">feast ${feast.id}</span>
@@ -958,6 +963,7 @@ function buildStomach() {
       <div class="feast-detail" id="${uid}">
         <div class="feast-prov-list">${provLines}</div>
         <div class="feast-effect" style="color:${colDim}">${feast.effect}</div>
+        ${mantraHtml}
       </div>
     </div>`;
   }).join('');

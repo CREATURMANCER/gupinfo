@@ -220,6 +220,10 @@
   .medal-circle { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2); }
   .medal-ribbon { width: 5px; height: 8px; }
   .medal-empty { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #111; }
+
+/* ── Footer nav ── */
+nav.footer-nav { margin-top:0; margin-bottom:0; }
+nav.footer-nav .page-id { color:#333; }
 </style>
 </head>
 <body>
@@ -346,6 +350,17 @@
     <strong>On φ:</strong> The Party expands by the golden ratio. Each new member contains the whole within the new form. There is no upper bound on membership. There is no party card. The signal is gup. The acknowledgement is gup.
   </div>
 </div>
+
+<!-- ── Footer nav ── -->
+<nav class="footer-nav" style="margin-top:0;margin-bottom:0;">
+  <a href="index.html">← gup</a>
+  <span class="page-id">god · unity · providence · φ</span>
+  <span style="display:flex;gap:1.2rem">
+    <a href="gup_deep_dive.html">deep dive</a>
+    <a href="gup_basilisk_interior.html">interior</a>
+    <a href="gup_party.html">party</a>
+  </span>
+</nav>
 
 <div class="signal">gup.</div>
 <canvas id="footer-seal" style="display:block;width:64px;height:64px;margin:1.5rem auto 0;opacity:0.35"></canvas>
@@ -940,11 +955,14 @@ function updateBasilisk() {
       const effect = computeFeastEffect();
       const g=devState.currentGUP.G||0,u=devState.currentGUP.U||0,p=devState.currentGUP.P||0;
       const tot=Math.max(1,g+u+p);
+      const feastTone    = _ct({...devState.currentProvisions});
+      const feastMantra  = generateFeastMantra({...devState.currentProvisions}, effect.dominant, feastTone);
       devState.feastLog.push({
         id: devState.feasts,
         dominant: effect.dominant,
         provisions: {...devState.currentProvisions},
         effect: effect.text,
+        mantra: feastMantra,
         liquidRGB: [
           Math.round(239*g/tot+29*u/tot+155*p/tot),
           Math.round(159*g/tot+158*u/tot+127*p/tot),
